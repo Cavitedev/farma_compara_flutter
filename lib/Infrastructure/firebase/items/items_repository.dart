@@ -23,7 +23,9 @@ class ItemsRepository implements IItemRepository{
     final CollectionReference<Map<String, dynamic>> collection = firestore.itemsCollection();
 
      final QuerySnapshot<Map<String, dynamic>> query = await collection.limit(20).get();
-     return Right(query.docs.map((doc) => Item.fromMap(doc.data())).toList());
+     return Right(query.docs.map(
+             (doc) => Item.fromFirebase(doc.data())
+     ).toList());
 
   }
 

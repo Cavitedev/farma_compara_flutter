@@ -1,25 +1,32 @@
+import 'website_item.dart';
 
-
-import 'shop_item.dart';
-
-class Item{
-
+class Item {
   final String ref;
-  List<ShopItem> shopItems;
+  Map<String, WebsiteItem> websiteItems;
 
-  Item({required this.ref, required this.shopItems});
+  Item({required this.ref, required this.websiteItems});
 
   Map<String, dynamic> toMap() {
     return {
       'ref': this.ref,
-      'shopItems': this.shopItems,
+      'website_items': this.websiteItems,
     };
   }
 
   factory Item.fromMap(Map<String, dynamic> map) {
     return Item(
       ref: map['ref'] as String,
-      shopItems: map['shopItems'] as List<ShopItem>,
+      websiteItems: map['website_items'] as Map<String, WebsiteItem>,
+
+    );
+  }
+
+  factory Item.fromFirebase(Map<String, dynamic> map) {
+
+    return Item(
+      ref: map['ref'] as String,
+      websiteItems: (map['website_items'] as Map).map((key, value) => MapEntry(key, WebsiteItem.fromFirebase(value))),
+
     );
   }
 }
