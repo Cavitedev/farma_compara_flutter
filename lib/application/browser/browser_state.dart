@@ -5,9 +5,10 @@ class BrowserState {
   final List<Item> items;
   final InternetFeedback? loadingFeedback;
   final int? itemsFound;
+  final int page;
 
   factory BrowserState.init() {
-    return const BrowserState(items: []);
+    return const BrowserState(items: [], page: 0);
   }
 
   BrowserState addGames(List<Item> addedItems) {
@@ -18,11 +19,12 @@ class BrowserState {
 
   bool get allItemsFetched => itemsFound == items.length;
 
-  //<editor-fold desc="Data Methods">
+//<editor-fold desc="Data Methods">
   const BrowserState({
     required this.items,
     this.loadingFeedback,
     this.itemsFound,
+    required this.page,
   });
 
   @override
@@ -32,29 +34,33 @@ class BrowserState {
           runtimeType == other.runtimeType &&
           items == other.items &&
           loadingFeedback == other.loadingFeedback &&
-          itemsFound == other.itemsFound);
+          itemsFound == other.itemsFound &&
+          page == other.page);
 
   @override
-  int get hashCode => items.hashCode ^ loadingFeedback.hashCode ^ itemsFound.hashCode;
+  int get hashCode => items.hashCode ^ loadingFeedback.hashCode ^ itemsFound.hashCode ^ page.hashCode;
 
   @override
   String toString() {
     return 'BrowserState{' +
         ' items: $items,' +
         ' loadingFeedback: $loadingFeedback,' +
-        ' productsFound: $itemsFound,' +
+        ' itemsFound: $itemsFound,' +
+        ' page: $page,' +
         '}';
   }
 
   BrowserState copyWith({
     List<Item>? items,
     InternetFeedback? loadingFeedback,
-    int? productsFound,
+    int? itemsFound,
+    int? page,
   }) {
     return BrowserState(
       items: items ?? this.items,
       loadingFeedback: loadingFeedback ?? this.loadingFeedback,
-      itemsFound: productsFound ?? this.itemsFound,
+      itemsFound: itemsFound ?? this.itemsFound,
+      page: page ?? this.page,
     );
   }
 
@@ -62,7 +68,8 @@ class BrowserState {
     return {
       'items': this.items,
       'loadingFeedback': this.loadingFeedback,
-      'productsFound': this.itemsFound,
+      'itemsFound': this.itemsFound,
+      'page': this.page,
     };
   }
 
@@ -70,7 +77,8 @@ class BrowserState {
     return BrowserState(
       items: map['items'] as List<Item>,
       loadingFeedback: map['loadingFeedback'] as InternetFeedback,
-      itemsFound: map['productsFound'] as int,
+      itemsFound: map['itemsFound'] as int,
+      page: map['page'] as int,
     );
   }
 
