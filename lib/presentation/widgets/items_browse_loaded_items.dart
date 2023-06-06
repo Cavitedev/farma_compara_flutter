@@ -6,8 +6,8 @@ import '../../core/constants/app_margin_and_sizes.dart';
 import '../../domain/items/item.dart';
 import 'items_browse_sliver_list.dart';
 
-class ItemsBrowserLoadedGames extends ConsumerWidget {
-  const ItemsBrowserLoadedGames({
+class ItemsBrowserLoadedItems extends ConsumerWidget {
+  const ItemsBrowserLoadedItems({
     Key? key,
   }) : super(key: key);
 

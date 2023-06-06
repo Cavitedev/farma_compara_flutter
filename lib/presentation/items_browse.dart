@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/presentation/widgets/items_browse_loaded_games.dart';
+import 'package:farma_compara_flutter/presentation/widgets/items_browse_loaded_items.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,7 +36,7 @@ class ItemsBrowse extends ConsumerWidget {
             ),
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: listPadding),
-              sliver: ItemsBrowserLoadedGames(),
+              sliver: ItemsBrowserLoadedItems(),
             )
           ],
         ),

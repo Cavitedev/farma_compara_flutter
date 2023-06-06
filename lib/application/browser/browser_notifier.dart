@@ -25,7 +25,7 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
     itemsEither.when((left) => null, (right) {
       List<Item> items = right;
       state = state.copyWith(items: [...state.items, ...items], page: state.page + 1);
-      isLoading = true;
+      isLoading = false;
     });
   }
 
