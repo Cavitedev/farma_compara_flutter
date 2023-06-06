@@ -46,3 +46,4 @@ app.*.map.json
 #Extra
 firebase_options.dart
 google-services.json
+algolia_application.dart

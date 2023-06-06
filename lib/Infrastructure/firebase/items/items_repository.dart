@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:farma_compara_flutter/Infrastructure/firebase/core/firebase_user_helper.dart';
+
 import 'package:farma_compara_flutter/core/either.dart';
 import 'package:farma_compara_flutter/domain/items/i_item_repository.dart';
 import 'package:farma_compara_flutter/domain/items/item.dart';
+import 'package:farma_compara_flutter/infrastructure/firebase/core/firebase_user_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,7 +22,7 @@ class ItemsRepository implements IItemRepository {
       final CollectionReference<Map<String, dynamic>> collection = firestore.itemsCollection();
 
       final QuerySnapshot<Map<String, dynamic>> query =
-          await collection.orderBy("last_update").limit(20).get();
+          await collection.where("name", arrayContains: "Nuxe").limit(20).get();
       return Right(query.docs.map((doc) => Item.fromFirebase(doc.data())).toList());
     } catch (e) {
       return Left(_handleException(e));

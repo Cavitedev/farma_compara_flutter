@@ -1,7 +1,11 @@
-import 'package:farma_compara_flutter/Infrastructure/core/InternetFeedback.dart';
+
 import 'package:farma_compara_flutter/domain/items/item.dart';
 
+import '../../infrastructure/core/InternetFeedback.dart';
+
 class BrowserState {
+
+
   final List<Item> items;
   final InternetFeedback? loadingFeedback;
   final int? itemsFound;
