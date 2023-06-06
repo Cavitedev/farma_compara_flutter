@@ -21,7 +21,7 @@ class ItemsRepository implements IItemRepository {
       final CollectionReference<Map<String, dynamic>> collection = firestore.itemsCollection();
 
       final QuerySnapshot<Map<String, dynamic>> query =
-          await collection.orderBy("website_items.dosfarma.price").limit(20).get();
+          await collection.orderBy("last_update").limit(20).get();
       return Right(query.docs.map((doc) => Item.fromFirebase(doc.data())).toList());
     } catch (e) {
       return Left(_handleException(e));

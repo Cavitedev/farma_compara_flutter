@@ -10,6 +10,6 @@ class PriceText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("${price.toStringAsFixed(2)} €", style: Theme.of(context).textTheme.displayMedium);
+    return Text("${price.toStringAsFixed(2)} €", style: Theme.of(context).textTheme.displaySmall);
   }
 }

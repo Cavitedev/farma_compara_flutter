@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const double listPadding = 12;
+const double listPadding = 6;
 const double listSpacing = 8;
 const double innerElementsPadding = 4;
 

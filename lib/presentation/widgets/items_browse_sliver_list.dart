@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farma_compara_flutter/domain/items/website_item.dart';
 import 'package:farma_compara_flutter/presentation/widgets/price_text.dart';
 import 'package:flutter/material.dart';
@@ -45,13 +46,16 @@ class ListItem extends ConsumerWidget {
             children: [
               if (shopItem.image != null)
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.network(
-                    shopItem.image!,
-                    width: 150,
-                  ),
-                ),
-
+                    padding: const EdgeInsets.all(8.0),
+                    child: CachedNetworkImage(
+                      imageUrl: shopItem.image!,
+                      fit: BoxFit.fill,
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      width: 100,
+                      errorWidget: (BuildContext context, String url, dynamic error) =>
+                          const Center(child: Icon(Icons.error_rounded)),
+                    )),
               Flexible(
                 child: Semantics(
                   button: true,
@@ -68,7 +72,7 @@ class ListItem extends ConsumerWidget {
                         padding: const EdgeInsets.fromLTRB(5, 10, 0, 10),
                         child: Text(
                           shopItem.name!,
-                          style: Theme.of(context).textTheme.headlineMedium,
+                          style: Theme.of(context).textTheme.headlineSmall,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -76,8 +80,7 @@ class ListItem extends ConsumerWidget {
                       if (shopItem.price != null)
                         Flexible(
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(5,
-                                innerElementsPadding, 0, innerElementsPadding),
+                            padding: const EdgeInsets.fromLTRB(5, innerElementsPadding, 0, innerElementsPadding),
                             child: PriceText(price: shopItem.price!),
                           ),
                         ),
@@ -85,7 +88,6 @@ class ListItem extends ConsumerWidget {
                   ),
                 ),
               )
-
             ],
           ),
         ),
