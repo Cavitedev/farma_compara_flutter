@@ -1,10 +1,11 @@
-import 'package:farma_compara_flutter/presentation/widgets/items_browse_loaded_items.dart';
-import 'package:farma_compara_flutter/presentation/widgets/items_browse_sliver_app_bar.dart';
+import 'package:farma_compara_flutter/presentation/items_browse/widgets/items_browse_load.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../application/browser/browser_notifier.dart';
-import '../core/constants/app_margin_and_sizes.dart';
+import '../../application/browser/browser_notifier.dart';
+import '../../core/constants/app_margin_and_sizes.dart';
+import 'widgets/items_browse_loaded_items.dart';
+import 'widgets/items_browse_sliver_app_bar.dart';
 
 class ItemsBrowse extends ConsumerStatefulWidget {
   const ItemsBrowse({
@@ -16,8 +17,6 @@ class ItemsBrowse extends ConsumerStatefulWidget {
 }
 
 class _ItemsBrowseState extends ConsumerState<ItemsBrowse> {
-
-
   @override
   void initState() {
     super.initState();
@@ -50,7 +49,9 @@ class _ItemsBrowseState extends ConsumerState<ItemsBrowse> {
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: listPadding),
               sliver: ItemsBrowserLoadedItems(),
-            )
+            ),
+            ItemsBrowseLoad()
+            //Fills the rest of the screen for detecting scrolls for loading
           ],
         ),
       ),

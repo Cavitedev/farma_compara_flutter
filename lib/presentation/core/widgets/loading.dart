@@ -11,20 +11,23 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(generalPadding),
-            child: SizedBox(
-                width: 50, height: 50, child: CircularProgressIndicator()),
-          ),
-          Text(
-            msg,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.displaySmall,
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 60),
+      child: Center(
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(generalPadding),
+              child: SizedBox(
+                  width: 50, height: 50, child: CircularProgressIndicator()),
+            ),
+            Text(
+              msg,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+          ],
+        ),
       ),
     );
   }

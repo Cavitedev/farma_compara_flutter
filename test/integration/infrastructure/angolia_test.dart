@@ -9,8 +9,8 @@ void main() {
     AlgoliaQuery query = algolia.instance.index('name_algolia').query('Nuxe').setPage(0).setHitsPerPage(20);
     AlgoliaQuerySnapshot snap = await query.getObjects();
 
-    // Checking if has [AlgoliaQuerySnapshot]
-    print('Hits count: ${snap.nbHits}');
+
+
 
     expect(snap.nbHits, greaterThan(20));
     expect(snap.hits.length, 20);

@@ -1,3 +1,4 @@
+import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:farma_compara_flutter/core/either.dart';
@@ -8,7 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/items/i_items_browse_query.dart';
-import '../../../domain/items/items_failure.dart';
+import '../../../domain/items/firestore_failure.dart';
+import '../../algolia_application.dart';
 import '../core/codes.dart';
 
 final itemsRepositoryProvider = Provider((ref) => ItemsRepository(FirebaseFirestore.instance));
@@ -19,25 +21,44 @@ class ItemsRepository implements IItemRepository {
   ItemsRepository(this.firestore);
 
   @override
-  Future<Either<ItemsFailure, List<Item>>> readItemsPage(IItemsBrowseQuery query) async {
+  Future<Either<FirestoreFailure, List<Item>>> readItemsPage(IItemsBrowseQuery inputQuery) async {
+
     try {
+
+
+
       final CollectionReference<Map<String, dynamic>> collection = firestore.itemsCollection();
 
-      final QuerySnapshot<Map<String, dynamic>> query =
-          await collection.limit(20).get();
-      return Right(query.docs.map((doc) => Item.fromFirebase(doc.data())).toList());
+      if(inputQuery.filter == null) {
+        final QuerySnapshot<Map<String, dynamic>> firebaseQuery =
+        await collection.limit(20).get();
+        return Right(firebaseQuery.docs.map((doc) => Item.fromFirebase(doc.data())).toList());
+      }
+
+      Algolia algolia = AlgoliaApplication.algolia;
+
+      AlgoliaQuery algoliaQuery = algolia.instance.index('name_algolia').query(inputQuery.filter!).setPage(inputQuery.page).setHitsPerPage(10);
+      AlgoliaQuerySnapshot snap = await algoliaQuery.getObjects();
+
+      final ids = snap.hits.map((e) => (e.data['path'] as String).split('/').last);
+
+      final QuerySnapshot<Map<String, dynamic>> firebaseQuery =
+      await collection.where(FieldPath.documentId, whereIn: ids).get();
+      return Right(firebaseQuery.docs.map((doc) => Item.fromFirebase(doc.data())).toList());
+
+
     } catch (e) {
       return Left(_handleException(e));
     }
   }
 
-  ItemsFailure _handleException(Object e) {
+  FirestoreFailure _handleException(Object e) {
     if (e is PlatformException && (e.message!.contains(PERMISSIONDENIEDCODE) || e.code == UNATHORIZED)) {
-      return const ItemsFailureInsufficientPermissions();
+      return const FirestoreFailureInsufficientPermissions();
     } else if (e is PlatformException && e.message!.contains(NOTFOUNDCODE)) {
-      return const ItemsFailureNotFound();
+      return const FirestoreFailureNotFound();
     } else {
-      return const ItemsFailureUnexpected();
+      return const FirestoreFailureUnexpected();
     }
   }
 }

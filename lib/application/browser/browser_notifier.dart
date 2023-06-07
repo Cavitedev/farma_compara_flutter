@@ -1,10 +1,11 @@
 import 'package:farma_compara_flutter/core/either.dart';
 import 'package:farma_compara_flutter/domain/items/i_item_repository.dart';
 import 'package:farma_compara_flutter/domain/items/item.dart';
-import 'package:farma_compara_flutter/domain/items/items_failure.dart';
-import 'package:farma_compara_flutter/infrastructure/core/InternetFeedback.dart';
+import 'package:farma_compara_flutter/domain/items/firestore_failure.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/optional.dart';
 import '../../domain/items/i_items_browse_query.dart';
 import '../../infrastructure/firebase/items/items_repository.dart';
 import 'browser_state.dart';
@@ -22,13 +23,13 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
 
   Future<void> loadItems() async {
     isLoading = true;
-    state = state.copyWith(loadingFeedback: InternetLoading(url: "firebase"));
-    final Either<ItemsFailure, List<Item>> itemsEither = await repository.readItemsPage(state.query);
+    state = state.copyWith(isLoading: true);
+    final Either<FirestoreFailure, List<Item>> itemsEither = await repository.readItemsPage(state.query);
 
-    itemsEither.when((left) => null, (right) {
+    itemsEither.when((left) => state = state.copyWith(failure: Optional.value(left), isLoading: false), (right) {
       List<Item> items = right;
-      state =
-          state.copyWith(items: [...state.items, ...items], query: state.query.copyWith(page: state.query.page + 1), loadingFeedback: NoFeedback());
+      state = state.copyWith(
+          items: [...state.items, ...items], query: state.query.copyWith(page: state.query.page + 1), isLoading: false);
       isLoading = false;
     });
   }
@@ -51,7 +52,8 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
         query: query.copyWith(page: 0),
         items: [],
         itemsFound: null,
-        loadingFeedback: null,
+        isLoading: false,
+        failure: const Optional.value(null),
       );
       loadItems();
     }

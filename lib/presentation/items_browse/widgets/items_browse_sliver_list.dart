@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farma_compara_flutter/domain/items/website_item.dart';
-import 'package:farma_compara_flutter/presentation/widgets/price_text.dart';
+import 'package:farma_compara_flutter/presentation/items_browse/widgets/price_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/constants/app_margin_and_sizes.dart';
-import '../../domain/items/item.dart';
+import '../../../core/constants/app_margin_and_sizes.dart';
+import '../../../domain/items/item.dart';
+
 
 class ItemsBrowseSliverList extends StatelessWidget {
   const ItemsBrowseSliverList({

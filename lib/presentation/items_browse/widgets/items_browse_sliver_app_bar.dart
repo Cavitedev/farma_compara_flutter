@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../application/browser/browser_notifier.dart';
-import '../../application/browser/browser_state.dart';
-import '../../core/constants/app_constants.dart';
-import '../../domain/items/i_items_browse_query.dart';
-import '../core/widgets/outlined_text_field.dart';
+import '../../../application/browser/browser_notifier.dart';
+import '../../../application/browser/browser_state.dart';
+import '../../../core/constants/app_constants.dart';
+import '../../../domain/items/i_items_browse_query.dart';
+import '../../core/widgets/outlined_text_field.dart';
+
 
 class ItemsBrowseSliverAppBar extends ConsumerStatefulWidget {
   const ItemsBrowseSliverAppBar({

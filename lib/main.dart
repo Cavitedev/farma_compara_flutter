@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/presentation/items_browse.dart';
+import 'package:farma_compara_flutter/presentation/items_browse/items_browse.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
