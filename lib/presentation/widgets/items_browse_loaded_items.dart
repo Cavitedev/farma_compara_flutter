@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../application/browser/browser_notifier.dart';
 import '../../core/constants/app_margin_and_sizes.dart';
 import '../../domain/items/item.dart';
+import '../../infrastructure/core/InternetFeedback.dart';
+import '../core/widgets/loading.dart';
 import 'items_browse_sliver_list.dart';
 
 class ItemsBrowserLoadedItems extends ConsumerWidget {
@@ -15,9 +17,14 @@ class ItemsBrowserLoadedItems extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Consumer(
       builder: (context, ref, _) {
-        final loadedGames = ref
-            .watch(browserNotifierProvider)
-            .items;
+        final loadedGames = ref.watch(browserNotifierProvider).items;
+        InternetFeedback? internetFeedback = ref.watch(browserNotifierProvider).loadingFeedback;
+
+        if (internetFeedback is InternetLoading) {
+          return const SliverToBoxAdapter(
+              child: Loading()
+          );
+        }
         return _sucessBody([...loadedGames]);
       },
     );
@@ -28,8 +35,7 @@ class ItemsBrowserLoadedItems extends ConsumerWidget {
       builder: (context, ref, _) {
         // final listOrGridView = ref.watch(listGridViewProvider);
         return SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: listPadding),
-            sliver: _gamesOverviewBody(items));
+            padding: const EdgeInsets.symmetric(horizontal: listPadding), sliver: _gamesOverviewBody(items));
       },
     );
   }

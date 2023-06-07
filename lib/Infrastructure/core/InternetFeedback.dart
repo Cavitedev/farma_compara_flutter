@@ -21,6 +21,11 @@ abstract class InternetFeedback {
   int get hashCode => url.hashCode;
 }
 
+
+class NoFeedback extends InternetFeedback {
+  NoFeedback() : super(url: "");
+}
+
 class InternetLoading extends InternetFeedback {
   InternetLoading({required String url}) : super(url: url);
 }

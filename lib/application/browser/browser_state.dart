@@ -1,4 +1,3 @@
-
 import 'package:farma_compara_flutter/domain/items/item.dart';
 import 'package:farma_compara_flutter/infrastructure/firebase/items/items_browse_query.dart';
 
@@ -6,22 +5,24 @@ import '../../domain/items/i_items_browse_query.dart';
 import '../../infrastructure/core/InternetFeedback.dart';
 
 class BrowserState {
-
-
   final IItemsBrowseQuery query;
   final List<Item> items;
-  final InternetFeedback? loadingFeedback;
+  final InternetFeedback loadingFeedback;
   final int? itemsFound;
 
   factory BrowserState.init() {
-    return BrowserState(items: [], query: ItemsBrowseQuery.byName(page: 0));
+    return BrowserState(
+      items: [],
+      query: ItemsBrowseQuery.byName(page: 0),
+      loadingFeedback: NoFeedback(),
+    );
   }
 
   BrowserState addGames(List<Item> addedItems) {
     return copyWith(items: [...items, ...addedItems], loadingFeedback: null);
   }
 
-  bool get isLoaded => loadingFeedback == null;
+  bool get isLoaded => loadingFeedback is NoFeedback;
 
   bool get allItemsFetched => itemsFound == items.length;
 
@@ -29,7 +30,7 @@ class BrowserState {
   const BrowserState({
     required this.query,
     required this.items,
-    this.loadingFeedback,
+    required this.loadingFeedback,
     this.itemsFound,
   });
 
