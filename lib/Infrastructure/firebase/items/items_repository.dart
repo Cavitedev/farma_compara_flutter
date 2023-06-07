@@ -7,6 +7,7 @@ import 'package:farma_compara_flutter/infrastructure/firebase/core/firebase_user
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../domain/items/i_items_browse_query.dart';
 import '../../../domain/items/items_failure.dart';
 import '../core/codes.dart';
 
@@ -17,7 +18,8 @@ class ItemsRepository implements IItemRepository {
 
   ItemsRepository(this.firestore);
 
-  Future<Either<ItemsFailure, List<Item>>> readItemsPage(int page) async {
+  @override
+  Future<Either<ItemsFailure, List<Item>>> readItemsPage(IItemsBrowseQuery query) async {
     try {
       final CollectionReference<Map<String, dynamic>> collection = firestore.itemsCollection();
 

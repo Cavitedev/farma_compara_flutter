@@ -12,7 +12,7 @@ class ItemsBrowse extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(browserNotifierProvider.notifier);
-    final actualPage = ref.read(browserNotifierProvider).page;
+    final actualPage = ref.read(browserNotifierProvider).query.page;
 
     if (actualPage == 0) {
       notifier.loadItems();

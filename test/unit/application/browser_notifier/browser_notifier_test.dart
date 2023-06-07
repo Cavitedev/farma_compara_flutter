@@ -5,6 +5,7 @@ import 'package:farma_compara_flutter/core/either.dart';
 import 'package:farma_compara_flutter/domain/items/i_item_repository.dart';
 import 'package:farma_compara_flutter/domain/items/item.dart';
 import 'package:farma_compara_flutter/domain/items/website_item.dart';
+import 'package:farma_compara_flutter/infrastructure/firebase/items/items_browse_query.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -36,6 +37,6 @@ final Item item1 = Item(ref: "1", websiteItems: {
 });
 
 void _mock(IItemRepository itemsRepository) {
-  when(() => itemsRepository.readItemsPage(0))
+  when(() => itemsRepository.readItemsPage(ItemsBrowseQuery.byName()))
       .thenAnswer((invocation) => Future.delayed(const Duration(milliseconds: 100), () => Right([item1])));
 }
