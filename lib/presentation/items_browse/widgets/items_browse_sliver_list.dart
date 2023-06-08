@@ -68,8 +68,11 @@ class ListItem extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Padding(
+                      Container(
                         padding: const EdgeInsets.fromLTRB(5, 10, 0, 10),
+                        constraints: const BoxConstraints(
+                            minHeight: 68
+                        ),
                         child: Text(
                           item.name,
                           style: Theme.of(context).textTheme.titleMedium,

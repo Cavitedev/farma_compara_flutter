@@ -28,6 +28,10 @@ class Item {
     }
   }
 
+  String get image {
+    return websiteItems.values.firstWhere((element) => element.image != null).image!;
+  }
+
   ShopItem firstShopItem() {
     return websiteItems.values.first;
   }

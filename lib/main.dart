@@ -1,4 +1,3 @@
-import 'package:farma_compara_flutter/application/cart/cart_notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,22 +23,7 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(cartNotifierProvider, (previous, next) {
-      if (previous == null) return;
-      if (next.items.length > previous.items.length) {
-        final snackBar = SnackBar(
-          content: const Text('Agregado al carrito'),
-          action: SnackBarAction(
-            label: 'Deshacer',
-            onPressed: () {
-              ref.read(cartNotifierProvider.notifier).removeItem(next.items.last.item);
-            },
-          ),
-        );
 
-        snackbarKey.currentState?.showSnackBar(snackBar);
-      }
-    });
 
     return MaterialApp.router(
       routerDelegate: RoutemasterDelegate(

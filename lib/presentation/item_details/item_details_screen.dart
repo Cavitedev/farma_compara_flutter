@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../application/cart/cart_notifier.dart';
+import '../../core/constants/app_constants.dart';
 import '../../core/constants/app_margin_and_sizes.dart';
 import '../../core/constants/custom_theme.dart';
 import '../../domain/items/item.dart';
@@ -20,6 +21,23 @@ class ItemDetailsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Item item = ref.read(browserNotifierProvider).itemByRef(this.ref)!;
     String? itemImage = item.websiteItems.values.firstWhere((element) => element.image != null).image;
+
+    ref.listen(cartNotifierProvider, (previous, next) {
+      if (previous == null) return;
+      if (next.totalItems > previous.totalItems) {
+        final snackBar = SnackBar(
+          content: const Text('Agregado al carrito'),
+          action: SnackBarAction(
+            label: 'Deshacer',
+            onPressed: () {
+              ref.read(cartNotifierProvider.notifier).removeItem(next.items.last.item);
+            },
+          ),
+        );
+
+        snackbarKey.currentState?.showSnackBar(snackBar);
+      }
+    });
 
     return Scaffold(
       body: CustomScrollView(
