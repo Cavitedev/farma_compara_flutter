@@ -72,28 +72,29 @@ class ListItem extends ConsumerWidget {
                         padding: const EdgeInsets.fromLTRB(5, 10, 0, 10),
                         child: Text(
                           item.name,
-                          style: Theme.of(context).textTheme.headlineSmall,
+                          style: Theme.of(context).textTheme.titleMedium,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Flexible(
-                                flex: 1,
-                                child: Text(
-                                    item.availableString
-                                )),
-                            Flexible(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(5, innerElementsPadding, 0, innerElementsPadding),
-                                child: PriceText(price: item.bestPrice),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  item.availableString
                               ),
-                            ),
-                          ],
+                              Flexible(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(5, innerElementsPadding, 0, innerElementsPadding),
+                                  child: PriceText(price: item.bestPrice),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                     ],
                   ),

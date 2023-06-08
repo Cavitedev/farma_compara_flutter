@@ -73,7 +73,7 @@ class WebsiteItemDetail extends StatelessWidget {
                   color: Colors.transparent,
                   child: InkWell(
                     onTap: () {
-                      launchUrl(Uri.parse(websiteItem.value.url!));
+                      launchUrl(Uri.parse(websiteItem.value.url!), mode: LaunchMode.externalApplication);
                     },
                   )))
       ],
