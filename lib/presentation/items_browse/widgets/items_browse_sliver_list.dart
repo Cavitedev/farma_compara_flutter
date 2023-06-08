@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:farma_compara_flutter/domain/items/shop_item.dart';
 import 'package:farma_compara_flutter/presentation/items_browse/widgets/price_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,7 +36,7 @@ class ListItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ShopItem shopItem = item.firstShopItem();
+
 
     return Stack(
       children: [
@@ -45,11 +44,11 @@ class ListItem extends ConsumerWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (shopItem.image != null)
+              if (item.image != null)
                 Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CachedNetworkImage(
-                      imageUrl: shopItem.image!,
+                      imageUrl: item.image!,
                       fit: BoxFit.fill,
                       placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                       width: 100,

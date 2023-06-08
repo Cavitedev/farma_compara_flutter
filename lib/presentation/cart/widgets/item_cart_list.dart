@@ -36,10 +36,11 @@ class ItemCartDetail extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if(itemCart.item.image != null)
           Padding(
               padding: const EdgeInsets.all(8.0),
               child: CachedNetworkImage(
-                imageUrl: itemCart.item.image,
+                imageUrl: itemCart.item.image!,
                 fit: BoxFit.fill,
                 placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                 width: 100,

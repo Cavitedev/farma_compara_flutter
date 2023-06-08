@@ -28,8 +28,12 @@ class Item {
     }
   }
 
-  String get image {
+  String? get image {
+    try{
     return websiteItems.values.firstWhere((element) => element.image != null).image!;
+    }on StateError{
+      return null;
+    }
   }
 
   ShopItem firstShopItem() {
