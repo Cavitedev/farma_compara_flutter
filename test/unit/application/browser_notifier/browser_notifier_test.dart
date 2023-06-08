@@ -4,6 +4,7 @@ import 'package:farma_compara_flutter/application/browser/browser_notifier.dart'
 import 'package:farma_compara_flutter/core/either.dart';
 import 'package:farma_compara_flutter/domain/items/i_item_repository.dart';
 import 'package:farma_compara_flutter/domain/items/item.dart';
+import 'package:farma_compara_flutter/domain/items/items_fetch.dart';
 import 'package:farma_compara_flutter/domain/items/shop_item.dart';
 import 'package:farma_compara_flutter/infrastructure/firebase/items/items_browse_query.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -37,6 +38,9 @@ final Item item1 = Item(ref: "1", name: "Name", bestPrice: 9.99, lastUpdate: Dat
 });
 
 void _mock(IItemRepository itemsRepository) {
-  when(() => itemsRepository.readItemsPage(ItemsBrowseQuery.byName()))
-      .thenAnswer((invocation) => Future.delayed(const Duration(milliseconds: 100), () => Right([item1])));
+  when(() => itemsRepository.readItemsPage(ItemsBrowseQuery.byName())).thenAnswer((invocation) => Future.delayed(
+      const Duration(milliseconds: 100),
+      () => Right(
+            ItemsFetch(items: [item1], count: 0),
+          )));
 }

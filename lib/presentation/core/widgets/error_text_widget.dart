@@ -1,9 +1,10 @@
+import 'package:farma_compara_flutter/presentation/core/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 
-import '../../../core/constants/app_margin_and_sizes.dart';
 
 class ErrorTextWidget extends StatelessWidget {
+
   const ErrorTextWidget({
     required this.errorMsg,
     Key? key,
@@ -13,15 +14,6 @@ class ErrorTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(containerPadding),
-      decoration: BoxDecoration(
-        color: Colors.red.shade100,
-        borderRadius: generalBorderRadius,
-      ),
-      child: SelectableText(
-        errorMsg,
-      ),
-    );
+    return TextWidget(msg: errorMsg, color: Colors.red.shade100);
   }
 }

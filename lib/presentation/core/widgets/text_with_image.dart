@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../core/constants/app_margin_and_sizes.dart';
-import 'error_text_widget.dart';
 
-class ErrorWidgetWithImage extends StatelessWidget {
-  const ErrorWidgetWithImage({
+
+class TextWithImage extends StatelessWidget {
+  const TextWithImage({
     Key? key,
-    required this.msg,
+    required this.textWidget,
     required this.image,
   }) : super(key: key);
 
-  final String msg;
+  final Widget textWidget;
   final String image;
 
   @override
@@ -24,9 +24,7 @@ class ErrorWidgetWithImage extends StatelessWidget {
           const SizedBox(
             height: listSpacing,
           ),
-          ErrorTextWidget(
-            errorMsg: msg,
-          ),
+          textWidget,
           Padding(
             padding: const EdgeInsets.symmetric(vertical: listSpacing),
             child: SvgPicture.asset(

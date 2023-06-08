@@ -2,6 +2,7 @@ import 'package:farma_compara_flutter/core/either.dart';
 import 'package:farma_compara_flutter/domain/items/i_item_repository.dart';
 import 'package:farma_compara_flutter/domain/items/item.dart';
 import 'package:farma_compara_flutter/domain/items/firestore_failure.dart';
+import 'package:farma_compara_flutter/domain/items/items_fetch.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,16 +23,19 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
   bool isLoading = false;
 
   Future<void> loadItems() async {
+    if(state.allItemsFetched) return;
+
     isLoading = true;
     state = state.copyWith(isLoading: true);
-    final Either<FirestoreFailure, List<Item>> itemsEither = await repository.readItemsPage(state.query);
+    final Either<FirestoreFailure, ItemsFetch> itemsEither = await repository.readItemsPage(state.query);
 
     itemsEither.when(
       (left) => state = state.copyWith(failure: Optional.value(left), isLoading: false),
       (right) {
-        List<Item> items = right;
+        List<Item> items = right.items;
         state = state.copyWith(
             items: [...state.items, ...items],
+            itemsFound: right.count,
             query: state.query.copyWith(page: state.query.page + 1),
             failure: const Optional.value(null),
             isLoading: false);

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farma_compara_flutter/core/either.dart';
 import 'package:farma_compara_flutter/domain/items/i_item_repository.dart';
 import 'package:farma_compara_flutter/domain/items/item.dart';
+import 'package:farma_compara_flutter/domain/items/items_fetch.dart';
 import 'package:farma_compara_flutter/infrastructure/firebase/core/firebase_user_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,7 +22,7 @@ class ItemsRepository implements IItemRepository {
   ItemsRepository(this.firestore);
 
   @override
-  Future<Either<FirestoreFailure, List<Item>>> readItemsPage(IItemsBrowseQuery inputQuery) async {
+  Future<Either<FirestoreFailure, ItemsFetch>> readItemsPage(IItemsBrowseQuery inputQuery) async {
     try {
       final CollectionReference<Map<String, dynamic>> collection = firestore.itemsCollection();
 
@@ -29,33 +30,60 @@ class ItemsRepository implements IItemRepository {
           collection.orderBy(inputQuery.orderBy.value, descending: inputQuery.orderBy.descending);
 
       if (inputQuery.filter == null) {
-        final QuerySnapshot<Map<String, dynamic>> firebaseQuery = await orderedQuery.limit(20).get();
-        return Right(firebaseQuery.docs.map((doc) => Item.fromFirebase(doc.data())).toList());
+        ItemsFetch itemsFetch = await _fetchWithoutFilter(orderedQuery, collection);
+
+        return Right(itemsFetch);
       }
 
-      Algolia algolia = AlgoliaApplication.algolia;
-
-      AlgoliaQuery algoliaQuery = algolia.instance
-          .index('name_algolia_${inputQuery.orderBy}')
-          .query(inputQuery.filter!)
-          .setPage(inputQuery.page)
-          .setHitsPerPage(10);
-      AlgoliaQuerySnapshot snap = await algoliaQuery.getObjects();
+      AlgoliaQuerySnapshot snap = await _algoliaBrowseQuery(inputQuery);
 
       final ids = snap.hits.map((e) => (e.data['path'] as String).split('/').last);
-      if(ids.isEmpty){
-        return const Right([]);
+
+      ItemsFetch itemsFetch = ItemsFetch(count: snap.nbHits, items: []);
+      if (ids.isEmpty) {
+        return Right(itemsFetch);
       }
 
-      final QuerySnapshot<Map<String, dynamic>> firebaseQuery =
-          await collection.where(FieldPath.documentId, whereIn: ids).get();
-      final items = firebaseQuery.docs.map((doc) => Item.fromFirebase(doc.data())).toList();
-      items.sortedBy(inputQuery.orderBy);
+      List<Item> items = await _fetchItemsBrowseWithAlgolia(collection, ids, inputQuery);
 
-      return Right(items);
+      itemsFetch = itemsFetch.copyWith(items: items);
+
+      return Right(itemsFetch);
     } catch (e) {
       return Left(_handleException(e));
     }
+  }
+
+  Future<ItemsFetch> _fetchWithoutFilter(Query<Map<String, dynamic>> orderedQuery, CollectionReference<Map<String, dynamic>> collection) async {
+    final QuerySnapshot<Map<String, dynamic>> firebaseQuery = await orderedQuery.limit(40).get();
+
+    final items = firebaseQuery.docs.map((doc) => Item.fromFirebase(doc.data())).toList();
+    final countQuery =  await collection.count().get();
+    final count = countQuery.count;
+
+    final ItemsFetch itemsFetch = ItemsFetch(items: items, count: count);
+    return itemsFetch;
+  }
+
+  Future<AlgoliaQuerySnapshot> _algoliaBrowseQuery(IItemsBrowseQuery inputQuery) async {
+    Algolia algolia = AlgoliaApplication.algolia;
+
+    AlgoliaQuery algoliaQuery = algolia.instance
+        .index('name_algolia_${inputQuery.orderBy}')
+        .query(inputQuery.filter!)
+        .setPage(inputQuery.page)
+        .setHitsPerPage(10);
+    AlgoliaQuerySnapshot snap = await algoliaQuery.getObjects();
+    return snap;
+  }
+
+  Future<List<Item>> _fetchItemsBrowseWithAlgolia(
+      CollectionReference<Map<String, dynamic>> collection, Iterable<String> ids, IItemsBrowseQuery inputQuery) async {
+    final QuerySnapshot<Map<String, dynamic>> firebaseQuery =
+        await collection.where(FieldPath.documentId, whereIn: ids).get();
+    final items = firebaseQuery.docs.map((doc) => Item.fromFirebase(doc.data())).toList();
+    items.sortedBy(inputQuery.orderBy);
+    return items;
   }
 
   FirestoreFailure _handleException(Object e) {

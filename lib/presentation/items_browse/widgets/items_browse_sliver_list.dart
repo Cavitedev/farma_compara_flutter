@@ -72,7 +72,7 @@ class ListItem extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(5, 10, 0, 10),
                         child: Text(
-                          item.ref + " " + shopItem.name!,
+                          shopItem.name!,
                           style: Theme.of(context).textTheme.headlineSmall,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
