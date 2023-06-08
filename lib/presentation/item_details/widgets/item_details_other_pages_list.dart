@@ -38,6 +38,7 @@ class WebsiteItemDetail extends StatelessWidget {
     return Stack(
       children: [
         Card(
+          color: Item.websiteKeyToColor(websiteItem.key),
           child: Column(
             children: [
               Text(Item.websiteKeyToName(websiteItem.key)),

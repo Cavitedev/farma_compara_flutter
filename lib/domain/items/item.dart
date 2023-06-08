@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farma_compara_flutter/domain/core/sort_order.dart';
+import 'package:flutter/material.dart';
 
 import 'shop_item.dart';
 
@@ -31,7 +32,7 @@ class Item {
     return websiteItems.values.first;
   }
 
-  static websiteKeyToName(String key){
+  static String websiteKeyToName(String key){
     switch(key){
       case "dosfarma":
         return "DosFarma";
@@ -40,8 +41,20 @@ class Item {
       case "farmaciaencasa":
         return "Farmacia en Casa";
     }
+    return "Falta soporte para $key";
   }
 
+  static Color websiteKeyToColor(String key){
+    switch(key){
+      case "dosfarma":
+        return Colors.green.shade100;
+      case "okfarma":
+        return Colors.pink.shade100;
+      case "farmaciaencasa":
+        return Colors.yellow.shade100;
+    }
+    return Colors.blue.shade100;
+  }
   Map<String, dynamic> toMap() {
     return {
       'ref': ref,
