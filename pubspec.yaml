@@ -41,6 +41,8 @@ dependencies:
   cached_network_image: ^3.2.3
   algolia: ^1.1.2
   flutter_svg: ^2.0.6
+  routemaster: ^1.0.1
+
 
 dev_dependencies:
   flutter_test:
@@ -53,6 +55,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.1
   mocktail: ^0.3.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

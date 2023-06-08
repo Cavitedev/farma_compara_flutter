@@ -3,10 +3,10 @@ import 'package:farma_compara_flutter/domain/items/shop_item.dart';
 import 'package:farma_compara_flutter/presentation/items_browse/widgets/price_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:routemaster/routemaster.dart';
 
 import '../../../core/constants/app_margin_and_sizes.dart';
 import '../../../domain/items/item.dart';
-
 
 class ItemsBrowseSliverList extends StatelessWidget {
   const ItemsBrowseSliverList({
@@ -37,7 +37,7 @@ class ListItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ShopItem shopItem = item.websiteItems.values.first;
+    ShopItem shopItem = item.firstShopItem();
 
     return Stack(
       children: [
@@ -51,8 +51,7 @@ class ListItem extends ConsumerWidget {
                     child: CachedNetworkImage(
                       imageUrl: shopItem.image!,
                       fit: BoxFit.fill,
-                      placeholder: (context, url) =>
-                          const Center(child: CircularProgressIndicator()),
+                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                       width: 100,
                       errorWidget: (BuildContext context, String url, dynamic error) =>
                           const Center(child: Icon(Icons.error_rounded)),
@@ -72,17 +71,17 @@ class ListItem extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(5, 10, 0, 10),
                         child: Text(
-                          shopItem.name!,
+                          item.name,
                           style: Theme.of(context).textTheme.headlineSmall,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      if (shopItem.price != null)
+
                         Flexible(
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(5, innerElementsPadding, 0, innerElementsPadding),
-                            child: PriceText(price: shopItem.price!),
+                            child: PriceText(price: item.bestPrice),
                           ),
                         ),
                     ],
@@ -105,7 +104,6 @@ class ListItem extends ConsumerWidget {
   }
 
   void _goDetailsPage(WidgetRef ref) {
-    // final routerDelegate = ref.read(gamesRouterDelegateProvider);
-    // routerDelegate.currentConf = routerDelegate.currentConf.copyWith(detailsGameUrl: Optional.value(game.link));
+    Routemaster.of(ref.context).push('item/${item.ref}');
   }
 }

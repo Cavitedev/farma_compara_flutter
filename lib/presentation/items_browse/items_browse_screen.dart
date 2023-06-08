@@ -8,16 +8,16 @@ import '../../core/constants/app_margin_and_sizes.dart';
 import 'widgets/items_browse_loaded_items.dart';
 import 'widgets/items_browse_sliver_app_bar.dart';
 
-class ItemsBrowse extends ConsumerStatefulWidget {
-  const ItemsBrowse({
+class ItemsBrowseScreen extends ConsumerStatefulWidget {
+  const ItemsBrowseScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  ConsumerState createState() => _ItemsBrowseState();
+  ConsumerState createState() => _ItemsBrowseScreenState();
 }
 
-class _ItemsBrowseState extends ConsumerState<ItemsBrowse> {
+class _ItemsBrowseScreenState extends ConsumerState<ItemsBrowseScreen> {
   @override
   void initState() {
     super.initState();

@@ -18,6 +18,10 @@ class Item {
     required this.lastUpdate,
   });
 
+  ShopItem firstShopItem() {
+    return websiteItems.values.first;
+  }
+
 
   Map<String, dynamic> toMap() {
     return {
@@ -66,6 +70,8 @@ class Item {
       websiteItems: websiteItems ?? this.websiteItems,
     );
   }
+
+
 
 }
 

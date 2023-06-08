@@ -28,6 +28,8 @@ class BrowserState {
 
   bool get allItemsFetched => itemsFound == items.length;
 
+  Item? itemByRef(String ref) => items.firstWhere((element) => element.ref == ref);
+
 //<editor-fold desc="Data Methods">
   const BrowserState({
     required this.query,
