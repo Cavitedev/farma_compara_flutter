@@ -83,11 +83,12 @@ class ItemDetailsScreen extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(generalPadding),
               child: ElevatedButton(
-                onPressed: () {
-                  ref.read(cartNotifierProvider.notifier).addItem(item);
-                },
-                child: const Text("Comprar"),
-              ),
+                  onPressed: item.available
+                      ? () {
+                          ref.read(cartNotifierProvider.notifier).addItem(item);
+                        }
+                      : null,
+                  child: Text(item.available ? "Comprar" : "No Disponible")),
             ),
           ),
           const SliverToBoxAdapter(child: Divider()),

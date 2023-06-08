@@ -32,7 +32,7 @@ class MyApp extends ConsumerWidget {
           action: SnackBarAction(
             label: 'Deshacer',
             onPressed: () {
-              ref.read(cartNotifierProvider.notifier).removeItem(next.items.last);
+              ref.read(cartNotifierProvider.notifier).removeItem(next.items.last.item);
             },
           ),
         );

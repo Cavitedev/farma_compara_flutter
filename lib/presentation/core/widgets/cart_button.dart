@@ -19,7 +19,7 @@ class CartButton extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 2),
       child: badges.Badge(
-        badgeContent: Text(cart.items.length.toString(), style: const TextStyle(color: Colors.white, fontSize: 8)),
+        badgeContent: Text(cart.totalItems.toString(), style: const TextStyle(color: Colors.white, fontSize: 8)),
         position: badges.BadgePosition.topEnd(top: 0, end: 0),
         showBadge: cart.items.isNotEmpty,
         badgeAnimation: const badges.BadgeAnimation.slide(),

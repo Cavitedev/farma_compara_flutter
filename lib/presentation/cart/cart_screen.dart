@@ -9,8 +9,12 @@ class CartScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-        body: Center(
-      child: Text("Cart"),
-    ));
+        body: CustomScrollView(slivers: [
+      const SliverAppBar(
+        title: Text("Compra Seleccionada"),
+        floating: true,
+      ),
+
+    ]));
   }
 }
