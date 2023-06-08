@@ -37,6 +37,11 @@ class CartState {
     return copyWith(items: items.where((element) => element.ref != item.ref).toList());
   }
 
+  double totalPrice() {
+    return items.fold(0, (previousValue, element) => previousValue + element.item.bestPrice * element.quantity);
+  }
+
+
   CartState copyWith({
     List<ItemCart>? items,
   }) {
@@ -44,4 +49,5 @@ class CartState {
       items: items ?? this.items,
     );
   }
+
 }

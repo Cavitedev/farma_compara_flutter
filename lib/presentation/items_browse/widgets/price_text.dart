@@ -1,5 +1,6 @@
 import 'package:farma_compara_flutter/core/constants/custom_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class PriceText extends StatelessWidget {
   const PriceText({
@@ -11,6 +12,8 @@ class PriceText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("${price.toStringAsFixed(2)}€", style: CustomTheme.priceText(context));
+    final formatter = NumberFormat.simpleCurrency(locale: Intl.getCurrentLocale());
+
+    return Text(formatter.format(price), style: CustomTheme.priceText(context));
   }
 }

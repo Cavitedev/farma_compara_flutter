@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../application/cart/cart_notifier.dart';
 import '../../core/constants/app_constants.dart';
+import '../../core/constants/custom_theme.dart';
+import '../items_browse/widgets/price_text.dart';
 
 class CartScreen extends ConsumerWidget {
   const CartScreen({
@@ -13,8 +15,8 @@ class CartScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-    final List<ItemCart> itemCartList = ref.watch(cartNotifierProvider).items;
+    final cartState = ref.watch(cartNotifierProvider);
+    final List<ItemCart> itemCartList = cartState.items;
 
     ref.listen(cartNotifierProvider, (previous, next) {
       if (previous == null) return;
@@ -36,13 +38,27 @@ class CartScreen extends ConsumerWidget {
 
     return Scaffold(
         body: CustomScrollView(slivers: [
-      const SliverAppBar(
-        title: Text("Compra Seleccionada"),
+      SliverAppBar(
+        title: Text("Compra (${cartState.totalItems})"),
         floating: true,
       ),
+      ItemCartList(itemCartList: itemCartList),
 
-          ItemCartList(itemCartList: itemCartList)
-
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Total: ",
+                    style: CustomTheme.priceText(context),
+                  ),
+                  PriceText(price: cartState.totalPrice())
+                ],
+              ),
+            ),
+          )
     ]));
   }
 }
