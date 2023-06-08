@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farma_compara_flutter/application/browser/browser_notifier.dart';
+import 'package:farma_compara_flutter/presentation/item_details/widgets/item_details_other_pages_list.dart';
 import 'package:farma_compara_flutter/presentation/items_browse/widgets/price_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../application/cart/cart_notifier.dart';
 import '../../core/constants/app_margin_and_sizes.dart';
+import '../../core/constants/custom_theme.dart';
 import '../../domain/items/item.dart';
 
 class ItemDetailsScreen extends ConsumerWidget {
@@ -35,6 +37,16 @@ class ItemDetailsScreen extends ConsumerWidget {
               ),
             ),
           ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: generalPadding, vertical: innerElementsPadding),
+            sliver: SliverToBoxAdapter(
+              child: SelectableText(
+                "Ref: ${item.ref}",
+                style: Theme.of(context).textTheme.labelLarge,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
           if (itemImage != null)
             SliverToBoxAdapter(
               child: CachedNetworkImage(
@@ -52,7 +64,10 @@ class ItemDetailsScreen extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Precio: ", style: Theme.of(context).textTheme.displaySmall),
+                  Text(
+                    "Precio: ",
+                    style: CustomTheme.priceText(context),
+                  ),
                   PriceText(price: item.bestPrice)
                 ],
               ),
@@ -69,6 +84,13 @@ class ItemDetailsScreen extends ConsumerWidget {
               ),
             ),
           ),
+          const SliverToBoxAdapter(child: Divider()),
+          ItemDetailsOtherPagesList(item: item),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 30,
+            ),
+          )
         ],
       ),
     );

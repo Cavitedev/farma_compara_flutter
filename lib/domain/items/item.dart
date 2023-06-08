@@ -22,6 +22,16 @@ class Item {
     return websiteItems.values.first;
   }
 
+  static websiteKeyToName(String key){
+    switch(key){
+      case "dosfarma":
+        return "DosFarma";
+      case "okfarma":
+        return "OkFarma";
+      case "farmaciaencasa":
+        return "Farmacia en Casa";
+    }
+  }
 
   Map<String, dynamic> toMap() {
     return {

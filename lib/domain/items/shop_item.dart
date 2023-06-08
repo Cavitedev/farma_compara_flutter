@@ -17,6 +17,14 @@ class ShopItem {
     required this.price,
   });
 
+  String get availableString  {
+    if (available) {
+      return "Disponible";
+    } else {
+      return "No Disponible";
+    }
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'name': this.name,

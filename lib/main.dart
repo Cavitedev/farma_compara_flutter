@@ -22,11 +22,9 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     ref.listen(cartNotifierProvider, (previous, next) {
-
-      if(previous == null) return;
-      if(next.items.length > previous.items.length){
+      if (previous == null) return;
+      if (next.items.length > previous.items.length) {
         final snackBar = SnackBar(
           content: const Text('Agregado al carrito'),
           action: SnackBarAction(
@@ -41,7 +39,6 @@ class MyApp extends ConsumerWidget {
       }
     });
 
-
     return MaterialApp.router(
       routerDelegate: RoutemasterDelegate(
         routesBuilder: (context) => routerMap,
@@ -50,8 +47,7 @@ class MyApp extends ConsumerWidget {
       title: appName,
       scaffoldMessengerKey: snackbarKey,
       theme: ThemeData(
-        colorSchemeSeed: Colors.blue,
-
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue).copyWith(secondary: Colors.deepOrangeAccent.shade400),
         useMaterial3: true,
       ),
     );
