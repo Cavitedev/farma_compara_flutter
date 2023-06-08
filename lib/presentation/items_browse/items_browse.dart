@@ -1,3 +1,4 @@
+import 'package:farma_compara_flutter/presentation/items_browse/widgets/header_row/header_row.dart';
 import 'package:farma_compara_flutter/presentation/items_browse/widgets/items_browse_load.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,6 +47,7 @@ class _ItemsBrowseState extends ConsumerState<ItemsBrowse> {
         child: const CustomScrollView(
           slivers: [
             ItemsBrowseSliverAppBar(),
+            HeaderRow(),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: listPadding),
               sliver: ItemsBrowserLoadedItems(),

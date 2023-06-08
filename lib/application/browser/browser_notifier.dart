@@ -26,12 +26,18 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
     state = state.copyWith(isLoading: true);
     final Either<FirestoreFailure, List<Item>> itemsEither = await repository.readItemsPage(state.query);
 
-    itemsEither.when((left) => state = state.copyWith(failure: Optional.value(left), isLoading: false), (right) {
-      List<Item> items = right;
-      state = state.copyWith(
-          items: [...state.items, ...items], query: state.query.copyWith(page: state.query.page + 1), isLoading: false);
-      isLoading = false;
-    });
+    itemsEither.when(
+      (left) => state = state.copyWith(failure: Optional.value(left), isLoading: false),
+      (right) {
+        List<Item> items = right;
+        state = state.copyWith(
+            items: [...state.items, ...items],
+            query: state.query.copyWith(page: state.query.page + 1),
+            failure: const Optional.value(null),
+            isLoading: false);
+        isLoading = false;
+      },
+    );
   }
 
   void nextPageIfNotLoading() {

@@ -4,7 +4,7 @@ import 'package:farma_compara_flutter/application/browser/browser_notifier.dart'
 import 'package:farma_compara_flutter/core/either.dart';
 import 'package:farma_compara_flutter/domain/items/i_item_repository.dart';
 import 'package:farma_compara_flutter/domain/items/item.dart';
-import 'package:farma_compara_flutter/domain/items/website_item.dart';
+import 'package:farma_compara_flutter/domain/items/shop_item.dart';
 import 'package:farma_compara_flutter/infrastructure/firebase/items/items_browse_query.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -31,9 +31,9 @@ void main() {
   });
 }
 
-final Item item1 = Item(ref: "1", websiteItems: {
+final Item item1 = Item(ref: "1", name: "Name", bestPrice: 9.99, lastUpdate: DateTime(2023), websiteItems: {
   "dosfarma":
-      WebsiteItem(name: "Name", image: "Image", url: "url", lastUpdate: DateTime(2023), available: false, price: 9.99)
+      ShopItem(name: "Name", image: "Image", url: "url", lastUpdate: DateTime(2023), available: false, price: 9.99)
 });
 
 void _mock(IItemRepository itemsRepository) {

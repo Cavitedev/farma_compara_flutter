@@ -22,31 +22,37 @@ class ItemsRepository implements IItemRepository {
 
   @override
   Future<Either<FirestoreFailure, List<Item>>> readItemsPage(IItemsBrowseQuery inputQuery) async {
-
     try {
-
-
-
       final CollectionReference<Map<String, dynamic>> collection = firestore.itemsCollection();
 
-      if(inputQuery.filter == null) {
-        final QuerySnapshot<Map<String, dynamic>> firebaseQuery =
-        await collection.limit(20).get();
+      final Query<Map<String, dynamic>> orderedQuery =
+          collection.orderBy(inputQuery.orderBy.value, descending: inputQuery.orderBy.descending);
+
+      if (inputQuery.filter == null) {
+        final QuerySnapshot<Map<String, dynamic>> firebaseQuery = await orderedQuery.limit(20).get();
         return Right(firebaseQuery.docs.map((doc) => Item.fromFirebase(doc.data())).toList());
       }
 
       Algolia algolia = AlgoliaApplication.algolia;
 
-      AlgoliaQuery algoliaQuery = algolia.instance.index('name_algolia').query(inputQuery.filter!).setPage(inputQuery.page).setHitsPerPage(10);
+      AlgoliaQuery algoliaQuery = algolia.instance
+          .index('name_algolia_${inputQuery.orderBy}')
+          .query(inputQuery.filter!)
+          .setPage(inputQuery.page)
+          .setHitsPerPage(10);
       AlgoliaQuerySnapshot snap = await algoliaQuery.getObjects();
 
       final ids = snap.hits.map((e) => (e.data['path'] as String).split('/').last);
+      if(ids.isEmpty){
+        return const Right([]);
+      }
 
       final QuerySnapshot<Map<String, dynamic>> firebaseQuery =
-      await collection.where(FieldPath.documentId, whereIn: ids).get();
-      return Right(firebaseQuery.docs.map((doc) => Item.fromFirebase(doc.data())).toList());
+          await collection.where(FieldPath.documentId, whereIn: ids).get();
+      final items = firebaseQuery.docs.map((doc) => Item.fromFirebase(doc.data())).toList();
+      items.sortedBy(inputQuery.orderBy);
 
-
+      return Right(items);
     } catch (e) {
       return Left(_handleException(e));
     }

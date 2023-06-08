@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class WebsiteItem {
+class ShopItem {
   final String? name;
   final String? image;
   final String? url;
@@ -8,7 +8,7 @@ class WebsiteItem {
   final bool available;
   final double? price;
 
-  WebsiteItem({
+  ShopItem({
     required this.name,
     this.image,
     required this.url,
@@ -28,8 +28,8 @@ class WebsiteItem {
     };
   }
 
-  factory WebsiteItem.fromMap(Map<String, dynamic> map) {
-    return WebsiteItem(
+  factory ShopItem.fromMap(Map<String, dynamic> map) {
+    return ShopItem(
       name: map['name'] as String,
       image: map['image'] as String,
       url: map['url'] as String,
@@ -39,14 +39,14 @@ class WebsiteItem {
     );
   }
 
-  factory WebsiteItem.fromFirebase(Map<String, dynamic> map) {
-    return WebsiteItem(
+  factory ShopItem.fromFirebase(Map<String, dynamic> map) {
+    return ShopItem(
       name: map['name'] as String,
       image: map['image'] as String,
       url: map['url'] as String,
       lastUpdate: (map['last_update'] as Timestamp).toDate(),
       available: map['available'] as bool,
-      price: map['price'] as double,
+      price:(map['price'] as num).toDouble(),
 
 
     );

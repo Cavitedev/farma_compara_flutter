@@ -1,18 +1,18 @@
+import 'package:farma_compara_flutter/domain/core/sort_order.dart';
+
 import '../../../domain/items/i_items_browse_query.dart';
 
 class ItemsBrowseQuery extends IItemsBrowseQuery {
   ItemsBrowseQuery({required super.orderBy, super.filter, super.page});
-  ItemsBrowseQuery.byName({super.filter, super.page}) : super(orderBy: "name");
-  ItemsBrowseQuery.byPrice({super.filter, super.page}) : super(orderBy: "best_price");
-  ItemsBrowseQuery.byUpdate({super.filter, super.page}) : super(orderBy: "last_update");
+  ItemsBrowseQuery.byName({super.filter, super.page}) : super(orderBy: SortOrder.byName());
+  ItemsBrowseQuery.byPrice({super.filter, super.page}) : super(orderBy: SortOrder.byPrice());
+  ItemsBrowseQuery.byUpdate({super.filter, super.page}) : super(orderBy: SortOrder.byUpdate());
 
-  static String get nameOrder => 'name';
-  static String get priceOrder => 'best_price';
-  static String get updateOrder => 'last_update';
+
 
   @override
   IItemsBrowseQuery copyWith({
-    String? orderBy,
+    SortOrder? orderBy,
     String? filter,
     int? page,
   }) {

@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:farma_compara_flutter/domain/items/website_item.dart';
+import 'package:farma_compara_flutter/domain/items/shop_item.dart';
 import 'package:farma_compara_flutter/presentation/items_browse/widgets/price_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,7 +37,7 @@ class ListItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    WebsiteItem shopItem = item.websiteItems.values.first;
+    ShopItem shopItem = item.websiteItems.values.first;
 
     return Stack(
       children: [
@@ -72,7 +72,7 @@ class ListItem extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(5, 10, 0, 10),
                         child: Text(
-                          shopItem.name!,
+                          item.ref + " " + shopItem.name!,
                           style: Theme.of(context).textTheme.headlineSmall,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,

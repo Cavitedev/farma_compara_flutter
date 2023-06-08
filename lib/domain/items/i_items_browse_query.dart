@@ -1,5 +1,7 @@
+import 'package:farma_compara_flutter/domain/core/sort_order.dart';
+
 abstract class IItemsBrowseQuery {
-  final String orderBy;
+  final SortOrder orderBy;
   final String? filter;
   final int page;
 
@@ -10,7 +12,7 @@ abstract class IItemsBrowseQuery {
   });
 
   IItemsBrowseQuery copyWith({
-    String? orderBy,
+    SortOrder? orderBy,
     String? filter,
     int? page,
   });
