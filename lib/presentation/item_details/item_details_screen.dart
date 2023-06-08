@@ -9,6 +9,7 @@ import '../../application/cart/cart_notifier.dart';
 import '../../core/constants/app_margin_and_sizes.dart';
 import '../../core/constants/custom_theme.dart';
 import '../../domain/items/item.dart';
+import '../core/widgets/cart_button.dart';
 
 class ItemDetailsScreen extends ConsumerWidget {
   final String ref;
@@ -25,7 +26,12 @@ class ItemDetailsScreen extends ConsumerWidget {
         slivers: [
           const SliverAppBar(
             // leading: BackButton(),
-            title: Text("Detalles del producto"),
+            title: Text("Detalles"),
+            actions: [
+              CartButton(),
+            ],
+            floating: true,
+            pinned: true,
           ),
           SliverPadding(
             padding: const EdgeInsets.all(generalPadding),

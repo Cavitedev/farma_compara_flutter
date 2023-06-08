@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/presentation/core/widgets/text_widget.dart';
+import 'package:farma_compara_flutter/presentation/core/widgets/format_widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 

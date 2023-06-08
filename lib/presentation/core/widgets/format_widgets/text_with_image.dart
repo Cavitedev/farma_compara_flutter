@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../core/constants/app_margin_and_sizes.dart';
+import '../../../../core/constants/app_margin_and_sizes.dart';
 
 
 class TextWithImage extends StatelessWidget {

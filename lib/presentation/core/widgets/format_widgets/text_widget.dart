@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-import '../../../core/constants/app_margin_and_sizes.dart';
+import '../../../../core/constants/app_margin_and_sizes.dart';
 
 class TextWidget extends StatelessWidget {
 

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'package:routemaster/routemaster.dart';
 
+import '../presentation/cart/cart_screen.dart';
+
 final RouteMap routerMap = RouteMap(
   routes: {
     '/': (_) => const MaterialPage<void>(child: ItemsBrowseScreen()),
@@ -12,5 +14,9 @@ final RouteMap routerMap = RouteMap(
             ref: route.pathParameters['ref']!,
           ),
         ),
+
+    '/cart': (route) => const MaterialPage<void>(
+      child: CartScreen(),
+    ),
   }
 );
