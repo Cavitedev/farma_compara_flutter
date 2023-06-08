@@ -78,11 +78,22 @@ class ListItem extends ConsumerWidget {
                         ),
                       ),
 
-                        Flexible(
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(5, innerElementsPadding, 0, innerElementsPadding),
-                            child: PriceText(price: item.bestPrice),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Flexible(
+                                flex: 1,
+                                child: Text(
+                                    item.availableString
+                                )),
+                            Flexible(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(5, innerElementsPadding, 0, innerElementsPadding),
+                                child: PriceText(price: item.bestPrice),
+                              ),
+                            ),
+                          ],
                         ),
                     ],
                   ),

@@ -1,3 +1,4 @@
+import 'package:farma_compara_flutter/core/date_time_extension.dart';
 import 'package:farma_compara_flutter/domain/items/shop_item.dart';
 
 import 'package:flutter/material.dart';
@@ -61,7 +62,8 @@ class WebsiteItemDetail extends StatelessWidget {
                     ),
                   PriceText(price: websiteItem.value.price!),
                 ],
-              )
+              ),
+              Text("Última Actualización: ${websiteItem.value.lastUpdate.toLocal().toDateAndMinutesTimeString()}")
             ],
           ),
         ),

@@ -18,6 +18,15 @@ class Item {
     required this.lastUpdate,
   });
 
+  bool get available => websiteItems.values.any((element) => element.available);
+  String get availableString  {
+    if (available) {
+      return "Disponible";
+    } else {
+      return "No Disponible";
+    }
+  }
+
   ShopItem firstShopItem() {
     return websiteItems.values.first;
   }

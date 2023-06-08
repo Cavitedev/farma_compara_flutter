@@ -11,6 +11,6 @@ class PriceText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("${price.toStringAsFixed(2)} €", style: CustomTheme.priceText(context));
+    return Text("${price.toStringAsFixed(2)}€", style: CustomTheme.priceText(context));
   }
 }

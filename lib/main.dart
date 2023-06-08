@@ -2,6 +2,7 @@ import 'package:farma_compara_flutter/application/cart/cart_notifier.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:routemaster/routemaster.dart';
 
 import 'core/constants/app_constants.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await initializeDateFormatting('es_ES', null);
   runApp(const ProviderScope(child: MyApp()));
 }
 
