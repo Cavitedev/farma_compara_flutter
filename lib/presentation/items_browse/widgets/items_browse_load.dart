@@ -28,6 +28,15 @@ class ItemsBrowseLoad extends ConsumerWidget {
       return const SliverToBoxAdapter(child: Loading());
     }
 
+    if(state.isLoaded && state.items.isEmpty){
+      return const SliverToBoxAdapter(
+          child: InfoTextWithImage(
+            msg: 'No hay productos que concuerden con la búsqueda',
+            image: 'assets/images/undraw_not_found_re_bh2e.svg',
+          )
+      );
+    }
+
     if(state.allItemsFetched){
       return const SliverToBoxAdapter(
         child: InfoTextWithImage(
