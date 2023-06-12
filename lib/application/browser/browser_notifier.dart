@@ -23,7 +23,7 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
   bool isLoading = false;
 
   Future<void> loadItems() async {
-    if(state.allItemsFetched) return;
+    if (state.allItemsFetched) return;
 
     isLoading = true;
     state = state.copyWith(isLoading: true);
@@ -36,7 +36,7 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
         state = state.copyWith(
             items: [...state.items, ...items],
             itemsFound: right.count,
-            query: state.query.copyWith(page: state.query.page + 1),
+            query: state.query.copyWith(page: state.query.page + 1, last: Optional.value(right.documentSnapshot)),
             failure: const Optional.value(null),
             isLoading: false);
         isLoading = false;
@@ -51,7 +51,8 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
   }
 
   void clear() {
-    state = state.copyWith(items: [], itemsFound: null, query: state.query.copyWith(page: 0));
+    state =
+        state.copyWith(items: [], itemsFound: null, query: state.query.copyWith(page: 0, last: const Optional.value(null)));
 
     loadItems();
   }

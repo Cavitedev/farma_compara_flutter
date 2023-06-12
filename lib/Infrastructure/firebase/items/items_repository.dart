@@ -29,8 +29,8 @@ class ItemsRepository implements IItemRepository {
       final Query<Map<String, dynamic>> orderedQuery =
           collection.orderBy(inputQuery.orderBy.value, descending: inputQuery.orderBy.descending);
 
-      if (inputQuery.filter == null) {
-        ItemsFetch itemsFetch = await _fetchWithoutFilter(orderedQuery, collection);
+      if (!inputQuery.isFiltering()) {
+        ItemsFetch itemsFetch = await _fetchWithoutFilter(inputQuery, orderedQuery, collection);
 
         return Right(itemsFetch);
       }
@@ -54,14 +54,20 @@ class ItemsRepository implements IItemRepository {
     }
   }
 
-  Future<ItemsFetch> _fetchWithoutFilter(Query<Map<String, dynamic>> orderedQuery, CollectionReference<Map<String, dynamic>> collection) async {
-    final QuerySnapshot<Map<String, dynamic>> firebaseQuery = await orderedQuery.limit(40).get();
+  Future<ItemsFetch> _fetchWithoutFilter(IItemsBrowseQuery inputQuery, Query<Map<String, dynamic>> orderedQuery,
+      CollectionReference<Map<String, dynamic>> collection) async {
+    final queryPaginated = inputQuery.last != null && inputQuery.last!.isValid
+        ? orderedQuery.startAfterDocument(inputQuery.last!.value!)
+        : orderedQuery;
+    final QuerySnapshot<Map<String, dynamic>> firebaseQuery = await queryPaginated.limit(40).get();
 
     final items = firebaseQuery.docs.map((doc) => Item.fromFirebase(doc.data())).toList();
-    final countQuery =  await collection.count().get();
+    final lastDoc = firebaseQuery.docs.last;
+
+    final countQuery = await collection.count().get();
     final count = countQuery.count;
 
-    final ItemsFetch itemsFetch = ItemsFetch(items: items, count: count);
+    final ItemsFetch itemsFetch = ItemsFetch(items: items, count: count, documentSnapshot: lastDoc);
     return itemsFetch;
   }
 
