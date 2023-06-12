@@ -59,12 +59,6 @@ class WebsiteItemDetail extends StatelessWidget {
                         width: 100,
                         errorWidget: (BuildContext context, String url, dynamic error) =>
                         const Center(child: Icon(Icons.error_rounded)),
-                        httpHeaders: const {
-                          "cookie":
-                          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                              "(KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-                        }
-
                       ),
                     ),
                   PriceText(price: websiteItem.value.price!),

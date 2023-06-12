@@ -32,7 +32,7 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp.router(
       routerDelegate: RoutemasterDelegate(
-        routesBuilder: (context) => buildRoutes(context, ref),
+        routesBuilder: (context) => routerMap,
       ),
       routeInformationParser: const RoutemasterParser(),
       title: appName,

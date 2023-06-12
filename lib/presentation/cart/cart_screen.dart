@@ -8,13 +8,29 @@ import '../../core/constants/app_constants.dart';
 import '../../core/constants/custom_theme.dart';
 import '../items_browse/widgets/price_text.dart';
 
-class CartScreen extends ConsumerWidget {
+class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends ConsumerState<CartScreen> {
+
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      ref.read(cartNotifierProvider.notifier).loadDeliveryFees();
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
     final cartState = ref.watch(cartNotifierProvider);
     final List<ItemCart> itemCartList = cartState.items;
 
