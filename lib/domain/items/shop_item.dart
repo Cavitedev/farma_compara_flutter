@@ -17,6 +17,13 @@ class ShopItem {
     required this.price,
   });
 
+  double get priceAvailable {
+    if(available && price != null){
+      return price!;
+    }
+    return double.infinity;
+  }
+
   String get availableString  {
     if (available) {
       return "Disponible";
@@ -55,8 +62,6 @@ class ShopItem {
       lastUpdate: (map['last_update'] as Timestamp).toDate(),
       available: map['available'] as bool,
       price:(map['price'] as num).toDouble(),
-
-
     );
   }
 }
