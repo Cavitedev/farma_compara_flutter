@@ -56,7 +56,7 @@ class ItemsRepository implements IItemRepository {
 
   Future<ItemsFetch> _fetchWithoutFilter(IItemsBrowseQuery inputQuery, Query<Map<String, dynamic>> orderedQuery,
       CollectionReference<Map<String, dynamic>> collection) async {
-    final queryPaginated = inputQuery.last != null && inputQuery.last!.isValid
+    final queryPaginated = inputQuery.last != null && inputQuery.last!.value != null
         ? orderedQuery.startAfterDocument(inputQuery.last!.value!)
         : orderedQuery;
     final QuerySnapshot<Map<String, dynamic>> firebaseQuery = await queryPaginated.limit(40).get();
