@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farma_compara_flutter/core/date_time_extension.dart';
 import 'package:farma_compara_flutter/domain/items/shop_item.dart';
 
@@ -52,13 +53,13 @@ class WebsiteItemDetail extends StatelessWidget {
                   if (websiteItem.value.image != null)
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Image.network(
-                        websiteItem.value.image!,
+                      child: CachedNetworkImage(
+                        imageUrl: websiteItem.value.image!,
+
                         fit: BoxFit.fill,
                         width: 100,
-                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                          return const Center(child: Icon(Icons.error_rounded));
-                        },
+                        errorWidget: (BuildContext context, String url, dynamic error) =>
+                            const Center(child: Icon(Icons.error_rounded)),
                       ),
                     ),
                   PriceText(price: websiteItem.value.price!),

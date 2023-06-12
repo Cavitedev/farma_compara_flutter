@@ -1,14 +1,24 @@
+import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
+
+import '../../core/optional.dart';
+import '../../domain/items/firestore_failure.dart';
 import '../../domain/items/item.dart';
 import '../../domain/items/item_cart.dart';
 
 class CartState {
   final List<ItemCart> items;
+  final List<DeliveryFee>? deliveryFee;
+  final bool isLoading;
+  final Optional<FirestoreFailure?> failure;
 
   const CartState({
     required this.items,
+    this.deliveryFee,
+    this.isLoading = false,
+    this.failure = const Optional.value(null),
   });
 
-  CartState.init() : items = [];
+  CartState.init() : items = [], failure = const Optional.value(null), isLoading=false, deliveryFee = null;
 
   int get totalItems => items.fold(0, (previousValue, element) => previousValue + element.quantity);
 
@@ -41,13 +51,17 @@ class CartState {
     return items.fold(0, (previousValue, element) => previousValue + element.item.bestPrice * element.quantity);
   }
 
-
   CartState copyWith({
     List<ItemCart>? items,
+    List<DeliveryFee>? deliveryFee,
+    bool? isLoading,
+    Optional<FirestoreFailure?>? failure,
   }) {
     return CartState(
       items: items ?? this.items,
+      deliveryFee: deliveryFee ?? this.deliveryFee,
+      isLoading: isLoading ?? this.isLoading,
+      failure: failure ?? this.failure,
     );
   }
-
 }

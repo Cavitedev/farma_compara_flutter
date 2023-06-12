@@ -31,7 +31,7 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp.router(
       routerDelegate: RoutemasterDelegate(
-        routesBuilder: (context) => routerMap,
+        routesBuilder: (context) => buildRoutes(context, ref),
       ),
       routeInformationParser: const RoutemasterParser(),
       title: appName,

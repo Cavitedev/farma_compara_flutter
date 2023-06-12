@@ -84,13 +84,14 @@ class Item {
   }
 
   factory Item.fromFirebase(Map<String, dynamic> map) {
+    final Map<String, ShopItem> websiteItems = (map['website_items'] as Map).map((key, value) => MapEntry(key, ShopItem.fromFirebase(value)));
 
     return Item(
       ref: map['ref'] as String,
       name: map['name'] as String,
-      bestPrice: (map['best_price'] as num).toDouble(),
+      bestPrice: (map['best_price'] as num?)?.toDouble() ?? websiteItems.values.reduce((a, b) => (a.price ?? double.infinity) < (b.price ?? double.infinity) ? a : b).price!,
       lastUpdate: (map['last_update'] as Timestamp).toDate(),
-      websiteItems: (map['website_items'] as Map).map((key, value) => MapEntry(key, ShopItem.fromFirebase(value))),
+      websiteItems: websiteItems,
     );
 
   }
