@@ -10,7 +10,7 @@ import '../../core/constants/app_constants.dart';
 import '../../core/constants/app_margin_and_sizes.dart';
 import '../../core/constants/custom_theme.dart';
 import '../../domain/items/item.dart';
-import '../core/widgets/cart_button.dart';
+import '../core/shared/cart_button.dart';
 
 class ItemDetailsScreen extends ConsumerWidget {
   final String ref;

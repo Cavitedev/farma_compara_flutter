@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:farma_compara_flutter/presentation/core/shared/shop_badge/shop_badges_row.dart';
 import 'package:farma_compara_flutter/presentation/items_browse/widgets/price_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,78 +42,89 @@ class ListItem extends ConsumerWidget {
     return Stack(
       children: [
         Card(
-          child: Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (item.image != null)
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CachedNetworkImage(
-                      imageUrl: item.image!,
-                      fit: BoxFit.fill,
-                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                      width: 100,
-                      errorWidget: (BuildContext context, String url, dynamic error) =>
-                          const Center(child: Icon(Icons.error_rounded)),
-                    )),
-              Flexible(
-                child: Semantics(
-                  button: true,
-                  onTapHint: "Ir a pantalla de detalles",
-                  onTap: () {
-                    _goDetailsPage(ref);
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(5, 10, 0, 10),
-                        constraints: const BoxConstraints(
-                            minHeight: 68
-                        ),
-                        child: Text(
-                          item.name,
-                          style: Theme.of(context).textTheme.titleMedium,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                  item.availableString
-                              ),
-                              Flexible(
-                                flex: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(5, innerElementsPadding, 0, innerElementsPadding),
-                                  child: PriceText(price: item.bestPrice),
-                                ),
-                              ),
-                            ],
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (item.image != null)
+                    Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CachedNetworkImage(
+                          imageUrl: item.image!,
+                          fit: BoxFit.fill,
+                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                          width: 100,
+                          errorWidget: (BuildContext context, String url, dynamic error) =>
+                              const Center(child: Icon(Icons.error_rounded)),
+                        )),
+                  Flexible(
+                    child: Semantics(
+                      button: true,
+                      onTapHint: "Ir a pantalla de detalles",
+                      onTap: () {
+                        _goDetailsPage(ref);
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.fromLTRB(5, 10, 0, 10),
+                            constraints: const BoxConstraints(
+                                minHeight: 68
+                            ),
+                            child: Text(
+                              item.name,
+                              style: Theme.of(context).textTheme.titleMedium,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                    ],
-                  ),
-                ),
-              )
+
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                      item.availableString
+                                  ),
+                                  Flexible(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(5, innerElementsPadding, 0, innerElementsPadding),
+                                      child: PriceText(price: item.bestPrice),
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                            ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              ShopBadgesRow(item: item),
             ],
+
           ),
         ),
         Positioned.fill(
+          bottom: 50,
             child: Material(
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
                     _goDetailsPage(ref);
                   },
-                ))),
+                )))
+        ,
       ],
     );
   }

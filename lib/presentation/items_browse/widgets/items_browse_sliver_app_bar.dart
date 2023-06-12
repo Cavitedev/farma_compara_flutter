@@ -5,7 +5,7 @@ import '../../../application/browser/browser_notifier.dart';
 import '../../../application/browser/browser_state.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../domain/items/i_items_browse_query.dart';
-import '../../core/widgets/cart_button.dart';
+import '../../core/shared/cart_button.dart';
 import '../../core/widgets/format_widgets/outlined_text_field.dart';
 
 
