@@ -123,7 +123,7 @@ class _ItemsBrowseSliverAppBarState extends ConsumerState<ItemsBrowseSliverAppBa
     final IItemsBrowseQuery query = broswerState.query;
 
     if (text.isEmpty) {
-      _updateQueryOnUrlComposer(query, null);
+      _updateQueryOnUrlComposer(query, "");
       return;
     }
 

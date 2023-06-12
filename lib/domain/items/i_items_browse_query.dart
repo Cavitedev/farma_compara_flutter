@@ -16,4 +16,6 @@ abstract class IItemsBrowseQuery {
     String? filter,
     int? page,
   });
+
+  bool isFiltering() => filter != null && filter!.isNotEmpty;
 }
