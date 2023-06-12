@@ -1,12 +1,12 @@
 class PriceRange {
-  double min;
-  double max;
-  double fee;
+  double? min;
+  double? max;
+  double price;
 
   PriceRange({
     this.min = 0,
-    required this.max,
-    required this.fee,
+    this.max = 0,
+    required this.price,
   }) {
     if (max == 0) {
       max = double.infinity;
@@ -14,22 +14,22 @@ class PriceRange {
   }
 
   bool isInRange(double price) {
-    return price >= min && price <= max;
+    return price >= min! && price <= max!;
   }
 
   Map<String, dynamic> toMap() {
     return {
       'min': this.min,
       'max': this.max,
-      'fee': this.fee,
+      'price': this.price,
     };
   }
 
   factory PriceRange.fromMap(Map<String, dynamic> map) {
     return PriceRange(
-      min: map['min'] as double,
-      max: map['max'] as double,
-      fee: map['fee'] as double,
+      min: map['min'] as double? ?? 0,
+      max: map['max'] as double? ?? 0,
+      price: map['price'] as double,
     );
   }
 }

@@ -1,4 +1,6 @@
+import 'package:farma_compara_flutter/application/cart/cart_state.dart';
 import 'package:farma_compara_flutter/domain/items/item_cart.dart';
+import 'package:farma_compara_flutter/presentation/cart/widgets/delivery_summary.dart';
 import 'package:farma_compara_flutter/presentation/cart/widgets/item_cart_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,7 +33,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final cartState = ref.watch(cartNotifierProvider);
+    final CartState cartState = ref.watch(cartNotifierProvider);
     final List<ItemCart> itemCartList = cartState.items;
 
     ref.listen(cartNotifierProvider, (previous, next) {
@@ -58,6 +60,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         title: Text("Compra (${cartState.totalItems})"),
         floating: true,
       ),
+
       ItemCartList(itemCartList: itemCartList),
 
           SliverToBoxAdapter(
@@ -74,7 +77,15 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 ],
               ),
             ),
-          )
+          ),
+
+          const SliverToBoxAdapter(
+            child: Divider(),
+          ),
+
+          DeliverySummary(cartState: cartState)
+
+
     ]));
   }
 }

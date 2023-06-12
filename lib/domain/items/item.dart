@@ -48,6 +48,8 @@ class Item {
         return "OkFarma";
       case "farmaciaencasa":
         return "Farmacia en Casa";
+      case "farmaciasdirect":
+        return "Farmacias Direct";
     }
     return "Falta soporte para $key";
   }
@@ -60,6 +62,8 @@ class Item {
         return Colors.pink.shade100;
       case "farmaciaencasa":
         return Colors.yellow.shade100;
+      case "farmaciasdirect":
+        return Colors.greenAccent.shade100;
     }
     return Colors.blue.shade100;
   }
