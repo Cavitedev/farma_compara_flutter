@@ -1,6 +1,6 @@
 class PriceRange {
-  double? min;
-  double? max;
+  double min;
+  double max;
   double price;
 
   PriceRange({
@@ -14,7 +14,7 @@ class PriceRange {
   }
 
   bool isInRange(double price) {
-    return price >= min! && price <= max!;
+    return price >= min && price <= max;
   }
 
   Map<String, dynamic> toMap() {

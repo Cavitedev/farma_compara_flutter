@@ -1,11 +1,13 @@
 import 'item.dart';
 
-class ItemCart{
-
+class ItemCart {
   final Item item;
   final int quantity;
 
-  ItemCart({required this.item, required this.quantity});
+  ItemCart({
+    required this.item,
+    required this.quantity,
+  });
 
   String get ref => item.ref;
 
