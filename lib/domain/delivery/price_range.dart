@@ -17,6 +17,18 @@ class PriceRange {
     return price >= min && price <= max;
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PriceRange &&
+          runtimeType == other.runtimeType &&
+          min == other.min &&
+          max == other.max &&
+          price == other.price;
+
+  @override
+  int get hashCode => min.hashCode ^ max.hashCode ^ price.hashCode;
+
   Map<String, dynamic> toMap() {
     return {
       'min': min,

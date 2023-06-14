@@ -50,9 +50,58 @@ class DeliveryFee {
     return [];
   }
 
-  bool canPurchasedIn(String location){
+  bool canPurchasedIn(String location) {
     final locationPrices = _getLocationPrices(location);
     return locationPrices != [];
+  }
+
+  List<Map<String, List<PriceRange>>> groupedByPrice() {
+    final List<Map<String, List<PriceRange>>> groupedByPrice = [];
+
+    for (final locName in locations.keys) {
+      final List<PriceRange> locationPrices = locations[locName]!;
+
+      final haveBeenAdded = _addToGroupIfExisting(groupedByPrice, locationPrices, locName);
+
+      if (!haveBeenAdded) {
+        final Map<String, List<PriceRange>> locationMap = {locName: locationPrices};
+        groupedByPrice.add(locationMap);
+      }
+    }
+
+    return groupedByPrice;
+  }
+
+  bool _addToGroupIfExisting(
+      List<Map<String, List<PriceRange>>> groupedByPrice, List<PriceRange> location, String locName) {
+    bool validGroup = false;
+
+    for (final Map<String, List<PriceRange>> group in groupedByPrice) {
+      validGroup = true;
+      final exampleLoc = group.values.first;
+
+      if (exampleLoc.length != location.length) {
+        validGroup = false;
+        continue;
+      }
+
+      for (int i = 0; i < exampleLoc.length; i++) {
+        final locRange = exampleLoc[i];
+        final currentLocRange = location[i];
+        if (locRange.min != currentLocRange.min || locRange.max != currentLocRange.max) {
+          validGroup = false;
+          continue;
+        }
+      }
+
+      if (validGroup) {
+        group[locName] = location;
+        return true;
+      }
+    }
+
+
+    return false;
   }
 
   Map<String, dynamic> toMap() {

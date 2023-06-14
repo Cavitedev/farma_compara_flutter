@@ -9,22 +9,22 @@ class BrowserState {
   final IItemsBrowseQuery query;
   final List<Item> items;
   final bool isLoading;
-  final Optional<FirestoreFailure?> failure;
+  final Optional<FirestoreFailure> failure;
   final int? itemsFound;
 
   factory BrowserState.init() {
     return BrowserState(
       items: [],
       query: ItemsBrowseQuery.byName(page: 0),
-      failure:  const Optional.value(null)
+      failure:  const Optional()
     );
   }
 
   BrowserState addGames(List<Item> addedItems, int itemsFound) {
-    return copyWith(items: [...items, ...addedItems], isLoading: false, failure: const Optional.value(null), itemsFound: itemsFound);
+    return copyWith(items: [...items, ...addedItems], isLoading: false, failure: const Optional(), itemsFound: itemsFound);
   }
 
-  bool get isLoaded => !isLoading && failure.value == null;
+  bool get isLoaded => !isLoading && !failure.isValid;
 
   bool get allItemsFetched => itemsFound == items.length;
 
@@ -43,7 +43,7 @@ class BrowserState {
     IItemsBrowseQuery? query,
     List<Item>? items,
     bool? isLoading,
-    Optional<FirestoreFailure?>? failure,
+    Optional<FirestoreFailure>? failure,
     int? itemsFound,
   }) {
     return BrowserState(

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:farma_compara_flutter/core/date_time_extension.dart';
+import 'package:farma_compara_flutter/domain/items/item_utils.dart';
 import 'package:farma_compara_flutter/domain/items/shop_item.dart';
 
 import 'package:flutter/material.dart';
@@ -39,10 +40,10 @@ class WebsiteItemDetail extends StatelessWidget {
     return Stack(
       children: [
         Card(
-          color: Item.websiteKeyToColor(websiteItem.key),
+          color: ItemUtils.websiteKeyToColor(websiteItem.key),
           child: Column(
             children: [
-              Text(Item.websiteKeyToName(websiteItem.key)),
+              Text(ItemUtils.websiteKeyToName(websiteItem.key)),
               ListTile(
                 title: Text(websiteItem.value.name!),
                 subtitle: Text(websiteItem.value.availableString),

@@ -20,7 +20,7 @@ class ItemsBrowseLoad extends ConsumerWidget {
     bool isLoading = state.isLoading;
     Optional<FirestoreFailure?> failure = state.failure;
 
-    if (failure.value != null) {
+    if (failure.isValid) {
       return SliverToBoxAdapter(child: FirestoreFailureWidget(failure: failure.value!));
     }
 

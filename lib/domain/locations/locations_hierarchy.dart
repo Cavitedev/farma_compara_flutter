@@ -1,7 +1,7 @@
 import '../core/utils.dart';
 
-class LocationsHierarchy{
-  static var locationsHierarchy = {
+class LocationsHierarchy {
+  static const locationsHierarchy = {
     "peninsula": {
       "spain": {
         "balearic": {
@@ -20,13 +20,23 @@ class LocationsHierarchy{
     },
   };
 
-  static List<String> upperLocationsFrom(String location){
+  static const locationsTranslations = {
+    "spain": "España",
+    "portugal": "Portugal",
+    "balearic": "Baleares",
+    "mallorca": "Mallorca",
+    "menorca": "Menorca",
+    "ibiza": "Ibiza",
+    "formentera": "Formentera",
+    "canary": "Canarias",
+    "ceuta_meilla": "Ceuta y Melilla",
+    "ceuta": "Ceuta",
+    "melilla": "Melilla",
+  };
+
+  static List<String> upperLocationsFrom(String location) {
     final mapKeys = Utils.findParentKeys(locationsHierarchy, location);
 
     return mapKeys.reversed.toList();
-
   }
-
-
-
 }

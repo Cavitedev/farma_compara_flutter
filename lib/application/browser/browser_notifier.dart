@@ -37,7 +37,7 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
             items: [...state.items, ...items],
             itemsFound: right.count,
             query: state.query.copyWith(page: state.query.page + 1, last: Optional.value(right.documentSnapshot)),
-            failure: const Optional.value(null),
+            failure: const Optional(),
             isLoading: false);
         isLoading = false;
       },
@@ -52,7 +52,7 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
 
   void clear() {
     state = state
-        .copyWith(items: [], itemsFound: null, query: state.query.copyWith(page: 0, last: const Optional.value(null)));
+        .copyWith(items: [], itemsFound: null, query: state.query.copyWith(page: 0, last: const Optional()));
 
     loadItems();
   }
@@ -60,11 +60,11 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
   void changeFilters(IItemsBrowseQuery query) {
     if (state.query != query) {
       state = state.copyWith(
-        query: query.copyWith(page: 0, last: const Optional.value(null)),
+        query: query.copyWith(page: 0, last: const Optional()),
         items: [],
         itemsFound: null,
         isLoading: false,
-        failure: const Optional.value(null),
+        failure: const Optional(),
       );
       loadItems();
     }

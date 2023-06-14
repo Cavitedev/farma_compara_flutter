@@ -1,5 +1,6 @@
 import 'package:farma_compara_flutter/domain/delivery/delivery_failure.dart';
 import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
+import 'package:farma_compara_flutter/domain/delivery/price_range.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../test_fixtures.dart';
@@ -32,5 +33,53 @@ void main() {
   test("Delivery to inner location returns the first result of outer location", () {
     final double cost = deliveryFee.priceFromCost("ibiza", 95).getRight()!;
     expect(cost, 4.99);
+  });
+
+  test("Delivery fees can be grouped by min and max price", () {
+    final List<Map<String, List<PriceRange>>> groupedByPrice = deliveryFee.groupedByPrice();
+
+    final expected = [
+      {
+        "spain": [
+          PriceRange(
+            price: 3.99,
+            min: 1,
+            max: 29.99,
+          ),
+          PriceRange(price: 1.99, min: 30, max: 59.99),
+          PriceRange(price: 0.0, min: 60, max: 0)
+        ],
+        "portugal": [
+          PriceRange(
+            price: 4.95,
+            min: 1,
+            max: 29.99,
+          ),
+          PriceRange(price: 3.95, min: 30, max: 59.99),
+          PriceRange(price: 0.0, min: 60, max: 0)
+        ]
+      },
+      {
+        "balearic": [
+          PriceRange(
+            price: 5.99,
+            min: 1,
+            max: 49.99,
+          ),
+          PriceRange(price: 4.99, min: 50, max: 99.99),
+          PriceRange(price: 0.0, min: 100, max: 0)
+        ],
+        "formentera": [
+          PriceRange(
+            price: 9.69,
+            min: 1,
+            max: 49.99,
+          ),
+          PriceRange(price: 6.69, min: 50, max: 99.99),
+          PriceRange(price: 0.0, min: 100, max: 0)
+        ]
+      }
+    ];
+    expect(groupedByPrice, expected);
   });
 }

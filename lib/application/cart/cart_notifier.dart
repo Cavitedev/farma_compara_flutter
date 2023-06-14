@@ -2,6 +2,7 @@ import 'package:farma_compara_flutter/application/cart/cart_state.dart';
 import 'package:farma_compara_flutter/core/either.dart';
 import 'package:farma_compara_flutter/domain/core/utils.dart';
 import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
+import 'package:farma_compara_flutter/domain/delivery/delivery_fees.dart';
 import 'package:farma_compara_flutter/domain/delivery/i_delivery_repository.dart';
 import 'package:farma_compara_flutter/domain/items/firestore_failure.dart';
 import 'package:farma_compara_flutter/domain/items/item_cart.dart';
@@ -29,7 +30,8 @@ class CartNotifier extends StateNotifier<CartState> {
       (left) => state = state.copyWith(failure: Optional.value(left), isLoading: false),
       (right) {
         Map<String, DeliveryFee> deliveryFees = right;
-        state = state.copyWith(deliveryFeeMap: deliveryFees, failure: const Optional.value(null), isLoading: false);
+        state = state.copyWith(
+            deliveryFees: DeliveryFees(deliveryFeeMap: deliveryFees), failure: const Optional(), isLoading: false);
       },
     );
   }
@@ -118,7 +120,7 @@ class CartNotifier extends StateNotifier<CartState> {
   }
 
   void _addItemByKey(String key, Map<String, PaymentShop> paymentShops, ItemCart cartItem) {
-    final DeliveryFee fee = state.deliveryFeeMap![key]!;
+    final DeliveryFee fee = state.deliveryFees.deliveryFeeMap[key]!;
 
     if (paymentShops.containsKey(key)) {
       paymentShops[key]!.items.add(cartItem);
@@ -143,7 +145,7 @@ class CartNotifier extends StateNotifier<CartState> {
       Map<String, ShopItem> filteredWebsiteItems = {};
 
       for (final websiteItem in cartItem.item.websiteItems.entries) {
-        final fee = state.deliveryFeeMap![websiteItem.key]!;
+        final fee = state.deliveryFees.deliveryFeeMap[websiteItem.key]!;
 
         if (websiteItem.value.available && fee.canPurchasedIn(location)) {
           filteredWebsiteItems[websiteItem.key] = websiteItem.value;

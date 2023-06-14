@@ -1,3 +1,4 @@
+import 'package:farma_compara_flutter/presentation/delivery_fees/delivery_fees_screen.dart';
 import 'package:farma_compara_flutter/presentation/item_details/item_details_screen.dart';
 import 'package:farma_compara_flutter/presentation/items_browse/items_browse_screen.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,9 @@ final RouteMap routerMap = RouteMap(
 
       '/cart': (route) => const MaterialPage<void>(
         child: CartScreen(),
+      ),
+      '/delivery_fees': (route) => const MaterialPage<void>(
+        child: DeliveryFeesScreen(),
       ),
     }
 );

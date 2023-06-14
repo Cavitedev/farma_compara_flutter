@@ -1,6 +1,6 @@
-import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
 
 import '../../core/optional.dart';
+import '../../domain/delivery/delivery_fees.dart';
 import '../../domain/items/firestore_failure.dart';
 import '../../domain/items/item.dart';
 import '../../domain/items/item_cart.dart';
@@ -8,20 +8,20 @@ import '../../domain/items/payment_optimized/payment_optimized.dart';
 
 class CartState {
   final List<ItemCart> items;
-  final Map<String, DeliveryFee>? deliveryFeeMap;
+  final DeliveryFees deliveryFees;
   final bool isLoading;
-  final Optional<FirestoreFailure?> failure;
+  final Optional<FirestoreFailure> failure;
   final PaymentOptimized? paymentOptimized;
 
   const CartState({
     required this.items,
-    this.deliveryFeeMap,
+    required this.deliveryFees,
     this.isLoading = false,
-    this.failure = const Optional.value(null),
+    this.failure = const Optional(),
     this.paymentOptimized,
   });
 
-  CartState.init() : items = [], failure = const Optional.value(null), isLoading=false, deliveryFeeMap = null, paymentOptimized= null;
+  CartState.init() : items = [], failure = const Optional(), isLoading=false, deliveryFees = DeliveryFees.init(), paymentOptimized= null;
 
   int get totalItems => items.fold(0, (previousValue, element) => previousValue + element.quantity);
 
@@ -56,14 +56,14 @@ class CartState {
 
   CartState copyWith({
     List<ItemCart>? items,
-    Map<String, DeliveryFee>? deliveryFeeMap,
+    DeliveryFees? deliveryFees,
     bool? isLoading,
     Optional<FirestoreFailure>? failure,
     PaymentOptimized? paymentOptimized,
   }) {
     return CartState(
       items: items ?? this.items,
-      deliveryFeeMap: deliveryFeeMap ?? this.deliveryFeeMap,
+      deliveryFees: deliveryFees ?? this.deliveryFees,
       isLoading: isLoading ?? this.isLoading,
       failure: failure ?? this.failure,
       paymentOptimized: paymentOptimized ?? this.paymentOptimized,

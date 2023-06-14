@@ -9,6 +9,8 @@ class DeliveryFees{
     required this.deliveryFeeMap,
   });
 
+  DeliveryFees.init(): deliveryFeeMap = {};
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

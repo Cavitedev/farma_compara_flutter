@@ -1,9 +1,9 @@
+import 'package:farma_compara_flutter/domain/items/item_utils.dart';
 import 'package:farma_compara_flutter/domain/items/shop_item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/constants/app_margin_and_sizes.dart';
-import '../../../../domain/items/item.dart';
 
 class ShopBadge extends StatelessWidget {
   final MapEntry<String, ShopItem> shopItem;
@@ -15,8 +15,8 @@ class ShopBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final name = Item.websiteKeyToName(shopItem.key);
-    final color = Item.websiteKeyToColor(shopItem.key);
+    final name = ItemUtils.websiteKeyToName(shopItem.key);
+    final color = ItemUtils.websiteKeyToColor(shopItem.key);
 
     final formatter = NumberFormat.simpleCurrency(locale: Intl.getCurrentLocale());
     final price = formatter.format(shopItem.value.price);

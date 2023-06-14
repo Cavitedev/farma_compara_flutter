@@ -1,20 +1,24 @@
 import 'package:farma_compara_flutter/application/cart/cart_state.dart';
 import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
+import 'package:farma_compara_flutter/domain/delivery/delivery_fees.dart';
 import 'package:farma_compara_flutter/domain/delivery/price_range.dart';
 import 'package:farma_compara_flutter/domain/items/item.dart';
 import 'package:farma_compara_flutter/domain/items/item_cart.dart';
+import 'package:farma_compara_flutter/domain/items/item_utils.dart';
 import 'package:farma_compara_flutter/domain/items/payment_optimized/payment_optimized.dart';
 import 'package:farma_compara_flutter/domain/items/shop_item.dart';
 
 class TestFixtures {
-  static CartState cartState = CartState(items: [
-    ItemCart(item: item1, quantity: 4),
-    ItemCart(item: item2, quantity: 1),
-    ItemCart(item: item3, quantity: 2)
-  ], deliveryFeeMap: {
-    "farmaciaencasa": farmaciaEnCasaFees,
-    "okfarma": okFarmaFees,
-  });
+  static CartState cartState = CartState(
+      items: [
+        ItemCart(item: item1, quantity: 4),
+        ItemCart(item: item2, quantity: 1),
+        ItemCart(item: item3, quantity: 2)
+      ],
+      deliveryFees: DeliveryFees(deliveryFeeMap: {
+        "farmaciaencasa": farmaciaEnCasaFees,
+        "okfarma": okFarmaFees,
+      }));
 
   static Item item1 = Item(
       ref: "100",
@@ -81,6 +85,9 @@ class TestFixtures {
       name: "name 3",
       bestPrice: 12,
       lastUpdate: DateTime(2022));
+
+  static DeliveryFees deliveryFees =
+      DeliveryFees(deliveryFeeMap: {ItemUtils.okFarma: okFarmaFees, ItemUtils.farmaciaEnCasa: farmaciaEnCasaFees});
 
   static DeliveryFee farmaciaEnCasaFees = DeliveryFee(
     locations: {
