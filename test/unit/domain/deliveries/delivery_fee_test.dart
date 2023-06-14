@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../test_fixtures.dart';
 
 void main() {
-  final DeliveryFee deliveryFee = TestFixtures.farmaciaEnCasa;
+  final DeliveryFee deliveryFee = TestFixtures.farmaciaEnCasaFees;
 
   test("Delivery is requested on a place that cannot send items", () {
     const location = "fake spain";

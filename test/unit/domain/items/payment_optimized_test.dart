@@ -1,16 +1,14 @@
-import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
-import 'package:farma_compara_flutter/domain/delivery/price_range.dart';
-import 'package:farma_compara_flutter/domain/items/item.dart';
-import 'package:farma_compara_flutter/domain/items/item_cart.dart';
+import 'package:farma_compara_flutter/domain/delivery/delivery_failure.dart';
 import 'package:farma_compara_flutter/domain/items/payment_optimized/payment_optimized.dart';
-import 'package:farma_compara_flutter/domain/items/shop_item.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../test_fixtures.dart';
+
 void main() {
-  PaymentShop paymentShop = dosFarmaShop();
+  PaymentShop paymentShop = TestFixtures.dosFarmaShop;
 
   setUp(() {
-    paymentShop = dosFarmaShop();
+    paymentShop = TestFixtures.dosFarmaShop;
   });
 
   group("Payment shop methods", () {
@@ -19,67 +17,20 @@ void main() {
       expect(price, 90.33);
     });
 
-    // test("Total cost takes the lowest cost as it spends a lot of money", () {
-    //   final double deliveryCost = paymentShop.deliveryCost();
-    // });
+    test("Total cost takes the lowest cost as it spends a lot of money", () {
+      final double cost = paymentShop.total("spain").getRight()!;
+      expect(cost, 90.33);
+    });
+
+    test("Total cost takes second lowest cost as it's payed more on other location", () {
+      final double cost = paymentShop.total("formentera").getRight()!;
+      expect(cost, 98.33);
+    });
+
+    test("Total cost takes second lowest cost as it's payed more on other location", () {
+      const String fakeLoc = "fake spain";
+      final DeliveryFailure failure = paymentShop.total(fakeLoc).getLeft()!;
+      expect(failure, const DeliveryFailureNotFound(location: fakeLoc));
+    });
   });
-
 }
-
-PaymentShop dosFarmaShop() => PaymentShop(
-    shopName: "dosfarma",
-    fee: DeliveryFee(
-      locations: {
-        "spain": [
-          PriceRange(
-            price: 5.0,
-            max: 30.0,
-          ),
-          PriceRange(price: 1.0, min: 30.01, max: 50),
-          PriceRange(
-            price: 0.0,
-            min: 50.01,
-          )
-        ]
-      },
-      url: "https://www.dosfarma.com",
-    ),
-    items: [
-      ItemCart(
-          item: Item(
-            bestPrice: 10.0,
-            name: "Paracetamol",
-            ref: "1",
-            lastUpdate: DateTime(2021),
-            websiteItems: {
-              "dosfarma": ShopItem(
-                price: 10.11,
-                available: false,
-                name: "t",
-                url: "https://www.dosfarma.com",
-                lastUpdate: DateTime(2021),
-                image: "img",
-              )
-            },
-          ),
-          quantity: 3),
-      ItemCart(
-          item: Item(
-            bestPrice: 12,
-            name: "Paracetamol",
-            ref: "1",
-            lastUpdate: DateTime(2021),
-            websiteItems: {
-              "dosfarma": ShopItem(
-                price: 15,
-                available: false,
-                name: "t",
-                url: "https://www.dosfarma.com",
-                lastUpdate: DateTime(2021),
-                image: "img",
-              )
-            },
-          ),
-          quantity: 4)
-    ]);
-

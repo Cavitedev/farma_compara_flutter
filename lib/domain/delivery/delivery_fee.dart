@@ -50,6 +50,11 @@ class DeliveryFee {
     return [];
   }
 
+  bool canPurchasedIn(String location){
+    final locationPrices = _getLocationPrices(location);
+    return locationPrices != [];
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'url': this.url,

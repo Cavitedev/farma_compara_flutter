@@ -18,13 +18,13 @@ class DeliveryRepository implements IDeliveryRepository  {
   DeliveryRepository(this.firestore);
 
   @override
-  Future<Either<FirestoreFailure, List<DeliveryFee>>> updateDelivery() async {
+  Future<Either<FirestoreFailure, Map<String, DeliveryFee>>> updateDelivery() async {
     try {
       final CollectionReference<Map<String, dynamic>> collection = firestore.deliveryCollection();
 
       final QuerySnapshot<Map<String, dynamic>> firebaseQuery = await collection.get();
 
-      final deliveryFees = firebaseQuery.docs.map((doc) => DeliveryFee.fromMap(doc.data())).toList();
+      final deliveryFees = Map.fromEntries(firebaseQuery.docs.map((doc) => MapEntry(doc.id, DeliveryFee.fromMap(doc.data()))));
 
       return Right(deliveryFees);
 

@@ -13,8 +13,7 @@ class ShopBadgesRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final listWebsites = item.websiteItems.entries.toList();
-    listWebsites.sort((a, b) => a.value.priceAvailable.compareTo(b.value.priceAvailable));
+    final listWebsites = item.orderedWebsiteItemsByPrice();
 
     return Container(
         height: 70,

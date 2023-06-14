@@ -40,6 +40,12 @@ class Item {
     return websiteItems.values.first;
   }
 
+  List<MapEntry<String, ShopItem>> orderedWebsiteItemsByPrice(){
+    final listWebsites = websiteItems.entries.toList();
+    listWebsites.sort((a, b) => a.value.priceAvailable.compareTo(b.value.priceAvailable));
+    return listWebsites;
+  }
+
   static String websiteKeyToName(String key){
     switch(key){
       case "dosfarma":

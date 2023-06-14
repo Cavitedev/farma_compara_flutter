@@ -19,9 +19,9 @@ class PriceRange {
 
   Map<String, dynamic> toMap() {
     return {
-      'min': this.min,
-      'max': this.max,
-      'price': this.price,
+      'min': min,
+      'max': max,
+      'price': price,
     };
   }
 

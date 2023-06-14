@@ -1,6 +1,7 @@
+import '../core/i_cloneable.dart';
 import 'item.dart';
 
-class ItemCart {
+class ItemCart implements ICloneable<ItemCart> {
   final Item item;
   final int quantity;
 
@@ -11,6 +12,11 @@ class ItemCart {
 
   String get ref => item.ref;
 
+  @override
+  ItemCart clone() {
+    return ItemCart(item: item, quantity: quantity);
+  }
+
   ItemCart copyWith({
     Item? item,
     int? quantity,
@@ -20,4 +26,6 @@ class ItemCart {
       quantity: quantity ?? this.quantity,
     );
   }
+
+
 }

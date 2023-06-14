@@ -1,8 +1,12 @@
 import 'package:farma_compara_flutter/application/cart/cart_state.dart';
 import 'package:farma_compara_flutter/core/either.dart';
+import 'package:farma_compara_flutter/domain/core/utils.dart';
 import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
 import 'package:farma_compara_flutter/domain/delivery/i_delivery_repository.dart';
 import 'package:farma_compara_flutter/domain/items/firestore_failure.dart';
+import 'package:farma_compara_flutter/domain/items/item_cart.dart';
+import 'package:farma_compara_flutter/domain/items/payment_optimized/payment_optimized.dart';
+import 'package:farma_compara_flutter/domain/items/shop_item.dart';
 import 'package:farma_compara_flutter/infrastructure/firebase/delivery/delivery_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,13 +23,13 @@ class CartNotifier extends StateNotifier<CartState> {
 
   Future<void> loadDeliveryFees() async {
     state = state.copyWith(isLoading: true);
-    final Either<FirestoreFailure, List<DeliveryFee>> deliveryEither = await repository.updateDelivery();
+    final Either<FirestoreFailure, Map<String, DeliveryFee>> deliveryEither = await repository.updateDelivery();
 
     deliveryEither.when(
       (left) => state = state.copyWith(failure: Optional.value(left), isLoading: false),
       (right) {
-        List<DeliveryFee> deliveryFees = right;
-        state = state.copyWith(deliveryFee: deliveryFees, failure: const Optional.value(null), isLoading: false);
+        Map<String, DeliveryFee> deliveryFees = right;
+        state = state.copyWith(deliveryFeeMap: deliveryFees, failure: const Optional.value(null), isLoading: false);
       },
     );
   }
@@ -36,5 +40,116 @@ class CartNotifier extends StateNotifier<CartState> {
 
   void removeItem(Item item) {
     state = state.removeItem(item);
+  }
+
+  void calculateOptimizedPrice(String location) {
+    Map<String, PaymentShop> paymentShops = {};
+
+    final List<ItemCart> items = state.items;
+
+    // Filter unavailable shops and items whose location cannot be used
+
+    _removeNotAvailableItems(items, location);
+
+    //TODO: If length 0 is not valid, we should notify the user
+
+    // Add items with 1 website first
+    _addItemsSingleLocation(items, paymentShops);
+
+    // Add items with more than 1 website
+
+    final List<ItemCart> itemsWithMoreThanOneWebsite =
+        items.where((element) => element.item.websiteItems.length > 1).toList();
+    if (items.isEmpty) {
+      final PaymentOptimized paymentOptimized = PaymentOptimized(shopsToPay: paymentShops, location: location);
+      state = state.copyWith(paymentOptimized: paymentOptimized);
+      return;
+    }
+
+    final List<Map<String, PaymentShop>> paymentShopOptions = [];
+
+    // By product price
+    _addOptionsByProductPrice(itemsWithMoreThanOneWebsite, paymentShops, paymentShopOptions);
+    _addOptionsByProductPrice(itemsWithMoreThanOneWebsite, paymentShops, paymentShopOptions, 1);
+
+    // Check all options and select the best one
+    PaymentOptimized? bestOption;
+    double bestPrice = double.maxFinite;
+
+    for (final option in paymentShopOptions) {
+      final payOption = PaymentOptimized(shopsToPay: option, location: location);
+      double price = payOption.total().getRight()!;
+
+      if (price < bestPrice) {
+        bestOption = payOption;
+        bestPrice = price;
+      }
+    }
+
+    state = state.copyWith(paymentOptimized: bestOption);
+  }
+
+  void _addOptionsByProductPrice(
+      List<ItemCart> items, Map<String, PaymentShop> paymentShops, List<Map<String, PaymentShop>> paymentShopOptions,
+      [int exceptions = 0]) {
+    final int combinations = exceptions == 0 ? 1 : items.length;
+
+    for (int it = 0; it < combinations; it++) {
+      final Map<String, PaymentShop> paymentShopsCopy =
+          Map.castFrom<dynamic, dynamic, String, PaymentShop>(Utils.deepCopy(paymentShops));
+
+      final List<int> exceptionsList = exceptions == 0 ? [] : [it];
+
+      for (int i = 0; i < items.length; i++) {
+        final cartItem = items[i];
+        final pagesList = cartItem.item.orderedWebsiteItemsByPrice();
+        String key;
+
+        if (exceptionsList.contains(i)) {
+          key = pagesList[1].key;
+        } else {
+          key = pagesList[0].key;
+        }
+
+        _addItemByKey(key, paymentShopsCopy, cartItem);
+      }
+      paymentShopOptions.add(paymentShopsCopy);
+    }
+  }
+
+  void _addItemByKey(String key, Map<String, PaymentShop> paymentShops, ItemCart cartItem) {
+    final DeliveryFee fee = state.deliveryFeeMap![key]!;
+
+    if (paymentShops.containsKey(key)) {
+      paymentShops[key]!.items.add(cartItem);
+    } else {
+      final PaymentShop paymentShop = PaymentShop(shopName: key, fee: fee, items: [cartItem]);
+      paymentShops[key] = paymentShop;
+    }
+  }
+
+  void _addItemsSingleLocation(List<ItemCart> items, Map<String, PaymentShop> paymentShops) {
+    for (final cartItem in items) {
+      if (cartItem.item.websiteItems.length == 1) {
+        final String key = cartItem.item.websiteItems.keys.first;
+        _addItemByKey(key, paymentShops, cartItem);
+      }
+    }
+  }
+
+  void _removeNotAvailableItems(List<ItemCart> items, String location) {
+    for (int i = 0; i < items.length; i++) {
+      final cartItem = items[i];
+      Map<String, ShopItem> filteredWebsiteItems = {};
+
+      for (final websiteItem in cartItem.item.websiteItems.entries) {
+        final fee = state.deliveryFeeMap![websiteItem.key]!;
+
+        if (websiteItem.value.available && fee.canPurchasedIn(location)) {
+          filteredWebsiteItems[websiteItem.key] = websiteItem.value;
+        }
+      }
+      items[i] = cartItem.copyWith(item: cartItem.item.copyWith(websiteItems: filteredWebsiteItems));
+    }
   }
 }
