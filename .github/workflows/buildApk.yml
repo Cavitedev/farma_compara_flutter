@@ -1,12 +1,22 @@
 name: Build apk and upload to github
 
 on:
-  push:
-    branches: [master]
-  
+#  push:
+#    branches: [master, github_action]
+  workflow_call:
+    secrets:
+      KEYSTORE:
+        required: true
+      SIGNING_PROPERTIES:
+        required: true
+      FIREBASE_OPTIONS:
+        required: true
+      ALGOLIA_APPLICATION:
+        required: true
 
 jobs:
   build_apk:
+    permissions: write-all
     environment: release
     runs-on: ubuntu-latest
     env:
@@ -16,7 +26,7 @@ jobs:
      algolia: ${{secrets.ALGOLIA_APPLICATION}}
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.5.3
 
       - name: Move Signing Properties to project
         run: echo "$Signing" | base64 -d > ./android/signing.properties
@@ -28,10 +38,13 @@ jobs:
         run: echo "$firebase_options" | base64 -d > ./lib/firebase_options.dart
 
       - name: Move algolia Application
-        run: echo "$algolia" | base64 -d > ./lib/infrastructure/algolia_application.dart
+        run: echo "$algolia" | base64 -d > ./lib/algolia_application.dart
+
+      - run: sudo apt install tree
+      - run: tree -d
 
       - name: Install and set Flutter version
-        uses: subosito/flutter-action@v1.5.3
+        uses: subosito/flutter-action@v2.1.0
         with:
           channel: 'stable'
       - name: Restore packages
@@ -47,11 +60,11 @@ jobs:
         shell: bash
       
       - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@2.2.1
+        uses: svenstaro/upload-release-action@2.6.1
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/app/outputs/flutter-apk/app.apk
-          asset_name: ZacatrusaApp.apk
+          file: build/app/outputs/flutter-apk/app-release.apk
+          asset_name: FarmaCompara.apk
           release_name: "Farma Compara Android"
           tag: ${{ steps.read_version.outputs.version }}
           overwrite: true

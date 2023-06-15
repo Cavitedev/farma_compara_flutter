@@ -1,25 +1,37 @@
 name: Flutter_Tests
 
 on:
-  schedule:
-    - cron: '8 15 * * *'
   pull_request:
-    branches: [master]
-  
+    branches: [ master ]
+  workflow_call:
+    secrets:
+      FIREBASE_OPTIONS:
+        required: true
+      ALGOLIA_APPLICATION:
+        required: true
 
 jobs:
   tests:
     runs-on: ubuntu-latest
-
+    env:
+      firebase_options: ${{ secrets.FIREBASE_OPTIONS }}
+      algolia: ${{secrets.ALGOLIA_APPLICATION}}
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.5.3
+
+      - name: Move firebase options to project
+        run: echo "$firebase_options" | base64 -d > ./lib/firebase_options.dart
+
+      - name: Move algolia Application
+        run: echo "$algolia" | base64 -d > ./lib/algolia_application.dart
+
       - name: Install and set Flutter version
-        uses: subosito/flutter-action@v1.5.3
+        uses: subosito/flutter-action@v2.1.0
         with:
           channel: 'stable'
       - name: Restore packages
         run: flutter pub get
-        
+
       - name: Run Tests
         run: flutter test test/unit
