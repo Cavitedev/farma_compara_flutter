@@ -27,4 +27,10 @@ class ItemsBrowseQuery extends IItemsBrowseQuery {
     );
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || super == other && other is ItemsBrowseQuery && runtimeType == other.runtimeType;
+
+  @override
+  int get hashCode => super.hashCode;
 }

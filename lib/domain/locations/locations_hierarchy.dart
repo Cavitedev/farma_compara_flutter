@@ -32,6 +32,7 @@ class LocationsHierarchy {
     "ceuta_meilla": "Ceuta y Melilla",
     "ceuta": "Ceuta",
     "melilla": "Melilla",
+    "madrid": "Madrid",
   };
 
   static List<String> upperLocationsFrom(String location) {
