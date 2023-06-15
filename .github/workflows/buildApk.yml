@@ -7,6 +7,7 @@ on:
 
 jobs:
   build_apk:
+    permissions: write-all
     environment: release
     runs-on: ubuntu-latest
     env:
@@ -50,7 +51,7 @@ jobs:
         shell: bash
       
       - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@2.2.1
+        uses: svenstaro/upload-release-action@2.6.1
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/app/outputs/flutter-apk/app.apk
