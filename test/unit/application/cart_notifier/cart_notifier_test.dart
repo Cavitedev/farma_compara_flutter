@@ -23,7 +23,7 @@ void main() {
     CartNotifier cartNotifier = CartNotifier(mockDeliveryRepository);
     cartNotifier.state = cartState.copyWith(location: "portugal");
     cartNotifier.calculateOptimizedPrices();
-    final price = cartNotifier.state.paymentOptimized!.getRight()!.total().getRight()!;
+    final price = cartNotifier.state.paymentOptimized!.getRight()!.total().getRight()!.totalPrice;
 
     expect(price, 73.91);
   });
@@ -32,7 +32,7 @@ void main() {
     CartNotifier cartNotifier = CartNotifier(mockDeliveryRepository);
     cartNotifier.state = cartState.copyWith(location: "spain");
     cartNotifier.calculateOptimizedPrices();
-    final price = cartNotifier.state.paymentOptimized!.getRight()!.total().getRight()!;
+    final price = cartNotifier.state.paymentOptimized!.getRight()!.total().getRight()!.totalPrice;
 
     expect(price, 75.94);
   });
