@@ -62,7 +62,7 @@ class CartNotifier extends StateNotifier<CartState> {
     final String location = state.location;
     Map<String, PaymentShop> paymentShops = {};
 
-    final List<ItemCart> items = state.items;
+    final List<ItemCart> items = (Utils.deepCopy(state.items) as List<dynamic>).cast<ItemCart>();
 
     final emptyList = List<ItemDeliveryFailure>.empty(growable: true);
     final ItemsDeliveryFailure itemsDeliveryFailure = ItemsDeliveryFailure(items: emptyList);
