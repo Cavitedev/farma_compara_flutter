@@ -24,9 +24,8 @@ void main() {
     test("Load games returns first page", () async {
       _mock(itemsRepository);
       notifier = BrowserNotifier(repository: itemsRepository);
-      notifier.loadItems();
+      await notifier.loadItems();
 
-      await Future.delayed(const Duration(milliseconds: 200));
       expect(notifier.state.items, [item1]);
     });
   });

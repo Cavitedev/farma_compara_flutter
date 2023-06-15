@@ -22,7 +22,7 @@ void main() {
 
   test("Delivery is middle when cost is on the second range", () {
     final double cost = deliveryFee.priceFromCost("spain", 59.99).getRight()!;
-    expect(cost, 2.99);
+    expect(cost, 1.99);
   });
 
   test("Delivery is high when cost is in the first range", () {

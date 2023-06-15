@@ -23,4 +23,17 @@ abstract class IItemsBrowseQuery {
   });
 
   bool isFiltering() => filter != null && filter!.isNotEmpty;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is IItemsBrowseQuery &&
+          runtimeType == other.runtimeType &&
+          orderBy == other.orderBy &&
+          filter == other.filter &&
+          page == other.page &&
+          last == other.last;
+
+  @override
+  int get hashCode => orderBy.hashCode ^ filter.hashCode ^ page.hashCode ^ last.hashCode;
 }
