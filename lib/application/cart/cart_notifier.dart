@@ -32,19 +32,28 @@ class CartNotifier extends StateNotifier<CartState> {
         Map<String, DeliveryFee> deliveryFees = right;
         state = state.copyWith(
             deliveryFees: DeliveryFees(deliveryFeeMap: deliveryFees), failure: const Optional(), isLoading: false);
+        calculateOptimizedPrice();
       },
     );
   }
 
   void addItem(Item item) {
     state = state.addItem(item);
+    calculateOptimizedPrice();
   }
 
   void removeItem(Item item) {
     state = state.removeItem(item);
+    calculateOptimizedPrice();
   }
 
-  void calculateOptimizedPrice(String location) {
+  void updateLocation(String location){
+    state = state.copyWith(location: location);
+    calculateOptimizedPrice();
+  }
+
+  void calculateOptimizedPrice() {
+    final String location = state.location;
     Map<String, PaymentShop> paymentShops = {};
 
     final List<ItemCart> items = state.items;
@@ -80,7 +89,7 @@ class CartNotifier extends StateNotifier<CartState> {
 
     for (final option in paymentShopOptions) {
       final payOption = PaymentOptimized(shopsToPay: option, location: location);
-      double price = payOption.total().getRight()!;
+      double price = payOption.total().getRight()!.totalPrice;
 
       if (price < bestPrice) {
         bestOption = payOption;

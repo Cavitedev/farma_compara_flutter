@@ -12,6 +12,7 @@ class CartState {
   final bool isLoading;
   final Optional<FirestoreFailure> failure;
   final PaymentOptimized? paymentOptimized;
+  final String location;
 
   const CartState({
     required this.items,
@@ -19,9 +20,10 @@ class CartState {
     this.isLoading = false,
     this.failure = const Optional(),
     this.paymentOptimized,
+    this.location = "spain"
   });
 
-  CartState.init() : items = [], failure = const Optional(), isLoading=false, deliveryFees = DeliveryFees.init(), paymentOptimized= null;
+  CartState.init() : items = [], failure = const Optional(), isLoading=false, deliveryFees = DeliveryFees.init(), paymentOptimized= null, location = "spain";
 
   int get totalItems => items.fold(0, (previousValue, element) => previousValue + element.quantity);
 
@@ -60,6 +62,7 @@ class CartState {
     bool? isLoading,
     Optional<FirestoreFailure>? failure,
     PaymentOptimized? paymentOptimized,
+    String? location,
   }) {
     return CartState(
       items: items ?? this.items,
@@ -67,6 +70,7 @@ class CartState {
       isLoading: isLoading ?? this.isLoading,
       failure: failure ?? this.failure,
       paymentOptimized: paymentOptimized ?? this.paymentOptimized,
+      location: location ?? this.location,
     );
   }
 }

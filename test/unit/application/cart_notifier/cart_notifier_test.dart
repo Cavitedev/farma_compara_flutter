@@ -18,8 +18,8 @@ void main() {
 
   test("Notifier resolves the best price from 2 items is the lowest from each item", () {
     CartNotifier cartNotifier = CartNotifier(mockDeliveryRepository);
-    cartNotifier.state = cartState;
-    cartNotifier.calculateOptimizedPrice("portugal");
+    cartNotifier.state = cartState.copyWith(location: "portugal");
+    cartNotifier.calculateOptimizedPrice();
     final price = cartNotifier.state.paymentOptimized!.total().getRight()!;
 
     expect(price, 73.91);
@@ -27,8 +27,8 @@ void main() {
 
   test("Notifier resolves the best price from 2 items is not the lowest of each item", () {
     CartNotifier cartNotifier = CartNotifier(mockDeliveryRepository);
-    cartNotifier.state = cartState;
-    cartNotifier.calculateOptimizedPrice("spain");
+    cartNotifier.state = cartState.copyWith(location: "spain");
+    cartNotifier.calculateOptimizedPrice();
     final price = cartNotifier.state.paymentOptimized!.total().getRight()!;
 
     expect(price, 75.94);

@@ -18,12 +18,12 @@ void main() {
     });
 
     test("Total cost takes the lowest cost as it spends a lot of money", () {
-      final double cost = paymentShop.total("spain").getRight()!;
+      final double cost = paymentShop.total("spain").getRight()!.totalPrice;
       expect(cost, 90.33);
     });
 
     test("Total cost takes second lowest cost as it's payed more on other location", () {
-      final double cost = paymentShop.total("formentera").getRight()!;
+      final double cost = paymentShop.total("formentera").getRight()!.totalPrice;
       expect(cost, 98.33);
     });
 

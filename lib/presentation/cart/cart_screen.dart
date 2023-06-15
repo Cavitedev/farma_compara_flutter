@@ -2,13 +2,14 @@ import 'package:farma_compara_flutter/application/cart/cart_state.dart';
 import 'package:farma_compara_flutter/domain/items/item_cart.dart';
 import 'package:farma_compara_flutter/presentation/cart/widgets/delivery_summary.dart';
 import 'package:farma_compara_flutter/presentation/cart/widgets/item_cart_list.dart';
+import 'package:farma_compara_flutter/presentation/cart/widgets/optimize_purchase/final_summary_table.dart';
+import 'package:farma_compara_flutter/presentation/cart/widgets/optimize_purchase/optimized_shop_widget.dart';
+import 'package:farma_compara_flutter/presentation/cart/widgets/optimize_purchase/shops_optimized_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../application/cart/cart_notifier.dart';
 import '../../core/constants/app_constants.dart';
-import '../../core/constants/custom_theme.dart';
-import '../items_browse/widgets/price_text.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({
@@ -20,8 +21,6 @@ class CartScreen extends ConsumerStatefulWidget {
 }
 
 class _CartScreenState extends ConsumerState<CartScreen> {
-
-
   @override
   void initState() {
     super.initState();
@@ -29,7 +28,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       ref.read(cartNotifierProvider.notifier).loadDeliveryFees();
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,29 +61,20 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
       ItemCartList(itemCartList: itemCartList),
 
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Total: ",
-                    style: CustomTheme.priceText(context),
-                  ),
-                  PriceText(price: cartState.totalPrice())
-                ],
-              ),
-            ),
-          ),
 
-          const SliverToBoxAdapter(
-            child: Divider(),
-          ),
+      const SliverToBoxAdapter(
+        child: Divider(),
+      ),
 
-          DeliverySummary(cartState: cartState)
+      DeliverySummary(cartState: cartState),
 
-
+      const SliverToBoxAdapter(
+        child: Divider(),
+      ),
+      const OptimizedShopWidget(),
+      const ShopsOptimizedItems(),
+      const FinalSummaryTable(),
+      const SliverToBoxAdapter(child: SizedBox(height: 50)),
     ]));
   }
 }

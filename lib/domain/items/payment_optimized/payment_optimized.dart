@@ -3,6 +3,7 @@ import 'package:farma_compara_flutter/domain/core/i_cloneable.dart';
 import 'package:farma_compara_flutter/domain/core/utils.dart';
 import 'package:farma_compara_flutter/domain/delivery/delivery_failure.dart';
 import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
+import 'package:farma_compara_flutter/domain/items/payment_optimized/total_price.dart';
 
 import '../item_cart.dart';
 
@@ -15,19 +16,21 @@ class PaymentOptimized {
     required this.location,
   });
 
-  Either<DeliveryFailure, double> total() {
-    double totalGroup = 0;
+  Either<DeliveryFailure, TotalPrice> total() {
+    double totalItems = 0;
+    double totalFees = 0;
 
     for (final shop in shopsToPay.values) {
       final total = shop.total(location);
 
       if (total.isLeft()) {
-        return total;
+        return Left(total.getLeft()!);
       } else {
-        totalGroup += total.getRight()!;
+        totalItems += total.getRight()!.itemsPrice;
+        totalFees += total.getRight()!.feeCost;
       }
     }
-    return Right(totalGroup);
+    return Right(TotalPrice(itemsPrice: totalItems, feeCost: totalFees));
   }
 
 //<editor-fold desc="Data Methods">
@@ -44,7 +47,7 @@ class PaymentOptimized {
 
   @override
   String toString() {
-    return 'PaymentOptimized{' + ' shopsToPay: $shopsToPay,' + ' location: $location,' + '}';
+    return 'PaymentOptimized{ shopsToPay: $shopsToPay, location: $location,}';
   }
 
   PaymentOptimized copyWith({
@@ -59,8 +62,8 @@ class PaymentOptimized {
 
   Map<String, dynamic> toMap() {
     return {
-      'shopsToPay': this.shopsToPay,
-      'location': this.location,
+      'shopsToPay': shopsToPay,
+      'location': location,
     };
   }
 
@@ -91,18 +94,19 @@ class PaymentShop implements ICloneable<PaymentShop> {
         0, (previousValue, element) => previousValue + element.item.websiteItems[shopName]!.price! * element.quantity);
   }
 
-  Either<DeliveryFailure, double> total(String location) {
+  Either<DeliveryFailure, TotalPrice> total(String location) {
     final itemsPrice = this.itemsPrice();
-    final Either<DeliveryFailure, double> feeCost = fee.priceFromCost(location, itemsPrice);
+    final Either<DeliveryFailure, double> feeCost = _feeCost(location, itemsPrice);
 
-    return feeCost.when((left) => Left(left), (right) => Right(itemsPrice + right));
+    return feeCost.when((left) => Left(left), (fee) => Right(TotalPrice(itemsPrice: itemsPrice, feeCost: fee)));
   }
 
-
+  Either<DeliveryFailure, double> _feeCost(String location, double itemsPrice) =>
+      fee.priceFromCost(location, itemsPrice);
 
   @override
   PaymentShop clone() {
-    return PaymentShop(shopName: shopName, fee: fee, items: (Utils.deepCopy(items) as List<dynamic>).cast<ItemCart>() );
+    return PaymentShop(shopName: shopName, fee: fee, items: (Utils.deepCopy(items) as List<dynamic>).cast<ItemCart>());
   }
 
   @override
@@ -119,7 +123,7 @@ class PaymentShop implements ICloneable<PaymentShop> {
 
   @override
   String toString() {
-    return 'PaymentShop{' + ' fee: $fee,' + ' items: $items,' + ' shopName: $shopName,' + '}';
+    return 'PaymentShop{ fee: $fee, items: $items, shopName: $shopName,}';
   }
 
   PaymentShop copyWith({
@@ -136,9 +140,9 @@ class PaymentShop implements ICloneable<PaymentShop> {
 
   Map<String, dynamic> toMap() {
     return {
-      'fee': this.fee,
-      'items': this.items,
-      'shopName': this.shopName,
+      'fee': fee,
+      'items': items,
+      'shopName': shopName,
     };
   }
 
@@ -149,8 +153,6 @@ class PaymentShop implements ICloneable<PaymentShop> {
       shopName: map['shopName'] as String,
     );
   }
-
-
 
 //</editor-fold>
 }

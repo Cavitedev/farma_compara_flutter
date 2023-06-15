@@ -15,6 +15,7 @@ class LocationsHierarchy {
           "ceuta": "",
           "melilla": "",
         },
+        "madrid": "",
       },
       "portugal": "",
     },
@@ -34,6 +35,20 @@ class LocationsHierarchy {
     "melilla": "Melilla",
     "madrid": "Madrid",
   };
+
+  static const specificLocationKeys = [
+    "ceuta",
+    "melilla",
+    "formentera",
+    "balearic",
+    "canary",
+    "madrid",
+    "portugal",
+    "spain"
+  ];
+
+  static final Map<String, String> specificLocations =
+      Map.fromEntries(specificLocationKeys.map((e) => MapEntry(e, locationsTranslations[e]!)));
 
   static List<String> upperLocationsFrom(String location) {
     final mapKeys = Utils.findParentKeys(locationsHierarchy, location);
