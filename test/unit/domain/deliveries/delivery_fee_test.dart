@@ -8,6 +8,11 @@ import '../../test_fixtures.dart';
 void main() {
   final DeliveryFee deliveryFee = TestFixtures.farmaciaEnCasaFees;
 
+  test("Test if it can be delivered to a non existant region, returns false", () {
+    final canBeDelivered = deliveryFee.canBeDeliveredIn("canary");
+    expect(canBeDelivered, false);
+  });
+
   test("Delivery is requested on a place that cannot send items", () {
     const location = "fake spain";
     final result = deliveryFee.priceFromCost(location, 29.99);
@@ -82,4 +87,6 @@ void main() {
     ];
     expect(groupedByPrice, expected);
   });
+
+
 }

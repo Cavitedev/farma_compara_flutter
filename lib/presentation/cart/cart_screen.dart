@@ -3,7 +3,7 @@ import 'package:farma_compara_flutter/domain/items/item_cart.dart';
 import 'package:farma_compara_flutter/presentation/cart/widgets/delivery_summary.dart';
 import 'package:farma_compara_flutter/presentation/cart/widgets/item_cart_list.dart';
 import 'package:farma_compara_flutter/presentation/cart/widgets/optimize_purchase/final_summary_table.dart';
-import 'package:farma_compara_flutter/presentation/cart/widgets/optimize_purchase/optimized_shop_widget.dart';
+import 'package:farma_compara_flutter/presentation/cart/widgets/optimize_purchase/optimized_shop_header.dart';
 import 'package:farma_compara_flutter/presentation/cart/widgets/optimize_purchase/shops_optimized_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,20 +58,17 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         title: Text("Compra (${cartState.totalItems})"),
         floating: true,
       ),
-
       ItemCartList(itemCartList: itemCartList),
-
-
       const SliverToBoxAdapter(
         child: Divider(),
       ),
-
       DeliverySummary(cartState: cartState),
-
       const SliverToBoxAdapter(
         child: Divider(),
       ),
-      const OptimizedShopWidget(),
+      const OptimizedShopHeader(),
+
+
       const ShopsOptimizedItems(),
       const FinalSummaryTable(),
       const SliverToBoxAdapter(child: SizedBox(height: 50)),

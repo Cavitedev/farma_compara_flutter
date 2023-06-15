@@ -18,14 +18,18 @@ class ShopsOptimizedItems extends ConsumerWidget {
     if (paymentOptimized == null) {
       return const SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()));
     }
-    final List<PaymentShop> shops = paymentOptimized.shopsToPay.values.toList();
+    if(paymentOptimized.isLeft()){
+      return const SliverToBoxAdapter(child: Text("error"));
+    }
+
+    final List<PaymentShop> shops = paymentOptimized.getRight()!.shopsToPay.values.toList();
 
     return SliverList.builder(
       itemBuilder: (context, index) {
         final PaymentShop shop = shops[index];
         return ShopOptimizedItems(
           shop: shop,
-          location: paymentOptimized.location,
+          location: paymentOptimized.getRight()!.location,
         );
       },
       itemCount: shops.length,

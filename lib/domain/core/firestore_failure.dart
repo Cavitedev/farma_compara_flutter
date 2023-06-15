@@ -1,4 +1,6 @@
-class FirestoreFailure {
+import 'package:farma_compara_flutter/domain/core/failure.dart';
+
+class FirestoreFailure extends Failure {
   const FirestoreFailure();
 }
 

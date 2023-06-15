@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/either.dart';
 import '../../../domain/delivery/i_delivery_repository.dart';
-import '../../../domain/items/firestore_failure.dart';
+import '../../../domain/core/firestore_failure.dart';
 import '../core/codes.dart';
 
 final deliveryRepositoryProvider = Provider((ref) => DeliveryRepository(FirebaseFirestore.instance));

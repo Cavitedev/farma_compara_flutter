@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/items/i_items_browse_query.dart';
-import '../../../domain/items/firestore_failure.dart';
+import '../../../domain/core/firestore_failure.dart';
 import '../../algolia_application.dart';
 import '../core/codes.dart';
 

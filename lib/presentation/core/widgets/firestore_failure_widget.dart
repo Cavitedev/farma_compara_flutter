@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/domain/items/firestore_failure.dart';
+import 'package:farma_compara_flutter/domain/core/firestore_failure.dart';
 import 'package:flutter/material.dart';
 
 import 'format_widgets/error_text_with_image.dart';

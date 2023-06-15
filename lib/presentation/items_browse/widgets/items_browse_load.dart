@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../application/browser/browser_notifier.dart';
 import '../../../core/optional.dart';
-import '../../../domain/items/firestore_failure.dart';
+import '../../../domain/core/firestore_failure.dart';
 import '../../core/widgets/firestore_failure_widget.dart';
 import '../../core/widgets/format_widgets/info_text_with_image.dart';
 import '../../core/widgets/loading.dart';

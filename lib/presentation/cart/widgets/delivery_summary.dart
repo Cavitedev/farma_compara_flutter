@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:routemaster/routemaster.dart';
 
 import '../../../application/cart/cart_state.dart';
-import '../../../domain/items/firestore_failure.dart';
 import '../../core/widgets/firestore_failure_widget.dart';
 
 class DeliverySummary extends ConsumerWidget {
@@ -18,24 +17,21 @@ class DeliverySummary extends ConsumerWidget {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: generalPadding),
       sliver: SliverList.list(children: [
-        if (cartState.failure.isValid)
-          if (cartState.failure.value is FirestoreFailure) ...[
-            FirestoreFailureWidget(failure: cartState.failure.value),
-            ElevatedButton(
-              onPressed: () {
-                ref.read(cartNotifierProvider.notifier).loadDeliveryFees();
-              },
-              child: const Text("Refrescar Precio Envío"),
-            )
-          ],
-
+        if (cartState.failure.isValid) ...[
+          FirestoreFailureWidget(failure: cartState.failure.value),
+          ElevatedButton(
+            onPressed: () {
+              ref.read(cartNotifierProvider.notifier).loadDeliveryFees();
+            },
+            child: const Text("Refrescar Precio Envío"),
+          )
+        ],
         ElevatedButton(
           onPressed: () {
             Routemaster.of(context).push("/delivery_fees");
           },
           child: const Text("Ver Precio Envío"),
         )
-
       ]),
     );
   }

@@ -50,9 +50,9 @@ class DeliveryFee {
     return [];
   }
 
-  bool canPurchasedIn(String location) {
-    final locationPrices = _getLocationPrices(location);
-    return locationPrices != [];
+  bool canBeDeliveredIn(String location) {
+    final List<PriceRange> locationPrices = _getLocationPrices(location);
+    return locationPrices.isNotEmpty;
   }
 
   List<Map<String, List<PriceRange>>> groupedByPrice() {

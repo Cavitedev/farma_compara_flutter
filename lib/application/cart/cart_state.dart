@@ -1,7 +1,9 @@
+import 'package:farma_compara_flutter/core/either.dart';
+import 'package:farma_compara_flutter/domain/delivery/delivery_failure.dart';
 
 import '../../core/optional.dart';
 import '../../domain/delivery/delivery_fees.dart';
-import '../../domain/items/firestore_failure.dart';
+import '../../domain/core/firestore_failure.dart';
 import '../../domain/items/item.dart';
 import '../../domain/items/item_cart.dart';
 import '../../domain/items/payment_optimized/payment_optimized.dart';
@@ -11,19 +13,24 @@ class CartState {
   final DeliveryFees deliveryFees;
   final bool isLoading;
   final Optional<FirestoreFailure> failure;
-  final PaymentOptimized? paymentOptimized;
+  final Either<ItemsDeliveryFailure, PaymentOptimized>? paymentOptimized;
   final String location;
 
-  const CartState({
-    required this.items,
-    required this.deliveryFees,
-    this.isLoading = false,
-    this.failure = const Optional(),
-    this.paymentOptimized,
-    this.location = "spain"
-  });
+  const CartState(
+      {required this.items,
+      required this.deliveryFees,
+      this.isLoading = false,
+      this.failure = const Optional(),
+      this.paymentOptimized,
+      this.location = "spain"});
 
-  CartState.init() : items = [], failure = const Optional(), isLoading=false, deliveryFees = DeliveryFees.init(), paymentOptimized= null, location = "spain";
+  CartState.init()
+      : items = [],
+        failure = const Optional(),
+        isLoading = false,
+        deliveryFees = DeliveryFees.init(),
+        paymentOptimized = null,
+        location = "spain";
 
   int get totalItems => items.fold(0, (previousValue, element) => previousValue + element.quantity);
 
@@ -61,7 +68,7 @@ class CartState {
     DeliveryFees? deliveryFees,
     bool? isLoading,
     Optional<FirestoreFailure>? failure,
-    PaymentOptimized? paymentOptimized,
+    Either<ItemsDeliveryFailure, PaymentOptimized>? paymentOptimized,
     String? location,
   }) {
     return CartState(

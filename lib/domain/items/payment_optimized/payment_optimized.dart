@@ -104,6 +104,8 @@ class PaymentShop implements ICloneable<PaymentShop> {
   Either<DeliveryFailure, double> _feeCost(String location, double itemsPrice) =>
       fee.priceFromCost(location, itemsPrice);
 
+  bool canBeDelivered(String location) => fee.canBeDeliveredIn(location);
+
   @override
   PaymentShop clone() {
     return PaymentShop(shopName: shopName, fee: fee, items: (Utils.deepCopy(items) as List<dynamic>).cast<ItemCart>());

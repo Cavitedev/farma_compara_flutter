@@ -14,10 +14,11 @@ class FinalSummaryTable extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final paymentOptimized = ref.watch(cartNotifierProvider).paymentOptimized;
 
-    if (paymentOptimized == null) {
+    if (paymentOptimized == null || paymentOptimized.isLeft()) {
       return const SliverToBoxAdapter(child: SizedBox.shrink());
     }
-    final total = paymentOptimized.total();
+
+    final total = paymentOptimized.getRight()!.total();
     if (total.isLeft() || total.getRight()!.totalPrice == 0) {
       return const SliverToBoxAdapter(child: SizedBox.shrink());
     }
@@ -27,7 +28,7 @@ class FinalSummaryTable extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: generalPadding),
         child: Text("Total", style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center),
       ),
-      TotalPriceTable(totalPrice: paymentOptimized.total().getRight()!)
+      TotalPriceTable(totalPrice: total.getRight()!)
     ]);
   }
 }

@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_margin_and_sizes.dart';
 import 'location_dropdown.dart';
 
-class OptimizedShopWidget extends ConsumerWidget {
-  const OptimizedShopWidget({
+class OptimizedShopHeader extends ConsumerWidget {
+  const OptimizedShopHeader({
     Key? key,
   }) : super(key: key);
 

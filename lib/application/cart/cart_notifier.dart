@@ -1,10 +1,11 @@
 import 'package:farma_compara_flutter/application/cart/cart_state.dart';
 import 'package:farma_compara_flutter/core/either.dart';
 import 'package:farma_compara_flutter/domain/core/utils.dart';
+import 'package:farma_compara_flutter/domain/delivery/delivery_failure.dart';
 import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
 import 'package:farma_compara_flutter/domain/delivery/delivery_fees.dart';
 import 'package:farma_compara_flutter/domain/delivery/i_delivery_repository.dart';
-import 'package:farma_compara_flutter/domain/items/firestore_failure.dart';
+import 'package:farma_compara_flutter/domain/core/firestore_failure.dart';
 import 'package:farma_compara_flutter/domain/items/item_cart.dart';
 import 'package:farma_compara_flutter/domain/items/payment_optimized/payment_optimized.dart';
 import 'package:farma_compara_flutter/domain/items/shop_item.dart';
@@ -32,37 +33,47 @@ class CartNotifier extends StateNotifier<CartState> {
         Map<String, DeliveryFee> deliveryFees = right;
         state = state.copyWith(
             deliveryFees: DeliveryFees(deliveryFeeMap: deliveryFees), failure: const Optional(), isLoading: false);
-        calculateOptimizedPrice();
+        calculateOptimizedPrices();
       },
     );
   }
 
   void addItem(Item item) {
     state = state.addItem(item);
-    calculateOptimizedPrice();
+    calculateOptimizedPrices();
   }
 
   void removeItem(Item item) {
     state = state.removeItem(item);
-    calculateOptimizedPrice();
+    calculateOptimizedPrices();
   }
 
-  void updateLocation(String location){
+  void updateLocation(String location) {
     state = state.copyWith(location: location);
-    calculateOptimizedPrice();
+    calculateOptimizedPrices();
   }
 
-  void calculateOptimizedPrice() {
+  void calculateOptimizedPrices() {
+
+    if(state.deliveryFees.deliveryFeeMap.isEmpty) {
+      return;
+    }
+
     final String location = state.location;
     Map<String, PaymentShop> paymentShops = {};
 
     final List<ItemCart> items = state.items;
 
+    final emptyList = List<ItemDeliveryFailure>.empty(growable: true);
+    final ItemsDeliveryFailure itemsDeliveryFailure = ItemsDeliveryFailure(items: emptyList);
     // Filter unavailable shops and items whose location cannot be used
 
-    _removeNotAvailableItems(items, location);
+    _removeNotAvailableItems(items, itemsDeliveryFailure, location);
 
-    //TODO: If length 0 is not valid, we should notify the user
+    if (itemsDeliveryFailure.hasFailure()) {
+      state = state.copyWith(paymentOptimized:  Left(itemsDeliveryFailure));
+      return;
+    }
 
     // Add items with 1 website first
     _addItemsSingleLocation(items, paymentShops);
@@ -73,7 +84,7 @@ class CartNotifier extends StateNotifier<CartState> {
         items.where((element) => element.item.websiteItems.length > 1).toList();
     if (items.isEmpty) {
       final PaymentOptimized paymentOptimized = PaymentOptimized(shopsToPay: paymentShops, location: location);
-      state = state.copyWith(paymentOptimized: paymentOptimized);
+      state = state.copyWith(paymentOptimized: Right(paymentOptimized));
       return;
     }
 
@@ -97,7 +108,37 @@ class CartNotifier extends StateNotifier<CartState> {
       }
     }
 
-    state = state.copyWith(paymentOptimized: bestOption);
+    state = state.copyWith(paymentOptimized: Right(bestOption!));
+  }
+
+  void _removeNotAvailableItems(List<ItemCart> items, ItemsDeliveryFailure itemsFailure, String location) {
+    for (int i = 0; i < items.length; i++) {
+      final cartItem = items[i];
+      Map<String, ShopItem> filteredWebsiteItems = {};
+
+      final ItemDeliveryFailure itemfailure = ItemDeliveryFailure(item: cartItem.item, websites: []);
+
+      for (final websiteItem in cartItem.item.websiteItems.entries) {
+        final fee = state.deliveryFees.deliveryFeeMap[websiteItem.key]!;
+
+        if (!websiteItem.value.available) {
+          const DeliveryFailure failure = DeliveryFailureNotAvailable();
+          final webFailure = WebsiteDeliveryFailure(website: websiteItem.key, failure: failure);
+          itemfailure.websites.add(webFailure);
+        } else if (!fee.canBeDeliveredIn(location)) {
+          final DeliveryFailure failure = DeliveryFailureNotFound(location: location);
+          final WebsiteDeliveryFailure webFailure = WebsiteDeliveryFailure(website: websiteItem.key, failure: failure);
+          itemfailure.websites.add(webFailure);
+        } else {
+          filteredWebsiteItems[websiteItem.key] = websiteItem.value;
+        }
+      }
+      if (filteredWebsiteItems.isEmpty) {
+        itemsFailure.items.add(itemfailure);
+      }
+
+      items[i] = cartItem.copyWith(item: cartItem.item.copyWith(websiteItems: filteredWebsiteItems));
+    }
   }
 
   void _addOptionsByProductPrice(
@@ -145,22 +186,6 @@ class CartNotifier extends StateNotifier<CartState> {
         final String key = cartItem.item.websiteItems.keys.first;
         _addItemByKey(key, paymentShops, cartItem);
       }
-    }
-  }
-
-  void _removeNotAvailableItems(List<ItemCart> items, String location) {
-    for (int i = 0; i < items.length; i++) {
-      final cartItem = items[i];
-      Map<String, ShopItem> filteredWebsiteItems = {};
-
-      for (final websiteItem in cartItem.item.websiteItems.entries) {
-        final fee = state.deliveryFees.deliveryFeeMap[websiteItem.key]!;
-
-        if (websiteItem.value.available && fee.canPurchasedIn(location)) {
-          filteredWebsiteItems[websiteItem.key] = websiteItem.value;
-        }
-      }
-      items[i] = cartItem.copyWith(item: cartItem.item.copyWith(websiteItems: filteredWebsiteItems));
     }
   }
 }

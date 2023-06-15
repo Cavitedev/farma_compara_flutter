@@ -4,25 +4,25 @@ class LocationsHierarchy {
   static const locationsHierarchy = {
     "peninsula": {
       "spain": {
-        "balearic": {
-          "mallorca": "",
-          "menorca": "",
-          "ibiza": "",
-          "formentera": "",
-        },
-        "canary": "",
         "ceuta_meilla": {
           "ceuta": "",
           "melilla": "",
         },
         "madrid": "",
       },
+      "balearic": {
+        "mallorca": "",
+        "menorca": "",
+        "ibiza": "",
+        "formentera": "",
+      },
+      "canary": "",
       "portugal": "",
     },
   };
 
   static const locationsTranslations = {
-    "spain": "España",
+    "spain": "España Península",
     "portugal": "Portugal",
     "balearic": "Baleares",
     "mallorca": "Mallorca",

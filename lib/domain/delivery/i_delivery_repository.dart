@@ -1,5 +1,5 @@
 import '../../core/either.dart';
-import '../items/firestore_failure.dart';
+import '../core/firestore_failure.dart';
 import 'delivery_fee.dart';
 
 abstract class IDeliveryRepository{

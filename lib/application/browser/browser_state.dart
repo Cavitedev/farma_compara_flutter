@@ -3,7 +3,7 @@ import 'package:farma_compara_flutter/domain/items/item.dart';
 import 'package:farma_compara_flutter/infrastructure/firebase/items/items_browse_query.dart';
 
 import '../../domain/items/i_items_browse_query.dart';
-import '../../domain/items/firestore_failure.dart';
+import '../../domain/core/firestore_failure.dart';
 
 class BrowserState {
   final IItemsBrowseQuery query;

@@ -14,10 +14,10 @@ class TotalPriceItems extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final paymentOptimized = ref.watch(cartNotifierProvider).paymentOptimized;
 
-    if (paymentOptimized == null) {
+    if (paymentOptimized == null || paymentOptimized.isLeft()) {
       return const SizedBox.shrink();
     }
-    final total = paymentOptimized.total();
+    final total = paymentOptimized.getRight()!.total();
     if (total.isLeft() || total.getRight()!.totalPrice == 0) {
       return const SizedBox.shrink();
     }

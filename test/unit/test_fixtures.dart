@@ -159,6 +159,14 @@ class TestFixtures {
         ),
         PriceRange(price: 0, min: 119),
       ],
+      "canary": [
+        PriceRange(
+          price: 8.95,
+          min: 9,
+          max: 118.99,
+        ),
+        PriceRange(price: 0, min: 119),
+      ]
     },
     url: "https://okfarma.es/envio",
   );
