@@ -6,6 +6,8 @@ on:
   
 
 jobs:
+
+
   build_apk:
     permissions: write-all
     environment: release
@@ -54,8 +56,8 @@ jobs:
         uses: svenstaro/upload-release-action@2.6.1
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/app/outputs/flutter-apk/app.apk
-          asset_name: ZacatrusaApp.apk
+          file: build/app/outputs/flutter-apk/app-release.apk
+          asset_name: FarmaCompara.apk
           release_name: "Farma Compara Android"
           tag: ${{ steps.read_version.outputs.version }}
           overwrite: true
