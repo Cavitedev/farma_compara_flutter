@@ -13,18 +13,23 @@ jobs:
      Keystore: ${{ secrets.KEYSTORE }}
      Signing: ${{ secrets.SIGNING_PROPERTIES }}
      firebase_options: ${{ secrets.FIREBASE_OPTIONS }}
-     algolia: ${{secrets.ALGOLIAAPPLICATION}}
+     algolia: ${{secrets.ALGOLIA_APPLICATION}}
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
+
       - name: Move Signing Properties to project
         run: echo "$Signing" | base64 -d > ./android/signing.properties
+
       - name: Move keystore to project
         run: echo "$Keystore" | base64 -d > ./android/CaviKeystore.jks
+
       - name: Move firebase options to project
-        run: echo "$firebase_options" | base64 -d > ./lib/firebase_options.darts
+        run: echo "$firebase_options" | base64 -d > ./lib/firebase_options.dart
+
       - name: Move algolia Application
         run: echo "$algolia" | base64 -d > ./lib/infrastructure/algolia_application.dart
+
       - name: Install and set Flutter version
         uses: subosito/flutter-action@v1.5.3
         with:
