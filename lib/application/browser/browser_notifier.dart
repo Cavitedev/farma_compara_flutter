@@ -51,8 +51,7 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
   }
 
   void clear() {
-    state = state
-        .copyWith(items: [], itemsFound: null, query: state.query.copyWith(page: 0, last: const Optional()));
+    state = state.copyWith(items: [], itemsFound: null, query: state.query.copyWith(page: 0, last: const Optional()));
 
     loadItems();
   }
