@@ -1,13 +1,20 @@
 name: Build apk and upload to github
 
 on:
-  push:
-    branches: [master, github_action]
-  
+#  push:
+#    branches: [master, github_action]
+  workflow_call:
+    secrets:
+      KEYSTORE:
+        required: true
+      SIGNING_PROPERTIES:
+        required: true
+      FIREBASE_OPTIONS:
+        required: true
+      ALGOLIA_APPLICATION:
+        required: true
 
 jobs:
-
-
   build_apk:
     permissions: write-all
     environment: release
@@ -37,7 +44,7 @@ jobs:
       - run: tree -d
 
       - name: Install and set Flutter version
-        uses: subosito/flutter-action@v1.5.3
+        uses: subosito/flutter-action@v2.1.0
         with:
           channel: 'stable'
       - name: Restore packages

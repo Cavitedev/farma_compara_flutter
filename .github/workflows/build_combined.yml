@@ -1,0 +1,14 @@
+name: Test and Build
+
+on:
+  push:
+    branches: [master, github_action]
+
+jobs:
+  tests:
+    uses: /.github/workflows/tests.yml
+    secrets: inherit
+  build_apk:
+    uses: /.github/workflows/buildApk.yml
+    needs: [tests]
+    secrets: inherit
