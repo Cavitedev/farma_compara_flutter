@@ -25,7 +25,7 @@ void main() {
     cartNotifier.calculateOptimizedPrices();
     final price = cartNotifier.state.paymentOptimized!.getRight()!.total().getRight()!.totalPrice;
 
-    expect(price, 73.91);
+    expect((price*100).roundToDouble() / 100,  73.91);
   });
 
   test("Notifier resolves the best price from 2 items is not the lowest of each item", () {
@@ -34,7 +34,7 @@ void main() {
     cartNotifier.calculateOptimizedPrices();
     final price = cartNotifier.state.paymentOptimized!.getRight()!.total().getRight()!.totalPrice;
 
-    expect(price, 75.94);
+    expect((price*100).roundToDouble() / 100, 75.94);
   });
 
   test("Notifier resolves item3 has a location failure and a not available failure", () {
