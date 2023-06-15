@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/presentation/delivery_fees/widgets/delivery_fees_list.dart';
+import 'package:farma_compara/presentation/delivery_fees/widgets/delivery_fees_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

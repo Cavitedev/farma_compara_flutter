@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/presentation/cart/widgets/optimize_purchase/total_price_items.dart';
+import 'package:farma_compara/presentation/cart/widgets/optimize_purchase/total_price_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

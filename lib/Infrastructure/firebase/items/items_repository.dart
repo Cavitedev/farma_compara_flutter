@@ -1,11 +1,11 @@
 import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:farma_compara_flutter/core/either.dart';
-import 'package:farma_compara_flutter/domain/items/i_item_repository.dart';
-import 'package:farma_compara_flutter/domain/items/item.dart';
-import 'package:farma_compara_flutter/domain/items/items_fetch.dart';
-import 'package:farma_compara_flutter/infrastructure/firebase/core/firebase_user_helper.dart';
+import 'package:farma_compara/core/either.dart';
+import 'package:farma_compara/domain/items/i_item_repository.dart';
+import 'package:farma_compara/domain/items/item.dart';
+import 'package:farma_compara/domain/items/items_fetch.dart';
+import 'package:farma_compara/infrastructure/firebase/core/firebase_user_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

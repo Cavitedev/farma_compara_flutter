@@ -1,5 +1,5 @@
-import 'package:farma_compara_flutter/domain/core/sort_order.dart';
-import 'package:farma_compara_flutter/domain/items/item.dart';
+import 'package:farma_compara/domain/core/sort_order.dart';
+import 'package:farma_compara/domain/items/item.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

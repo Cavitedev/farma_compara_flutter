@@ -1,6 +1,6 @@
-import 'package:farma_compara_flutter/domain/items/item.dart';
-import 'package:farma_compara_flutter/domain/items/shop_item.dart';
-import 'package:farma_compara_flutter/presentation/core/shared/shop_badge/shop_badge.dart';
+import 'package:farma_compara/domain/items/item.dart';
+import 'package:farma_compara/domain/items/shop_item.dart';
+import 'package:farma_compara/presentation/core/shared/shop_badge/shop_badge.dart';
 import 'package:flutter/material.dart';
 
 class ShopBadgesRow extends StatelessWidget {

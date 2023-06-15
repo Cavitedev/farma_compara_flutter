@@ -1,8 +1,8 @@
-import 'package:farma_compara_flutter/core/either.dart';
-import 'package:farma_compara_flutter/domain/items/i_item_repository.dart';
-import 'package:farma_compara_flutter/domain/items/item.dart';
-import 'package:farma_compara_flutter/domain/core/firestore_failure.dart';
-import 'package:farma_compara_flutter/domain/items/items_fetch.dart';
+import 'package:farma_compara/core/either.dart';
+import 'package:farma_compara/domain/items/i_item_repository.dart';
+import 'package:farma_compara/domain/items/item.dart';
+import 'package:farma_compara/domain/core/firestore_failure.dart';
+import 'package:farma_compara/domain/items/items_fetch.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

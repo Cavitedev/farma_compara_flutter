@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:farma_compara_flutter/core/date_time_extension.dart';
-import 'package:farma_compara_flutter/domain/items/item_utils.dart';
-import 'package:farma_compara_flutter/domain/items/shop_item.dart';
+import 'package:farma_compara/core/date_time_extension.dart';
+import 'package:farma_compara/domain/items/item_utils.dart';
+import 'package:farma_compara/domain/items/shop_item.dart';
 
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';

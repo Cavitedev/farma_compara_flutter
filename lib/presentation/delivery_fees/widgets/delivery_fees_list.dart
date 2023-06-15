@@ -1,9 +1,9 @@
-import 'package:farma_compara_flutter/application/cart/cart_notifier.dart';
-import 'package:farma_compara_flutter/core/constants/app_margin_and_sizes.dart';
-import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
-import 'package:farma_compara_flutter/domain/delivery/price_range.dart';
-import 'package:farma_compara_flutter/domain/items/item_utils.dart';
-import 'package:farma_compara_flutter/domain/locations/locations_hierarchy.dart';
+import 'package:farma_compara/application/cart/cart_notifier.dart';
+import 'package:farma_compara/core/constants/app_margin_and_sizes.dart';
+import 'package:farma_compara/domain/delivery/delivery_fee.dart';
+import 'package:farma_compara/domain/delivery/price_range.dart';
+import 'package:farma_compara/domain/items/item_utils.dart';
+import 'package:farma_compara/domain/locations/locations_hierarchy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';

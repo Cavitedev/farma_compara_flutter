@@ -1,9 +1,9 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'package:farma_compara_flutter/application/cart/cart_notifier.dart';
-import 'package:farma_compara_flutter/application/cart/cart_state.dart';
-import 'package:farma_compara_flutter/domain/delivery/delivery_failure.dart';
-import 'package:farma_compara_flutter/domain/delivery/i_delivery_repository.dart';
+import 'package:farma_compara/application/cart/cart_notifier.dart';
+import 'package:farma_compara/application/cart/cart_state.dart';
+import 'package:farma_compara/domain/delivery/delivery_failure.dart';
+import 'package:farma_compara/domain/delivery/i_delivery_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

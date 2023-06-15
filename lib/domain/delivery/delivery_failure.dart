@@ -1,5 +1,5 @@
-import 'package:farma_compara_flutter/domain/items/item.dart';
-import 'package:farma_compara_flutter/domain/locations/locations_hierarchy.dart';
+import 'package:farma_compara/domain/items/item.dart';
+import 'package:farma_compara/domain/locations/locations_hierarchy.dart';
 
 import '../core/failure.dart';
 

@@ -1,5 +1,5 @@
-import 'package:farma_compara_flutter/domain/delivery/delivery_failure.dart';
-import 'package:farma_compara_flutter/domain/items/payment_optimized/payment_optimized.dart';
+import 'package:farma_compara/domain/delivery/delivery_failure.dart';
+import 'package:farma_compara/domain/items/payment_optimized/payment_optimized.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../test_fixtures.dart';

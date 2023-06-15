@@ -1,7 +1,7 @@
-import 'package:farma_compara_flutter/application/cart/cart_notifier.dart';
-import 'package:farma_compara_flutter/domain/items/item_utils.dart';
-import 'package:farma_compara_flutter/domain/items/payment_optimized/payment_optimized.dart';
-import 'package:farma_compara_flutter/presentation/cart/widgets/optimize_purchase/total_price_table.dart';
+import 'package:farma_compara/application/cart/cart_notifier.dart';
+import 'package:farma_compara/domain/items/item_utils.dart';
+import 'package:farma_compara/domain/items/payment_optimized/payment_optimized.dart';
+import 'package:farma_compara/presentation/cart/widgets/optimize_purchase/total_price_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

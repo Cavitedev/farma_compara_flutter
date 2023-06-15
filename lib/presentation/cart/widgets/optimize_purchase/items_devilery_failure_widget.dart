@@ -1,6 +1,6 @@
-import 'package:farma_compara_flutter/core/constants/app_margin_and_sizes.dart';
-import 'package:farma_compara_flutter/domain/items/item_utils.dart';
-import 'package:farma_compara_flutter/presentation/items_browse/widgets/items_browse_sliver_list.dart';
+import 'package:farma_compara/core/constants/app_margin_and_sizes.dart';
+import 'package:farma_compara/domain/items/item_utils.dart';
+import 'package:farma_compara/presentation/items_browse/widgets/items_browse_sliver_list.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/delivery/delivery_failure.dart';

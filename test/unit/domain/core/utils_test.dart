@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/domain/core/utils.dart';
+import 'package:farma_compara/domain/core/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

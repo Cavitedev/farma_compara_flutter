@@ -1,5 +1,5 @@
 
-import 'package:farma_compara_flutter/infrastructure/firebase/items/items_browse_query.dart';
+import 'package:farma_compara/infrastructure/firebase/items/items_browse_query.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

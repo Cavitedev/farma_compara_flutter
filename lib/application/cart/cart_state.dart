@@ -1,5 +1,5 @@
-import 'package:farma_compara_flutter/core/either.dart';
-import 'package:farma_compara_flutter/domain/delivery/delivery_failure.dart';
+import 'package:farma_compara/core/either.dart';
+import 'package:farma_compara/domain/delivery/delivery_failure.dart';
 
 import '../../core/optional.dart';
 import '../../domain/delivery/delivery_fees.dart';

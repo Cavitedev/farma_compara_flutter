@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:farma_compara_flutter/domain/items/item_cart.dart';
-import 'package:farma_compara_flutter/domain/items/item_utils.dart';
-import 'package:farma_compara_flutter/presentation/cart/widgets/update_count_cart.dart';
-import 'package:farma_compara_flutter/presentation/core/shared/shop_badge/shop_badges_row.dart';
+import 'package:farma_compara/domain/items/item_cart.dart';
+import 'package:farma_compara/domain/items/item_utils.dart';
+import 'package:farma_compara/presentation/cart/widgets/update_count_cart.dart';
+import 'package:farma_compara/presentation/core/shared/shop_badge/shop_badges_row.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_margin_and_sizes.dart';

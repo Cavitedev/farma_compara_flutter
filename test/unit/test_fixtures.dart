@@ -1,12 +1,12 @@
-import 'package:farma_compara_flutter/application/cart/cart_state.dart';
-import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
-import 'package:farma_compara_flutter/domain/delivery/delivery_fees.dart';
-import 'package:farma_compara_flutter/domain/delivery/price_range.dart';
-import 'package:farma_compara_flutter/domain/items/item.dart';
-import 'package:farma_compara_flutter/domain/items/item_cart.dart';
-import 'package:farma_compara_flutter/domain/items/item_utils.dart';
-import 'package:farma_compara_flutter/domain/items/payment_optimized/payment_optimized.dart';
-import 'package:farma_compara_flutter/domain/items/shop_item.dart';
+import 'package:farma_compara/application/cart/cart_state.dart';
+import 'package:farma_compara/domain/delivery/delivery_fee.dart';
+import 'package:farma_compara/domain/delivery/delivery_fees.dart';
+import 'package:farma_compara/domain/delivery/price_range.dart';
+import 'package:farma_compara/domain/items/item.dart';
+import 'package:farma_compara/domain/items/item_cart.dart';
+import 'package:farma_compara/domain/items/item_utils.dart';
+import 'package:farma_compara/domain/items/payment_optimized/payment_optimized.dart';
+import 'package:farma_compara/domain/items/shop_item.dart';
 
 class TestFixtures {
   static CartState cartState = CartState(

@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/core/constants/app_margin_and_sizes.dart';
+import 'package:farma_compara/core/constants/app_margin_and_sizes.dart';
 import 'package:flutter/material.dart';
 
 class TablePadding extends StatelessWidget {

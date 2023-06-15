@@ -1,9 +1,9 @@
-import 'package:farma_compara_flutter/core/either.dart';
-import 'package:farma_compara_flutter/domain/core/i_cloneable.dart';
-import 'package:farma_compara_flutter/domain/core/utils.dart';
-import 'package:farma_compara_flutter/domain/delivery/delivery_failure.dart';
-import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
-import 'package:farma_compara_flutter/domain/items/payment_optimized/total_price.dart';
+import 'package:farma_compara/core/either.dart';
+import 'package:farma_compara/domain/core/i_cloneable.dart';
+import 'package:farma_compara/domain/core/utils.dart';
+import 'package:farma_compara/domain/delivery/delivery_failure.dart';
+import 'package:farma_compara/domain/delivery/delivery_fee.dart';
+import 'package:farma_compara/domain/items/payment_optimized/total_price.dart';
 
 import '../item_cart.dart';
 

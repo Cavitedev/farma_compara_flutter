@@ -1,5 +1,5 @@
-import 'package:farma_compara_flutter/domain/locations/locations_hierarchy.dart';
-import 'package:farma_compara_flutter/presentation/core/widgets/format_widgets/error_text_with_image.dart';
+import 'package:farma_compara/domain/locations/locations_hierarchy.dart';
+import 'package:farma_compara/presentation/core/widgets/format_widgets/error_text_with_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

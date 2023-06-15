@@ -1,15 +1,15 @@
-import 'package:farma_compara_flutter/application/cart/cart_state.dart';
-import 'package:farma_compara_flutter/core/either.dart';
-import 'package:farma_compara_flutter/domain/core/utils.dart';
-import 'package:farma_compara_flutter/domain/delivery/delivery_failure.dart';
-import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
-import 'package:farma_compara_flutter/domain/delivery/delivery_fees.dart';
-import 'package:farma_compara_flutter/domain/delivery/i_delivery_repository.dart';
-import 'package:farma_compara_flutter/domain/core/firestore_failure.dart';
-import 'package:farma_compara_flutter/domain/items/item_cart.dart';
-import 'package:farma_compara_flutter/domain/items/payment_optimized/payment_optimized.dart';
-import 'package:farma_compara_flutter/domain/items/shop_item.dart';
-import 'package:farma_compara_flutter/infrastructure/firebase/delivery/delivery_repository.dart';
+import 'package:farma_compara/application/cart/cart_state.dart';
+import 'package:farma_compara/core/either.dart';
+import 'package:farma_compara/domain/core/utils.dart';
+import 'package:farma_compara/domain/delivery/delivery_failure.dart';
+import 'package:farma_compara/domain/delivery/delivery_fee.dart';
+import 'package:farma_compara/domain/delivery/delivery_fees.dart';
+import 'package:farma_compara/domain/delivery/i_delivery_repository.dart';
+import 'package:farma_compara/domain/core/firestore_failure.dart';
+import 'package:farma_compara/domain/items/item_cart.dart';
+import 'package:farma_compara/domain/items/payment_optimized/payment_optimized.dart';
+import 'package:farma_compara/domain/items/shop_item.dart';
+import 'package:farma_compara/infrastructure/firebase/delivery/delivery_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/optional.dart';

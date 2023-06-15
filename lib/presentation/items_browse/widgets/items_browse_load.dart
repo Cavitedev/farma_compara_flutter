@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/application/browser/browser_state.dart';
+import 'package:farma_compara/application/browser/browser_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

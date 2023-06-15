@@ -1,6 +1,6 @@
-import 'package:farma_compara_flutter/presentation/delivery_fees/delivery_fees_screen.dart';
-import 'package:farma_compara_flutter/presentation/item_details/item_details_screen.dart';
-import 'package:farma_compara_flutter/presentation/items_browse/items_browse_screen.dart';
+import 'package:farma_compara/presentation/delivery_fees/delivery_fees_screen.dart';
+import 'package:farma_compara/presentation/item_details/item_details_screen.dart';
+import 'package:farma_compara/presentation/items_browse/items_browse_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:routemaster/routemaster.dart';

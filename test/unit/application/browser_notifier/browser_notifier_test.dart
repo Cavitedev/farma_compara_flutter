@@ -1,12 +1,12 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'package:farma_compara_flutter/application/browser/browser_notifier.dart';
-import 'package:farma_compara_flutter/core/either.dart';
-import 'package:farma_compara_flutter/domain/items/i_item_repository.dart';
-import 'package:farma_compara_flutter/domain/items/item.dart';
-import 'package:farma_compara_flutter/domain/items/items_fetch.dart';
-import 'package:farma_compara_flutter/domain/items/shop_item.dart';
-import 'package:farma_compara_flutter/infrastructure/firebase/items/items_browse_query.dart';
+import 'package:farma_compara/application/browser/browser_notifier.dart';
+import 'package:farma_compara/core/either.dart';
+import 'package:farma_compara/domain/items/i_item_repository.dart';
+import 'package:farma_compara/domain/items/item.dart';
+import 'package:farma_compara/domain/items/items_fetch.dart';
+import 'package:farma_compara/domain/items/shop_item.dart';
+import 'package:farma_compara/infrastructure/firebase/items/items_browse_query.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

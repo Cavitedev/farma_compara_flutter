@@ -1,7 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
-import 'package:farma_compara_flutter/infrastructure/firebase/core/firebase_user_helper.dart';
+import 'package:farma_compara/domain/delivery/delivery_fee.dart';
+import 'package:farma_compara/infrastructure/firebase/core/firebase_user_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

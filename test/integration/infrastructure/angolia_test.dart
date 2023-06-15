@@ -1,5 +1,5 @@
 import 'package:algolia/algolia.dart';
-import 'package:farma_compara_flutter/Infrastructure/algolia_application.dart';
+import 'package:farma_compara/Infrastructure/algolia_application.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

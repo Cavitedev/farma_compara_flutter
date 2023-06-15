@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:farma_compara_flutter/domain/core/i_cloneable.dart';
+import 'package:farma_compara/domain/core/i_cloneable.dart';
 
 class Utils {
   static dynamic deepCopy(dynamic item) {

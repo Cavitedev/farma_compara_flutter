@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/domain/core/sort_order.dart';
+import 'package:farma_compara/domain/core/sort_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

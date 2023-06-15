@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/domain/items/item_cart.dart';
+import 'package:farma_compara/domain/items/item_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

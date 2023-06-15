@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/core/constants/custom_theme.dart';
+import 'package:farma_compara/core/constants/custom_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

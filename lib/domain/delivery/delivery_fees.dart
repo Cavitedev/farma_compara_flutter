@@ -1,4 +1,4 @@
-import 'package:farma_compara_flutter/domain/delivery/delivery_fee.dart';
+import 'package:farma_compara/domain/delivery/delivery_fee.dart';
 
 class DeliveryFees{
 

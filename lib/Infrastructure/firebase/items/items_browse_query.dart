@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:farma_compara_flutter/domain/core/sort_order.dart';
+import 'package:farma_compara/domain/core/sort_order.dart';
 
 import '../../../core/optional.dart';
 import '../../../domain/items/i_items_browse_query.dart';

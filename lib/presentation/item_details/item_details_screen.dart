@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:farma_compara_flutter/application/browser/browser_notifier.dart';
-import 'package:farma_compara_flutter/presentation/item_details/widgets/item_details_other_pages_list.dart';
-import 'package:farma_compara_flutter/presentation/items_browse/widgets/price_text.dart';
+import 'package:farma_compara/application/browser/browser_notifier.dart';
+import 'package:farma_compara/presentation/item_details/widgets/item_details_other_pages_list.dart';
+import 'package:farma_compara/presentation/items_browse/widgets/price_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

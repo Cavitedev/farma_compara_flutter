@@ -1,6 +1,6 @@
-import 'package:farma_compara_flutter/domain/delivery/delivery_failure.dart';
-import 'package:farma_compara_flutter/domain/delivery/price_range.dart';
-import 'package:farma_compara_flutter/domain/locations/locations_hierarchy.dart';
+import 'package:farma_compara/domain/delivery/delivery_failure.dart';
+import 'package:farma_compara/domain/delivery/price_range.dart';
+import 'package:farma_compara/domain/locations/locations_hierarchy.dart';
 
 import '../../core/either.dart';
 

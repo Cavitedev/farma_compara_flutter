@@ -1,5 +1,5 @@
-import 'package:farma_compara_flutter/presentation/items_browse/widgets/header_row/header_row.dart';
-import 'package:farma_compara_flutter/presentation/items_browse/widgets/items_browse_load.dart';
+import 'package:farma_compara/presentation/items_browse/widgets/header_row/header_row.dart';
+import 'package:farma_compara/presentation/items_browse/widgets/items_browse_load.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

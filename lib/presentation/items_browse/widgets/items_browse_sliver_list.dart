@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:farma_compara_flutter/presentation/core/shared/shop_badge/shop_badges_row.dart';
-import 'package:farma_compara_flutter/presentation/items_browse/widgets/price_text.dart';
+import 'package:farma_compara/presentation/core/shared/shop_badge/shop_badges_row.dart';
+import 'package:farma_compara/presentation/items_browse/widgets/price_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:routemaster/routemaster.dart';

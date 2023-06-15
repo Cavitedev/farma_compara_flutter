@@ -1,10 +1,10 @@
-import 'package:farma_compara_flutter/application/cart/cart_state.dart';
-import 'package:farma_compara_flutter/domain/items/item_cart.dart';
-import 'package:farma_compara_flutter/presentation/cart/widgets/delivery_summary.dart';
-import 'package:farma_compara_flutter/presentation/cart/widgets/item_cart_list.dart';
-import 'package:farma_compara_flutter/presentation/cart/widgets/optimize_purchase/final_summary_table.dart';
-import 'package:farma_compara_flutter/presentation/cart/widgets/optimize_purchase/optimized_shop_header.dart';
-import 'package:farma_compara_flutter/presentation/cart/widgets/optimize_purchase/shops_optimized_items.dart';
+import 'package:farma_compara/application/cart/cart_state.dart';
+import 'package:farma_compara/domain/items/item_cart.dart';
+import 'package:farma_compara/presentation/cart/widgets/delivery_summary.dart';
+import 'package:farma_compara/presentation/cart/widgets/item_cart_list.dart';
+import 'package:farma_compara/presentation/cart/widgets/optimize_purchase/final_summary_table.dart';
+import 'package:farma_compara/presentation/cart/widgets/optimize_purchase/optimized_shop_header.dart';
+import 'package:farma_compara/presentation/cart/widgets/optimize_purchase/shops_optimized_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
