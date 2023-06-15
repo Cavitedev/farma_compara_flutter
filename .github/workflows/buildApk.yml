@@ -41,8 +41,8 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/app/outputs/flutter-apk/app.apk
           asset_name: ZacatrusaApp.apk
-          release_name: "Zacatrusa Android"
+          release_name: "Farma Compara Android"
           tag: ${{ steps.read_version.outputs.version }}
           overwrite: true
-          body: "Aplicación en Android de Zacatrusa"
+          body: "Comparador de Farmacias"
       
