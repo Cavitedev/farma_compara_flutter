@@ -2,7 +2,7 @@ name: Build apk and upload to github
 
 on:
   push:
-    branches: [master]
+    branches: [master, github_action]
   
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
      algolia: ${{secrets.ALGOLIA_APPLICATION}}
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.5.3
 
       - name: Move Signing Properties to project
         run: echo "$Signing" | base64 -d > ./android/signing.properties
