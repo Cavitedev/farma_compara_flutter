@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       firebase_options: ${{ secrets.FIREBASE_OPTIONS }}
-      algolia: ${{secrets.ALGOLIA_APPLICATION}
+      algolia: ${{secrets.ALGOLIA_APPLICATION}}
     steps:
       - name: Checkout the code
         uses: actions/checkout@v3.5.3
