@@ -6,9 +6,9 @@ on:
 
 jobs:
   tests:
-    uses: /.github/workflows/tests.yml@latest
+    uses: ./github/workflows/tests.yml@latest
     secrets: inherit
   build_apk:
-    uses: /.github/workflows/buildApk.yml@latest
+    uses: ./github/workflows/buildApk.yml@latest
     needs: [tests]
     secrets: inherit
