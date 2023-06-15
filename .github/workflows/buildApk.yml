@@ -25,10 +25,10 @@ jobs:
         run: echo "$Keystore" | base64 -d > ./android/CaviKeystore.jks
 
       - name: Move firebase options to project
-        run: echo "$firebase_options" | base64 -d > ./lib/infrastructure/firebase_options.dart
+        run: echo "$firebase_options" | base64 -d > ./lib/firebase_options.dart
 
       - name: Move algolia Application
-        run: echo "$algolia" | base64 -d > ./lib/infrastructure/algolia_application.dart
+        run: echo "$algolia" | base64 -d > ./lib/algolia_application.dart
 
       - name: Install and set Flutter version
         uses: subosito/flutter-action@v1.5.3
