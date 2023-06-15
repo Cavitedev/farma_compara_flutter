@@ -42,6 +42,8 @@ class ItemCartDetail extends StatelessWidget {
     final double price = shopName != null ? itemCart.item.websiteItems[shopName!]!.price! : itemCart.item.bestPrice;
 
     final item = itemCart.item;
+
+
     return Padding(
       padding: const EdgeInsets.all(listPadding),
       child: Card(

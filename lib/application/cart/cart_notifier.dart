@@ -65,7 +65,7 @@ class CartNotifier extends StateNotifier<CartState> {
     final List<ItemCart> items = (Utils.deepCopy(state.items) as List<dynamic>).cast<ItemCart>();
 
     final emptyList = List<ItemDeliveryFailure>.empty(growable: true);
-    final ItemsDeliveryFailure itemsDeliveryFailure = ItemsDeliveryFailure(items: emptyList);
+    final ItemsDeliveryFailure itemsDeliveryFailure = ItemsDeliveryFailure(items: emptyList, location: location);
     // Filter unavailable shops and items whose location cannot be used
 
     _removeNotAvailableItems(items, itemsDeliveryFailure, location);

@@ -1,4 +1,5 @@
 import 'package:farma_compara_flutter/domain/items/item.dart';
+import 'package:farma_compara_flutter/domain/locations/locations_hierarchy.dart';
 
 import '../core/failure.dart';
 
@@ -14,7 +15,7 @@ class DeliveryFailureNotFound extends DeliveryFailure {
   const DeliveryFailureNotFound({required this.location});
 
   @override
-  String get msg => "No se han encontrado datos de envío para $location";
+  String get msg => "No permite envíos hacia ${LocationsHierarchy.locationsTranslations[location]}";
 
   @override
   bool operator ==(Object other) =>
@@ -36,9 +37,11 @@ class DeliveryFailureNotAvailable extends DeliveryFailure {
 
 class ItemsDeliveryFailure extends Failure{
   final List<ItemDeliveryFailure> items;
+  final String location;
 
   const ItemsDeliveryFailure({
     required this.items,
+    required this.location,
   });
 
   bool hasFailure(){

@@ -130,6 +130,6 @@ class ListItem extends ConsumerWidget {
   }
 
   void _goDetailsPage(WidgetRef ref) {
-    Routemaster.of(ref.context).push('item/${item.ref}');
+    Routemaster.of(ref.context).push('/item/${item.ref}');
   }
 }

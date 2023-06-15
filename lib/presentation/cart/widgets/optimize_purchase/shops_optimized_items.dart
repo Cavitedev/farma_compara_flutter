@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../item_cart_list.dart';
+import 'items_devilery_failure_widget.dart';
 
 class ShopsOptimizedItems extends ConsumerWidget {
   const ShopsOptimizedItems({
@@ -19,7 +20,7 @@ class ShopsOptimizedItems extends ConsumerWidget {
       return const SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()));
     }
     if(paymentOptimized.isLeft()){
-      return const SliverToBoxAdapter(child: Text("error"));
+      return ItemsDeliveryFailureWidget(failure: paymentOptimized.getLeft()!);
     }
 
     final List<PaymentShop> shops = paymentOptimized.getRight()!.shopsToPay.values.toList();
