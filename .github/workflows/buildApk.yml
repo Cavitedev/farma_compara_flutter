@@ -30,7 +30,7 @@ jobs:
       - name: Move algolia Application
         run: echo "$algolia" | base64 -d > ./lib/algolia_application.dart
 
-      - run: apt install tree
+      - run: sudo apt install tree
       - run: tree -d
 
       - name: Install and set Flutter version
