@@ -4,7 +4,6 @@ import 'package:farma_compara/domain/core/utils.dart';
 import 'package:farma_compara/domain/delivery/delivery_failure.dart';
 import 'package:farma_compara/domain/delivery/delivery_fee.dart';
 import 'package:farma_compara/domain/items/payment_optimized/total_price.dart';
-
 import '../item_cart.dart';
 
 class PaymentOptimized {
@@ -32,6 +31,9 @@ class PaymentOptimized {
     }
     return Right(TotalPrice(itemsPrice: totalItems, feeCost: totalFees));
   }
+
+
+
 
 //<editor-fold desc="Data Methods">
   @override
