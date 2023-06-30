@@ -5,7 +5,7 @@ import 'package:farma_compara/domain/delivery/delivery_fee.dart';
 import 'package:farma_compara/domain/delivery/delivery_fees.dart';
 import 'package:farma_compara/domain/delivery/i_delivery_repository.dart';
 import 'package:farma_compara/domain/core/firestore_failure.dart';
-import 'package:farma_compara/domain/items/payment_optimized/algorithm/payment_optimized_best_price_or_adjacent.dart';
+import 'package:farma_compara/domain/items/payment_optimized/algorithm/payment_optimized_neighbour_search.dart';
 import 'package:farma_compara/domain/items/payment_optimized/payment_optimized.dart';
 import 'package:farma_compara/infrastructure/firebase/delivery/delivery_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,7 +54,7 @@ class CartNotifier extends StateNotifier<CartState> {
   void calculateOptimizedPrices(){
 
 
-    final Either<ItemsDeliveryFailure, PaymentOptimized>? paymentOptimized = PaymentOptimizedBestPriceOrAdjacent().paymentFromCart(deliveryFees: state.deliveryFees, location: state.location, inputItems: state.items);
+    final Either<ItemsDeliveryFailure, PaymentOptimized>? paymentOptimized = PaymentOptimizedNeighbourSearch().paymentFromCart(deliveryFees: state.deliveryFees, location: state.location, inputItems: state.items);
     state = state.copyWith(paymentOptimized: paymentOptimized);
   }
 }

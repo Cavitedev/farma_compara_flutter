@@ -70,6 +70,26 @@ import '../../shop_item.dart';
     }
   }
 
+   @protected
+   String? removeItem(Map<String, PaymentShop> paymentShops, ItemCart cartItem) {
+
+    String? removedShopName;
+     paymentShops.forEach((key, shop) {
+       bool hasRemoved = shop.items.remove(cartItem);
+       if(hasRemoved){
+         removedShopName = key;
+         return;
+       }
+     });
+
+     return removedShopName;
+   }
+
+   @protected
+   bool removeItemWithShopName(Map<String, PaymentShop> paymentShops, ItemCart cartItem, String shopName) {
+     return paymentShops[shopName]!.items.remove(cartItem);
+   }
+
   @protected
   void addItemsSingleLocation(List<ItemCart> items, DeliveryFees deliveryFees, Map<String, PaymentShop> paymentShops) {
     for (final cartItem in items) {

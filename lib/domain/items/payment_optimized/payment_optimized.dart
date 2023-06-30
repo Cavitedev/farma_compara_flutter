@@ -6,7 +6,7 @@ import 'package:farma_compara/domain/delivery/delivery_fee.dart';
 import 'package:farma_compara/domain/items/payment_optimized/total_price.dart';
 import '../item_cart.dart';
 
-class PaymentOptimized {
+class PaymentOptimized  implements ICloneable<PaymentOptimized> {
   final Map<String, PaymentShop> shopsToPay;
   final String location;
 
@@ -34,6 +34,10 @@ class PaymentOptimized {
 
 
 
+  @override
+  PaymentOptimized clone() {
+   return PaymentOptimized(shopsToPay: Map.castFrom<dynamic, dynamic, String, PaymentShop>(Utils.deepCopy(shopsToPay)), location: location);
+  }
 
 //<editor-fold desc="Data Methods">
   @override
@@ -75,6 +79,7 @@ class PaymentOptimized {
       location: map['location'] as String,
     );
   }
+
 
 //</editor-fold>
 }
