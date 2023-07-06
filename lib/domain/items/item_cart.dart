@@ -17,6 +17,14 @@ class ItemCart implements ICloneable<ItemCart> {
     return ItemCart(item: item, quantity: quantity);
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ItemCart && runtimeType == other.runtimeType && item == other.item && quantity == other.quantity;
+
+  @override
+  int get hashCode => item.hashCode ^ quantity.hashCode;
+
   ItemCart copyWith({
     Item? item,
     int? quantity,
@@ -26,6 +34,4 @@ class ItemCart implements ICloneable<ItemCart> {
       quantity: quantity ?? this.quantity,
     );
   }
-
-
 }

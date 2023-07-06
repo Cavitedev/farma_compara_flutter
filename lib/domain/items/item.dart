@@ -19,7 +19,8 @@ class Item {
   });
 
   bool get available => websiteItems.values.any((element) => element.available);
-  String get availableString  {
+
+  String get availableString {
     if (available) {
       return "Disponible";
     } else {
@@ -28,9 +29,9 @@ class Item {
   }
 
   String? get image {
-    try{
-    return websiteItems.values.firstWhere((element) => element.image != null).image!;
-    }on StateError{
+    try {
+      return websiteItems.values.firstWhere((element) => element.image != null).image!;
+    } on StateError {
       return null;
     }
   }
@@ -39,12 +40,18 @@ class Item {
     return websiteItems.values.first;
   }
 
-  List<MapEntry<String, ShopItem>> orderedWebsiteItemsByPrice(){
+  List<MapEntry<String, ShopItem>> orderedWebsiteItemsByPrice() {
     final listWebsites = websiteItems.entries.toList();
     listWebsites.sort((a, b) => a.value.priceAvailable.compareTo(b.value.priceAvailable));
     return listWebsites;
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is Item && runtimeType == other.runtimeType && ref == other.ref;
+
+  @override
+  int get hashCode => ref.hashCode;
 
   Map<String, dynamic> toMap() {
     return {
@@ -67,16 +74,19 @@ class Item {
   }
 
   factory Item.fromFirebase(Map<String, dynamic> map) {
-    final Map<String, ShopItem> websiteItems = (map['website_items'] as Map).map((key, value) => MapEntry(key, ShopItem.fromFirebase(value)));
+    final Map<String, ShopItem> websiteItems =
+        (map['website_items'] as Map).map((key, value) => MapEntry(key, ShopItem.fromFirebase(value)));
 
     return Item(
       ref: map['ref'] as String,
       name: map['name'] as String,
-      bestPrice: (map['best_price'] as num?)?.toDouble() ?? websiteItems.values.reduce((a, b) => (a.price ?? double.infinity) < (b.price ?? double.infinity) ? a : b).price!,
+      bestPrice: (map['best_price'] as num?)?.toDouble() ??
+          websiteItems.values
+              .reduce((a, b) => (a.price ?? double.infinity) < (b.price ?? double.infinity) ? a : b)
+              .price!,
       lastUpdate: (map['last_update'] as Timestamp).toDate(),
       websiteItems: websiteItems,
     );
-
   }
 
   Item copyWith({
@@ -94,21 +104,19 @@ class Item {
       websiteItems: websiteItems ?? this.websiteItems,
     );
   }
-
-
-
 }
 
-extension ListItems on List<Item>{
-  void sortedBy(SortOrder order){
-    switch(order.value){
+extension ListItems on List<Item> {
+  void sortedBy(SortOrder order) {
+    switch (order.value) {
       case SortOrder.nameOrder:
-        sort((pre, cur) => order.descending ? cur.name.compareTo(pre.name)  : pre.name.compareTo(cur.name));
+        sort((pre, cur) => order.descending ? cur.name.compareTo(pre.name) : pre.name.compareTo(cur.name));
       case SortOrder.priceOrder:
-        sort((pre, cur) => order.descending ? cur.bestPrice.compareTo(pre.bestPrice)  : pre.bestPrice.compareTo(cur.bestPrice));
+        sort((pre, cur) =>
+            order.descending ? cur.bestPrice.compareTo(pre.bestPrice) : pre.bestPrice.compareTo(cur.bestPrice));
       case SortOrder.updateOrder:
-        sort((pre, cur) => order.descending ? cur.lastUpdate.compareTo(pre.lastUpdate)  : pre.lastUpdate.compareTo(cur.lastUpdate));
-
+        sort((pre, cur) =>
+            order.descending ? cur.lastUpdate.compareTo(pre.lastUpdate) : pre.lastUpdate.compareTo(cur.lastUpdate));
     }
   }
 }

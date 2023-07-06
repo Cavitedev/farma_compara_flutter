@@ -10,15 +10,15 @@ class LocationsHierarchy {
         },
         "madrid": "",
       },
-      "balearic": {
-        "mallorca": "",
-        "menorca": "",
-        "ibiza": "",
-        "formentera": "",
-      },
-      "canary": "",
       "portugal": "",
     },
+    "balearic": {
+      "mallorca": "",
+      "menorca": "",
+      "ibiza": "",
+      "formentera": "",
+    },
+    "canary": "",
   };
 
   static const locationsTranslations = {
