@@ -15,3 +15,7 @@ class FirestoreFailureNotFound extends FirestoreFailure {
 class FirestoreFailureUnexpected extends FirestoreFailure {
   const FirestoreFailureUnexpected();
 }
+
+class FirestoreConnectionFailure extends FirestoreFailure{
+  const FirestoreConnectionFailure();
+}

@@ -40,9 +40,6 @@ jobs:
       - name: Move algolia Application
         run: echo "$algolia" | base64 -d > ./lib/algolia_application.dart
 
-      - run: sudo apt install tree
-      - run: tree -d
-
       - name: Install and set Flutter version
         uses: subosito/flutter-action@v2.1.0
         with:

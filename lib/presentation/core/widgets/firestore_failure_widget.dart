@@ -18,21 +18,22 @@ class FirestoreFailureWidget extends StatelessWidget {
         msg: "Error inesperado, reporte bug en github",
         image: "assets/images/undraw_fixing_bugs_w7gi.svg",
       );
-    }
-    else if(failure is FirestoreFailureInsufficientPermissions){
+    } else if (failure is FirestoreFailureInsufficientPermissions) {
       return const ErrorTextWithImage(
         msg: "No tienes permisos para realizar esta acción",
         image: "assets/images/undraw_access_denied_re_awnf.svg",
       );
-    }
-    else if(failure is FirestoreFailureNotFound){
+    } else if (failure is FirestoreFailureNotFound) {
       return const ErrorTextWithImage(
         msg: "No se encontró ningun elemento para la busqueda",
         image: "assets/images/undraw_not_found_re_bh2e.svg",
       );
-    }
-
-    else {
+    } else if (failure is FirestoreConnectionFailure) {
+      return const ErrorTextWithImage(
+        msg: "No se pudo conectar con el servidor, compruebe su conexión",
+        image: "assets/images/undraw_server_down_s-4-lk.svg",
+      );
+    } else {
       return const ErrorTextWithImage(
         msg: "Excepción inesperada, esto no debería de haber sucedido",
         image: "assets/images/undraw_fixing_bugs_w7gi.svg",
