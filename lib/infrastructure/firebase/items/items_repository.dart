@@ -6,13 +6,12 @@ import 'package:farma_compara/domain/items/i_item_repository.dart';
 import 'package:farma_compara/domain/items/item.dart';
 import 'package:farma_compara/domain/items/items_fetch.dart';
 import 'package:farma_compara/infrastructure/firebase/core/firebase_user_helper.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/items/i_items_browse_query.dart';
 import '../../../domain/core/firestore_failure.dart';
 import '../../../algolia_application.dart';
-import '../core/codes.dart';
+import '../core/firebase_errors.dart';
 
 final itemsRepositoryProvider = Provider((ref) => ItemsRepository(FirebaseFirestore.instance));
 
@@ -50,7 +49,7 @@ class ItemsRepository implements IItemRepository {
 
       return Right(itemsFetch);
     } catch (e) {
-      return Left(_handleException(e));
+      return Left(FirebaseErrors.handleException(e));
     }
   }
 
@@ -92,13 +91,5 @@ class ItemsRepository implements IItemRepository {
     return items;
   }
 
-  FirestoreFailure _handleException(Object e) {
-    if (e is PlatformException && (e.message!.contains(PERMISSIONDENIEDCODE) || e.code == UNATHORIZED)) {
-      return const FirestoreFailureInsufficientPermissions();
-    } else if (e is PlatformException && e.message!.contains(NOTFOUNDCODE)) {
-      return const FirestoreFailureNotFound();
-    } else {
-      return const FirestoreFailureUnexpected();
-    }
-  }
+
 }

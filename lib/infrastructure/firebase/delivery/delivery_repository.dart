@@ -2,13 +2,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farma_compara/domain/delivery/delivery_fee.dart';
 import 'package:farma_compara/infrastructure/firebase/core/firebase_user_helper.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/either.dart';
 import '../../../domain/delivery/i_delivery_repository.dart';
 import '../../../domain/core/firestore_failure.dart';
-import '../core/codes.dart';
+import '../core/firebase_errors.dart';
 
 final deliveryRepositoryProvider = Provider((ref) => DeliveryRepository(FirebaseFirestore.instance));
 
@@ -29,18 +28,10 @@ class DeliveryRepository implements IDeliveryRepository  {
       return Right(deliveryFees);
 
     } catch (e) {
-      return Left(_handleException(e));
+      return Left(FirebaseErrors.handleException(e));
     }
   }
 
 
-  FirestoreFailure _handleException(Object e) {
-    if (e is PlatformException && (e.message!.contains(PERMISSIONDENIEDCODE) || e.code == UNATHORIZED)) {
-      return const FirestoreFailureInsufficientPermissions();
-    } else if (e is PlatformException && e.message!.contains(NOTFOUNDCODE)) {
-      return const FirestoreFailureNotFound();
-    } else {
-      return const FirestoreFailureUnexpected();
-    }
-  }
+
 }
