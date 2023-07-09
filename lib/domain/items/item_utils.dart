@@ -1,35 +1,58 @@
 import 'package:flutter/material.dart';
 
-class ItemUtils{
-
+class ItemUtils {
   static const String dosFarma = "dosfarma";
+  static const String dosFarmaName = "DosFarma";
   static const String okFarma = "okfarma";
+  static const String okFarmaName = "OkFarma";
   static const String farmaciaEnCasa = "farmaciaencasa";
+  static const String farmaciaEnCasaName = "Farmacia en Casa";
   static const String farmaciasDirect = "farmaciasdirect";
+  static const String farmaciasDirectName = "Farmacias Direct";
 
-  static String websiteKeyToName(String key){
-    switch(key){
-      case ItemUtils.dosFarma:
-        return "DosFarma";
-      case ItemUtils.okFarma:
-        return "OkFarma";
-      case ItemUtils.farmaciaEnCasa:
-        return "Farmacia en Casa";
-      case ItemUtils.farmaciasDirect:
-        return "Farmacias Direct";
+  static List<String> get shopNameKeysList =>
+      [ItemUtils.dosFarma, ItemUtils.okFarma, ItemUtils.farmaciaEnCasa, ItemUtils.farmaciasDirect];
+
+  static List<String> get shopNamesList => shopNameKeysList.map((key) => websiteKeyToName(key)).toList();
+
+  static String websiteKeyToName(String key) {
+    switch (key) {
+      case dosFarma:
+        return dosFarmaName;
+      case okFarma:
+        return okFarmaName;
+      case farmaciaEnCasa:
+        return farmaciaEnCasaName;
+      case farmaciasDirect:
+        return farmaciasDirectName;
     }
-    return "Falta soporte para $key";
+
+    throw ArgumentError("$key is not a valid website key");
   }
 
-  static Color websiteKeyToColor(String key){
-    switch(key){
-      case ItemUtils.dosFarma:
+  static String websiteNameToKey(String name) {
+    switch (name) {
+      case dosFarmaName:
+        return dosFarma;
+      case okFarmaName:
+        return okFarma;
+      case farmaciaEnCasaName:
+        return farmaciaEnCasa;
+      case farmaciasDirectName:
+        return farmaciasDirect;
+    }
+    throw ArgumentError("$name is not a valid website name");
+  }
+
+  static Color websiteKeyToColor(String key) {
+    switch (key) {
+      case dosFarma:
         return Colors.green.shade100;
-      case ItemUtils.okFarma:
+      case okFarma:
         return Colors.pink.shade100;
-      case ItemUtils.farmaciaEnCasa:
+      case farmaciaEnCasa:
         return Colors.yellow.shade100;
-      case ItemUtils.farmaciasDirect:
+      case farmaciasDirect:
         return Colors.greenAccent.shade100;
     }
     return Colors.blue.shade100;

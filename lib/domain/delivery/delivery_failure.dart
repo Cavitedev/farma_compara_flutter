@@ -35,6 +35,16 @@ class DeliveryFailureNotAvailable extends DeliveryFailure {
 
 }
 
+
+class DeliveryFailureDisabled extends DeliveryFailure {
+
+  const DeliveryFailureDisabled();
+
+  @override
+  String get msg => "Esta tienda está deshabilitada por opciones de filtrado";
+
+}
+
 class ItemsDeliveryFailure extends Failure{
   final List<ItemDeliveryFailure> items;
   final String location;

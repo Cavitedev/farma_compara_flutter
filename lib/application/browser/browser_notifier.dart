@@ -68,4 +68,16 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
       loadItems();
     }
   }
+
+  void reenableWebsite(String website){
+
+
+    state = state.copyWith(
+      query: state.query.copyWith(shopList: state.query.shopList.addShop(website)),
+      items: [],
+      itemsFound: null,
+      isLoading: false,
+      failure: const Optional(),
+    );
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:farma_compara/application/browser/browser_notifier.dart';
 import 'package:farma_compara/application/cart/cart_state.dart';
 import 'package:farma_compara/core/either.dart';
 import 'package:farma_compara/domain/delivery/delivery_failure.dart';
@@ -14,10 +15,13 @@ import '../../core/optional.dart';
 import '../../domain/items/item.dart';
 
 final cartNotifierProvider =
-    StateNotifierProvider<CartNotifier, CartState>((ref) => CartNotifier(ref.read(deliveryRepositoryProvider)));
+    StateNotifierProvider<CartNotifier, CartState>((ref) => CartNotifier(
+        ref.read(deliveryRepositoryProvider), ref)
+    );
 
 class CartNotifier extends StateNotifier<CartState> {
-  CartNotifier(this.repository) : super(CartState.init());
+  CartNotifier(this.repository, this.ref) : super(CartState.init());
+  final Ref ref;
 
   IDeliveryRepository repository;
 
@@ -51,10 +55,14 @@ class CartNotifier extends StateNotifier<CartState> {
     calculateOptimizedPrices();
   }
 
-  void calculateOptimizedPrices(){
-
-
-    final Either<ItemsDeliveryFailure, PaymentOptimized>? paymentOptimized = PaymentOptimizedNeighbourSearch().paymentFromCart(deliveryFees: state.deliveryFees, location: state.location, inputItems: state.items);
+  void calculateOptimizedPrices() {
+    final Either<ItemsDeliveryFailure, PaymentOptimized>? paymentOptimized =
+        PaymentOptimizedNeighbourSearch().paymentFromCart(
+      deliveryFees: state.deliveryFees,
+      location: state.location,
+      inputItems: state.items,
+      shopsFilter: ref.read(browserNotifierProvider).query.shopList.shopNames,
+    );
     state = state.copyWith(paymentOptimized: paymentOptimized);
   }
 }

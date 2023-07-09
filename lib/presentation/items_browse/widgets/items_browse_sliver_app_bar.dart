@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:routemaster/routemaster.dart';
 
 import '../../../application/browser/browser_notifier.dart';
 import '../../../application/browser/browser_state.dart';
@@ -8,15 +9,13 @@ import '../../../domain/items/i_items_browse_query.dart';
 import '../../core/shared/cart_button.dart';
 import '../../core/widgets/format_widgets/outlined_text_field.dart';
 
-
 class ItemsBrowseSliverAppBar extends ConsumerStatefulWidget {
   const ItemsBrowseSliverAppBar({
     Key? key,
   }) : super(key: key);
 
   @override
-  ConsumerState<ItemsBrowseSliverAppBar> createState() =>
-      _ItemsBrowseSliverAppBarState();
+  ConsumerState<ItemsBrowseSliverAppBar> createState() => _ItemsBrowseSliverAppBarState();
 }
 
 class _ItemsBrowseSliverAppBarState extends ConsumerState<ItemsBrowseSliverAppBar> {
@@ -49,8 +48,7 @@ class _ItemsBrowseSliverAppBarState extends ConsumerState<ItemsBrowseSliverAppBa
         onTap: () {
           _changeIsSearchingState(true);
         },
-        child:
-        Text(textController.text.isEmpty ? appName : textController.text),
+        child: Text(textController.text.isEmpty ? appName : textController.text),
       ),
       floating: true,
       actions: [
@@ -62,6 +60,15 @@ class _ItemsBrowseSliverAppBarState extends ConsumerState<ItemsBrowseSliverAppBa
             Icons.refresh,
           ),
           tooltip: "Recargar productos",
+        ),
+        IconButton(
+          onPressed: () {
+            Routemaster.of(context).push("filters");
+          },
+          icon: const Icon(
+            Icons.filter_alt,
+          ),
+          tooltip: "Filtrar",
         ),
         IconButton(
           onPressed: () {
@@ -96,11 +103,11 @@ class _ItemsBrowseSliverAppBarState extends ConsumerState<ItemsBrowseSliverAppBa
             ? "Campo de texto de búsqueda vacío"
             : "Campo de texto de búsqueda por el nombre ${textController.text}",
         child: OutlinedTextField(
-            autocorrect: false,
-            textInputAction: TextInputAction.search,
-            controller: textController,
-            onSubmit: _onSubmit,
-            focusNode: controllerFocus,
+          autocorrect: false,
+          textInputAction: TextInputAction.search,
+          controller: textController,
+          onSubmit: _onSubmit,
+          focusNode: controllerFocus,
         ),
       ),
     );
@@ -131,9 +138,9 @@ class _ItemsBrowseSliverAppBarState extends ConsumerState<ItemsBrowseSliverAppBa
   }
 
   void _updateQueryOnUrlComposer(IItemsBrowseQuery query, String? text) {
-    final BrowserNotifier broswerNotifier =
-    ref.read(browserNotifierProvider.notifier);
+    final BrowserNotifier broswerNotifier = ref.read(browserNotifierProvider.notifier);
     broswerNotifier.changeFilters(query.copyWith(
-      filter: text,));
+      filter: text,
+    ));
   }
 }
