@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
-class ItemUtils{
-
+class ItemUtils {
   static const String dosFarma = "dosfarma";
   static const String okFarma = "okfarma";
   static const String farmaciaEnCasa = "farmaciaencasa";
   static const String farmaciasDirect = "farmaciasdirect";
 
-  static String websiteKeyToName(String key){
-    switch(key){
+  static List<String> get shopNamesList =>
+      [ItemUtils.dosFarma, ItemUtils.okFarma, ItemUtils.farmaciaEnCasa, ItemUtils.farmaciasDirect];
+
+  static String websiteKeyToName(String key) {
+    switch (key) {
       case ItemUtils.dosFarma:
         return "DosFarma";
       case ItemUtils.okFarma:
@@ -21,8 +23,8 @@ class ItemUtils{
     return "Falta soporte para $key";
   }
 
-  static Color websiteKeyToColor(String key){
-    switch(key){
+  static Color websiteKeyToColor(String key) {
+    switch (key) {
       case ItemUtils.dosFarma:
         return Colors.green.shade100;
       case ItemUtils.okFarma:
@@ -34,4 +36,6 @@ class ItemUtils{
     }
     return Colors.blue.shade100;
   }
+
+
 }

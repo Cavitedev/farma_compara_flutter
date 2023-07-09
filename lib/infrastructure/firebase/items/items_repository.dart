@@ -75,8 +75,13 @@ class ItemsRepository implements IItemRepository {
 
     AlgoliaQuery algoliaQuery = algolia.instance
         .index('name_algolia_${inputQuery.orderBy}')
-        .query(inputQuery.filter!)
-        .setPage(inputQuery.page)
+        .query(inputQuery.filter!);
+
+    if (inputQuery.filteringPages()) {
+      algoliaQuery = algoliaQuery.facetFilter(
+          inputQuery.shopList.shopNames.map((page) => "website_names:$page").toList());
+    }
+    algoliaQuery = algoliaQuery.setPage(inputQuery.page)
         .setHitsPerPage(10);
     AlgoliaQuerySnapshot snap = await algoliaQuery.getObjects();
     return snap;
