@@ -12,7 +12,7 @@ class PaymentOptimizedBestPriceOrAdjacent extends PaymentOptimizedStrategy {
 
   @override
   Either<ItemsDeliveryFailure, PaymentOptimized>? paymentFromCart(
-      {required DeliveryFees deliveryFees, required String location, required List<ItemCart> inputItems}) {
+      {required DeliveryFees deliveryFees, required String location, required List<ItemCart> inputItems, List<String>? shopsFilter}) {
 
     if (deliveryFees.deliveryFeeMap.isEmpty) {
       return null;
@@ -27,7 +27,7 @@ class PaymentOptimizedBestPriceOrAdjacent extends PaymentOptimizedStrategy {
 // Filter unavailable shops and items whose location cannot be used
 
 
-    removeNotAvailableItems(items, deliveryFees, itemsDeliveryFailure, location);
+    removeNotAvailableItems(items, deliveryFees, itemsDeliveryFailure, location, shopsFilter);
 
     if (itemsDeliveryFailure.hasFailure()) {
       return Left(itemsDeliveryFailure);
