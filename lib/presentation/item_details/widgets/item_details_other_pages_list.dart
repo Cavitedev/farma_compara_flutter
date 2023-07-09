@@ -4,8 +4,10 @@ import 'package:farma_compara/domain/items/item_utils.dart';
 import 'package:farma_compara/domain/items/shop_item.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../application/browser/browser_notifier.dart';
 import '../../../domain/items/item.dart';
 import '../../items_browse/widgets/price_text.dart';
 
@@ -29,20 +31,25 @@ class ItemDetailsOtherPagesList extends StatelessWidget {
   }
 }
 
-class WebsiteItemDetail extends StatelessWidget {
+class WebsiteItemDetail extends ConsumerWidget {
   final MapEntry<String, ShopItem> websiteItem;
 
   const WebsiteItemDetail({required this.websiteItem, super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final shopKeysFilter = ref.watch(browserNotifierProvider).query.shopList.shopNames;
+    bool disabled = !shopKeysFilter.contains(websiteItem.key);
+
     return Stack(
       children: [
         Card(
-          color: ItemUtils.websiteKeyToColor(websiteItem.key),
+          color: disabled
+              ? Color.lerp(ItemUtils.websiteKeyToColor(websiteItem.key), Colors.grey, 0.4)
+              : ItemUtils.websiteKeyToColor(websiteItem.key),
           child: Column(
             children: [
-              Text(ItemUtils.websiteKeyToName(websiteItem.key)),
+              Text(ItemUtils.websiteKeyToName(websiteItem.key) + (disabled ? " (desactivado)" : "")),
               ListTile(
                 title: Text(websiteItem.value.name!),
                 subtitle: Text(websiteItem.value.availableString),
@@ -58,7 +65,7 @@ class WebsiteItemDetail extends StatelessWidget {
                         fit: BoxFit.fill,
                         width: 100,
                         errorWidget: (BuildContext context, String url, dynamic error) =>
-                        const Center(child: Icon(Icons.error_rounded)),
+                            const Center(child: Icon(Icons.error_rounded)),
                       ),
                     ),
                   PriceText(price: websiteItem.value.price!),
