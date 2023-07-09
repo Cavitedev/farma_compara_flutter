@@ -11,12 +11,12 @@ class ShopList{
 
 
   ShopList.empty(): shopNames = [];
-  ShopList.full(): shopNames = List.from(ItemUtils.shopNamesList);
+  ShopList.full(): shopNames = List.from(ItemUtils.shopNameKeysList);
 
-  bool filteringPages () => !const ListEquality().equals(shopNames, ItemUtils.shopNamesList) ;
+  bool filteringPages () => !const ListEquality().equals(shopNames, ItemUtils.shopNameKeysList) ;
 
   ShopList addShop(String shopName){
-    if(!ItemUtils.shopNamesList.contains(shopName)){
+    if(!ItemUtils.shopNameKeysList.contains(shopName)){
       throw ArgumentError('Shop name $shopName is not valid');
     }
 
@@ -26,7 +26,7 @@ class ShopList{
   }
 
   ShopList removeShop(String shopName){
-    if(!ItemUtils.shopNamesList.contains(shopName)){
+    if(!ItemUtils.shopNameKeysList.contains(shopName)){
       throw ArgumentError('Shop name $shopName is not valid');
     }
 
@@ -40,10 +40,10 @@ class ShopList{
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || (other is ShopList && runtimeType == other.runtimeType && shopNames == other.shopNames);
+      identical(this, other) || (other is ShopList && runtimeType == other.runtimeType && const ListEquality().equals(shopNames, other.shopNames));
 
   @override
-  int get hashCode => shopNames.hashCode;
+  int get hashCode =>  const ListEquality().hash(shopNames);
 
   @override
   String toString() {

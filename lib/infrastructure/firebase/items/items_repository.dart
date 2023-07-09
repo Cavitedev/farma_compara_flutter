@@ -74,8 +74,11 @@ class ItemsRepository implements IItemRepository {
     Algolia algolia = AlgoliaApplication.algolia;
 
     AlgoliaQuery algoliaQuery = algolia.instance
-        .index('name_algolia_${inputQuery.orderBy}')
-        .query(inputQuery.filter!);
+        .index('name_algolia_${inputQuery.orderBy}');
+
+    if (inputQuery.filter != null && inputQuery.filter!.isNotEmpty) {
+      algoliaQuery = algoliaQuery.query(inputQuery.filter!);
+    }
 
     if (inputQuery.filteringPages()) {
       algoliaQuery = algoliaQuery.facetFilter(
