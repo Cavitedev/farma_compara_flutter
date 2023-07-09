@@ -19,8 +19,7 @@ class ItemDetailsOtherPagesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<MapEntry<String, ShopItem>> websiteItems = item.websiteItems.entries.toList();
-    websiteItems.sort((a, b) => (a.value.price ?? 1000).compareTo(b.value.price ?? 1000));
+    final List<MapEntry<String, ShopItem>> websiteItems = item.orderedWebsiteItemsByPrice();
 
     return SliverList(
         delegate: SliverChildBuilderDelegate((context, index) {
