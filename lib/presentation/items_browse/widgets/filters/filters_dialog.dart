@@ -12,7 +12,7 @@ class FiltersPage extends Page<void> {
   Route<void> createRoute(BuildContext context) {
     return DialogRoute(
       context: context,
-      builder: (context) => FiltersDialog(),
+      builder: (context) => const FiltersDialog(),
       settings: this,
     );
   }
