@@ -73,7 +73,7 @@ class WebsiteFailure extends ConsumerWidget {
               ElevatedButton(onPressed: () {
                 ref.read(browserNotifierProvider.notifier).reenableWebsite(websiteDeliveryFailure.website);
                 ref.read(cartNotifierProvider.notifier).calculateOptimizedPrices();
-              }, child: const Text("rehabilitar"))
+              }, child: const Text("Rehabilitar"))
 
             ]))
           ],

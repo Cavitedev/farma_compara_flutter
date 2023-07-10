@@ -12,7 +12,7 @@ class FiltersPage extends Page<void> {
   Route<void> createRoute(BuildContext context) {
     return DialogRoute(
       context: context,
-      builder: (context) => FiltersDialog(),
+      builder: (context) => const FiltersDialog(),
       settings: this,
     );
   }
@@ -42,7 +42,7 @@ class _FiltersDialogState extends ConsumerState<FiltersDialog> {
         children: [
           Expanded(
             child: CheckboxListFilter(
-              filterName: "Páginas a filtrar",
+              filterName: "Páginas a utilizar",
               categories: ItemUtils.shopNamesList,
               initialCategories: shopNames.map((key) => ItemUtils.websiteKeyToName(key)).toList(),
               onChange: (shops) {
@@ -60,7 +60,7 @@ class _FiltersDialogState extends ConsumerState<FiltersDialog> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text("Canceler"),
+                    child: const Text("Cancelar"),
                   ),
                   const SizedBox(
                     width: 20,
@@ -75,6 +75,7 @@ class _FiltersDialogState extends ConsumerState<FiltersDialog> {
                                     shopList: ShopList(shopNames: shopKeys),
                                   ),
                             );
+
                         Navigator.pop(context);
                       },
                       child: const Text("Aceptar"))

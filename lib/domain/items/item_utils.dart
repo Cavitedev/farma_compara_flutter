@@ -26,6 +26,9 @@ class ItemUtils {
       case farmaciasDirect:
         return farmaciasDirectName;
     }
+    if(shopNamesList.contains(key)) {
+      return key;
+    }
 
     throw ArgumentError("$key is not a valid website key");
   }
@@ -41,6 +44,11 @@ class ItemUtils {
       case farmaciasDirectName:
         return farmaciasDirect;
     }
+
+    if(shopNameKeysList.contains(name)) {
+      return name;
+    }
+
     throw ArgumentError("$name is not a valid website name");
   }
 
@@ -55,6 +63,7 @@ class ItemUtils {
       case farmaciasDirect:
         return Colors.greenAccent.shade100;
     }
+
     return Colors.blue.shade100;
   }
 }

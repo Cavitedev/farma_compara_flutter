@@ -2,11 +2,30 @@ import 'package:farma_compara/presentation/items_browse/widgets/header_row/heade
 import 'package:farma_compara/presentation/items_browse/widgets/items_browse_load.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:routemaster/routemaster.dart';
 
 import '../../application/browser/browser_notifier.dart';
 import '../../core/constants/app_margin_and_sizes.dart';
+import '../../core/router.dart';
 import 'widgets/items_browse_loaded_items.dart';
 import 'widgets/items_browse_sliver_app_bar.dart';
+
+
+final itemsBrosweScreenRouteObserverProvider = Provider((ref) => ItemsBrowseScreenRouteObserver(ref));
+
+class ItemsBrowseScreenRouteObserver extends RoutemasterObserver {
+
+  final Ref ref;
+
+  ItemsBrowseScreenRouteObserver(this.ref);
+
+  @override
+  void didChangeRoute(RouteData routeData, Page page) {
+    if(routeData.path == browseScreenRoute) {
+      ref.read(browserNotifierProvider.notifier).loadIfEmpty();
+    }
+  }
+}
 
 class ItemsBrowseScreen extends ConsumerStatefulWidget {
   const ItemsBrowseScreen({
@@ -29,6 +48,7 @@ class _ItemsBrowseScreenState extends ConsumerState<ItemsBrowseScreen> {
         notifier.loadItems();
       }
     });
+
   }
 
   @override
