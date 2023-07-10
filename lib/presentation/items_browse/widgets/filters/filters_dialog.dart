@@ -42,7 +42,7 @@ class _FiltersDialogState extends ConsumerState<FiltersDialog> {
         children: [
           Expanded(
             child: CheckboxListFilter(
-              filterName: "Páginas a filtrar",
+              filterName: "Páginas a utilizar",
               categories: ItemUtils.shopNamesList,
               initialCategories: shopNames.map((key) => ItemUtils.websiteKeyToName(key)).toList(),
               onChange: (shops) {
