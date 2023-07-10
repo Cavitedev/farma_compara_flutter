@@ -1,3 +1,4 @@
+import 'package:farma_compara/presentation/items_browse/items_browse_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,12 +11,10 @@ import 'core/router.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
 
   await initializeDateFormatting('es_ES', null);
   runApp(const ProviderScope(child: MyApp()));
@@ -27,12 +26,14 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     Intl.defaultLocale = 'es_ES';
 
     return MaterialApp.router(
       routerDelegate: RoutemasterDelegate(
         routesBuilder: (context) => routerMap,
+        observers: [
+          ref.read(itemsBrosweScreenRouteObserverProvider),
+        ],
       ),
       routeInformationParser: const RoutemasterParser(),
       title: appName,
@@ -46,7 +47,6 @@ class MyApp extends ConsumerWidget {
         DefaultWidgetsLocalizations.delegate,
       ],
       locale: const Locale('es', "ES"),
-
       debugShowCheckedModeBanner: false,
     );
   }

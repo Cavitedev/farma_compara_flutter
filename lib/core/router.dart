@@ -8,8 +8,10 @@ import 'package:routemaster/routemaster.dart';
 
 import '../presentation/cart/cart_screen.dart';
 
+const String browseScreenRoute = '/';
+
 final RouteMap routerMap = RouteMap(routes: {
-  '/': (_) => const MaterialPage<void>(
+  browseScreenRoute: (_) => const MaterialPage<void>(
         child: ItemsBrowseScreen(),
 
       ),

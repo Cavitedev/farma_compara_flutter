@@ -75,6 +75,7 @@ class _FiltersDialogState extends ConsumerState<FiltersDialog> {
                                     shopList: ShopList(shopNames: shopKeys),
                                   ),
                             );
+
                         Navigator.pop(context);
                       },
                       child: const Text("Aceptar"))

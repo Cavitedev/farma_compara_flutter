@@ -56,6 +56,12 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
     loadItems();
   }
 
+  void loadIfEmpty(){
+    if(state.items.isEmpty && !state.isLoading){
+      loadItems();
+    }
+  }
+
   void changeFilters(IItemsBrowseQuery query) {
     if (state.query != query) {
       state = state.copyWith(
@@ -69,11 +75,13 @@ class BrowserNotifier extends StateNotifier<BrowserState> {
     }
   }
 
-  void reenableWebsite(String website){
-
-
+  void reenableWebsite(String website) {
     state = state.copyWith(
-      query: state.query.copyWith(shopList: state.query.shopList.addShop(website)),
+      query: state.query.copyWith(
+        shopList: state.query.shopList.addShop(website),
+        page: 0,
+        last: const Optional(),
+      ),
       items: [],
       itemsFound: null,
       isLoading: false,
