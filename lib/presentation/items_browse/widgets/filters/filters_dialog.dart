@@ -60,7 +60,7 @@ class _FiltersDialogState extends ConsumerState<FiltersDialog> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text("Canceler"),
+                    child: const Text("Cancelar"),
                   ),
                   const SizedBox(
                     width: 20,
