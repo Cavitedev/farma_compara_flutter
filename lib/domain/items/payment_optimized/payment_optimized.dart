@@ -20,6 +20,7 @@ class PaymentOptimized  implements ICloneable<PaymentOptimized> {
     double totalFees = 0;
 
     for (final shop in shopsToPay.values) {
+      if(shop.items.isEmpty) continue;
       final total = shop.total(location);
 
       if (total.isLeft()) {
