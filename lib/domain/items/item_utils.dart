@@ -8,7 +8,7 @@ class ItemUtils {
   static const String farmaciaEnCasa = "farmaciaencasa";
   static const String farmaciaEnCasaName = "Farmacia en Casa";
   static const String farmaciasDirect = "farmaciasdirect";
-  static const String farmaciasDirectName = "Farmacias Direct";
+  static const String farmaciasDirectName = "Farmaciasdirect";
 
   static List<String> get shopNameKeysList =>
       [ItemUtils.dosFarma, ItemUtils.okFarma, ItemUtils.farmaciaEnCasa, ItemUtils.farmaciasDirect];
