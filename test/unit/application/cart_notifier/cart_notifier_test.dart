@@ -52,6 +52,8 @@ void main() {
     expect((price*100).roundToDouble() / 100, 75.94);
   });
 
+
+
   test("Notifier resolves item3 has a location failure and a not available failure", () {
     CartNotifier cartNotifier = CartNotifier(mockDeliveryRepository, mockRef);
     cartNotifier.state = cartState.copyWith(location: "canary");

@@ -15,10 +15,7 @@ class TestFixtures {
         ItemCart(item: item2, quantity: 1),
         ItemCart(item: item3, quantity: 2)
       ],
-      deliveryFees: DeliveryFees(deliveryFeeMap: {
-        "farmaciaencasa": farmaciaEnCasaFees,
-        "okfarma": okFarmaFees,
-      }));
+      deliveryFees: deliveryFees);
 
   static Item item1 = Item(
       ref: "100",
@@ -59,6 +56,13 @@ class TestFixtures {
           url: "https://www.okfarma.es/",
           available: true,
         ),
+        ItemUtils.dosFarma: ShopItem(
+          name: "name 2",
+          price: 4.99,
+          lastUpdate: DateTime(2022),
+          url: "https://www.dosfarma.com/parafarmacia/parafarmacia-online.html",
+          available: true,
+        )
       },
       name: "name 2",
       bestPrice: 5,
@@ -86,8 +90,11 @@ class TestFixtures {
       bestPrice: 12,
       lastUpdate: DateTime(2022));
 
-  static DeliveryFees deliveryFees =
-      DeliveryFees(deliveryFeeMap: {ItemUtils.okFarma: okFarmaFees, ItemUtils.farmaciaEnCasa: farmaciaEnCasaFees});
+  static DeliveryFees deliveryFees = DeliveryFees(deliveryFeeMap: {
+    ItemUtils.okFarma: okFarmaFees,
+    ItemUtils.farmaciaEnCasa: farmaciaEnCasaFees,
+    ItemUtils.dosFarma: dosFarmaFees
+  });
 
   static DeliveryFee farmaciaEnCasaFees = DeliveryFee(
     locations: {
@@ -169,6 +176,43 @@ class TestFixtures {
       ]
     },
     url: "https://okfarma.es/envio",
+  );
+
+  static DeliveryFee dosFarmaFees = DeliveryFee(
+    locations: {
+      "spain": [
+        PriceRange(
+          price: 3.99,
+          min: 0,
+          max: 49.00,
+        ),
+        PriceRange(price: 0, min: 49.01),
+      ],
+      "portugal": [
+        PriceRange(
+          price: 4.99,
+          min: 0,
+          max: 40,
+        ),
+        PriceRange(price: 0, min: 40.01),
+      ],
+      "balearic": [
+        PriceRange(
+          price: 8.95,
+          min: 9,
+          max: 118.99,
+        ),
+        PriceRange(price: 0, min: 119),
+      ],
+      "canary": [
+        PriceRange(
+          price: 8.95,
+          min: 9,
+          max: 118.99,
+        ),
+      ]
+    },
+    url: "https://www.dosfarma.com/envios",
   );
 
   static PaymentShop dosFarmaShop = PaymentShop(
