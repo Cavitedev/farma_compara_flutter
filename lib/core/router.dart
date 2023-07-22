@@ -24,7 +24,7 @@ final RouteMap routerMap = RouteMap(routes: {
   '/cart': (route) => const MaterialPage<void>(
         child: CartScreen(),
       ),
-  '/delivery_fees': (route) => const MaterialPage<void>(
+  '/cart/delivery_fees': (route) => const MaterialPage<void>(
         child: DeliveryFeesScreen(),
       ),
 });

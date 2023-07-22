@@ -28,7 +28,7 @@ class DeliverySummary extends ConsumerWidget {
         ],
         ElevatedButton(
           onPressed: () {
-            Routemaster.of(context).push("/delivery_fees");
+            Routemaster.of(context).push("delivery_fees");
           },
           child: const Text("Ver Precio Envío"),
         )
